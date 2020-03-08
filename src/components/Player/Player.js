@@ -3,51 +3,90 @@ import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
 import CoverArtFav from './CoverArtFav.js';
+import TrackDetails from './TrackDetials.js'
+import Paper from '@material-ui/core/Paper'
 import Grow from '@material-ui/core/Grow';
 import Zoom from '@material-ui/core/Zoom';
 import ProgressBar from './ProgressBar.js'
 import { Slider } from '@material-ui/core';
 import Controls from './Controls.js';
+import VolumeControl from './VolumeControl.js'
 
+import CoverArt from './jpg.jpg'
 
 const useStyles = makeStyles(theme => ({
     root: {
         position: "fixed",
         bottom: 0,
-        background: 'rgb(175, 175, 175, 0.8)',
-        padding: '10vw',
+    },
+    paper: {
         width:'100vw',
-        height: '90vh'
+        height: '90vh',
     },
-    items: {
-        width: '100%'
+    container: {
+        paddingLeft: '10px',
+        paddingRight: '10px'
     },
-    coverArt: {
-        height: '80vw'
+    trackDetails: {
+        width: '20%'
+    },
+    controls: {
+        width: '60%',   
     }
   }));
 
 export default function Player(){
 
     const classes = useStyles();
+    const [expanded, collapse] = useState(false);
 
     return (
-        <Grid 
-        container
-        direction="column"
-        justify="space-between"
-        alignItems="center"
+        <Collapse
         className={classes.root}
+        collapsedHeight='10vh'
+        in={expanded}
         >
-            <Grid item className={classes.items + ' ' + classes.coverArt}>
-                <CoverArtFav/>
-            </Grid>
-            <Grid item className={classes.items}>
-                <ProgressBar/>
-            </Grid>
-            <Grid item className={classes.items}>
-                <Controls/>
-            </Grid>
-        </Grid>
+            <Paper 
+            className={classes.paper}
+            onClick={() => collapse(!expanded)}>
+                <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                wrap='nowrap'
+                className={classes.container}
+                style = { { height: expanded ? 'auto' : '10vh',}}
+                >
+                    <Grid item>
+                        <CoverArtFav 
+                        coverArt={CoverArt} 
+                        collapsed={!expanded}/>
+                    </Grid>
+
+                    <Grid 
+                    item
+                    className={classes.trackDetails}>
+                        <TrackDetails/>
+                    </Grid>
+
+                    {expanded ? 
+                    <Grid item>
+                        <ProgressBar/>
+                    </Grid> : null}
+
+                    <Grid 
+                    item
+                    className={classes.controls}>
+                        <Controls />
+                    </Grid>
+
+                    {expanded ?
+                    <Grid item>
+                        <VolumeControl/>
+                    </Grid> : null}
+                </Grid>
+            </Paper>
+        </Collapse>
     );
 }
