@@ -3,37 +3,33 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import { makeStyles } from '@material-ui/core/styles';
 import { Fade } from '@material-ui/core';
-import CoverArt from './jpg.jpg'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundImage: `url(${CoverArt})`,
-        backgroundSize: '100%',
-        width: '100%',
-        height: '100%'
-    }
-  }));
 
 export default function(props){
 
-    const classes = useStyles();
+    const {coverArt,
+    collapsed} = props;
 
     const [hovered, hovering] = useState(false);
     const [liked, like] = useState(false);
 
+    const mystyle = {backgroundImage: `url(${props.coverArt})`,
+            backgroundSize: '100% 100%',
+            width: collapsed ? '8vh' : '60vw',
+            height: collapsed ? '8vh' : '60vw',
+        }
+
     return (
         <div
-        className={classes.root}
         onMouseOver={() => hovering(true)}
         onMouseLeave={() => hovering(false)}
+        style = {mystyle}
         >
             <Fade
             in={hovered}
             >
                 <ToggleButton
                 value='like'
-                selected={liked} 
+                selected={liked}
                 onChange= {() => like(!liked)}
                 >
                     <FavoriteIcon/>
