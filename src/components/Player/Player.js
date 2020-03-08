@@ -40,6 +40,22 @@ export default function Player(){
     const classes = useStyles();
     const [expanded, collapse] = useState(false);
 
+    var  gridProps;
+    
+    if(expanded){
+        gridProps = {
+            direction: 'column',
+            justify: 'space-around',
+            alignItems: 'center'
+        }
+    }
+    else{
+        gridProps = {
+            direction: 'row',
+            justify: 'space-between',
+            alignItems: 'center'
+        }
+    }
     return (
         <Collapse
         className={classes.root}
@@ -51,12 +67,10 @@ export default function Player(){
             onClick={() => collapse(!expanded)}>
                 <Grid
                 container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
+                {...gridProps}
                 wrap='nowrap'
                 className={classes.container}
-                style = { { height: expanded ? 'auto' : '10vh',}}
+                style = { { height: expanded ? '90vh' : '10vh',}}
                 >
                     <Grid item>
                         <CoverArtFav 
