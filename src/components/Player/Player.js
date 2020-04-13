@@ -11,6 +11,7 @@ import ProgressBar from './ProgressBar.js'
 import { Slider } from '@material-ui/core';
 import Controls from './Controls.js';
 import VolumeControl from './VolumeControl.js'
+import PlaylistControl from './PlaylistControl.js'
 
 import CoverArt from './jpg.jpg'
 
@@ -18,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         position: "fixed",
         bottom: 0,
+        overflow: 'hidden'
     },
     paper: {
         width:'100vw',
@@ -25,13 +27,29 @@ const useStyles = makeStyles(theme => ({
     },
     container: {
         paddingLeft: '10px',
-        paddingRight: '10px'
+        paddingRight: '10px',
+    },
+    coverArt: {
+        order: 6
     },
     trackDetails: {
-        width: '20%'
+        width: '20%',
+        order: 5
     },
-    controls: {
-        width: '60%',   
+    progressBar: {
+        order: 4
+    },
+    control: {
+        width: '60%',
+        order: 3
+    },
+    volumeControl: {
+        order: 2
+    },
+    playlistControl: {
+        width: '100%',
+        order: 1,
+        border: '5px solid red'
     }
   }));
 
@@ -44,14 +62,14 @@ export default function Player(){
     
     if(expanded){
         gridProps = {
-            direction: 'column',
-            justify: 'space-around',
+            direction: 'column-reverse',
+            justify: 'space-between',
             alignItems: 'center'
         }
     }
     else{
         gridProps = {
-            direction: 'row',
+            direction: 'row-reverse',
             justify: 'space-between',
             alignItems: 'center'
         }
@@ -63,8 +81,7 @@ export default function Player(){
         in={expanded}
         >
             <Paper 
-            className={classes.paper}
-            onClick={() => collapse(!expanded)}>
+            className={classes.paper}>
                 <Grid
                 container
                 {...gridProps}
@@ -72,7 +89,8 @@ export default function Player(){
                 className={classes.container}
                 style = { { height: expanded ? '90vh' : '10vh',}}
                 >
-                    <Grid item>
+                    <Grid item className={classes.coverArt}
+                    onClick={() => collapse(!expanded)}>
                         <CoverArtFav 
                         coverArt={CoverArt} 
                         collapsed={!expanded}/>
@@ -85,20 +103,26 @@ export default function Player(){
                     </Grid>
 
                     {expanded ? 
-                    <Grid item>
+                    <Grid item className={classes.progressBar}>
                         <ProgressBar/>
                     </Grid> : null}
 
                     <Grid 
                     item
-                    className={classes.controls}>
+                    className={classes.control}>
                         <Controls />
                     </Grid>
 
                     {expanded ?
-                    <Grid item>
+                    <Grid item className={classes.volumeControl}>
                         <VolumeControl/>
                     </Grid> : null}
+
+                    {expanded ?
+                    <Grid item className={classes.playlistControl}>
+                        <PlaylistControl shuffle={true}/>
+                    </Grid> : null}
+                    
                 </Grid>
             </Paper>
         </Collapse>
