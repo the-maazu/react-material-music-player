@@ -23,13 +23,6 @@ const useStyles = makeStyles({
     },
     button: {
         width: '50%'
-    },
-    tamplateRoot: {
-        width:'100%',
-
-        '& img': {
-            height:'80%',
-        }
     }
 });
 
@@ -48,40 +41,15 @@ export default function(props){
         }else expand(false)
     };
 
-
-    function ListTemplate(props){
-    
-        const [playing, setPlaying] = useState(Boolean(props.playing))
-        const {
-            coverArt,
-            title,
-            artist
-        } = props.track
-    
-        return (
-            <Paper component='span' className={classes.templateRoot}>
-                <img src={coverArt}/>
-                <div>
-                    <Typography variant='subtitle1'>
-                        {title}
-                    </Typography>
-                    <Typography variant='subtitle2'>
-                        {artist}
-                    </Typography>
-                </div>
-            </Paper>
-        )
-    }
-
     return (
         <div className={classes.root}>
 
             <Collapse
             collapsedHeight={'0'}
             in={expanded}>
-                <div className={classes.playlist}>
-
-                </div>
+                <ReactDraggableList className={classes.playlist}>
+                    
+                </ReactDraggableList>
             </Collapse>
 
             <ToggleButtonGroup
