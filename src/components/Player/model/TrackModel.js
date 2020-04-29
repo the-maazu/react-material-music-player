@@ -1,8 +1,6 @@
-export default function Track(coverArt, title, artist, coverArt){
+export default function Track(trackID,coverArt, title, artist){
+    this.ID = trackID
     this.coverArt = coverArt
     this.title = title
     this.artist = artist
-    this.coverArt = coverArt
-
-    return this;
 }

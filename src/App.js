@@ -3,8 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 
 import Player from './components/Player/Player.js'
+import TrackModel from './components/Player/model/TrackModel.js'
 
 function App() {
+  
+  const trackArray = [];
+  for(var i=1; i<11; i++){
+    trackArray.push( new TrackModel(i, logo, 'let it rain', 'Mayonaise'))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +27,10 @@ function App() {
         >
           Learn React
         </a>
-        <Player expanded={false}></Player>
+        <Player 
+        expanded={false}
+        tracks={trackArray}
+        />
       </header>
     </div>
   );

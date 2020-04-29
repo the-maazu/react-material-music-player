@@ -10,12 +10,14 @@ import ReactDraggableList from 'react-draggable-list';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import PlaylistItemTemplate from './PlaylistItemTemplate.js'
 
 const useStyles = makeStyles({
     root: {
         width: '100%',
     },
-    playlist: {
+    draggablelistContainer: {
+        overflow: 'auto',
         height: '60vh'
     },
     buttonGroup: {
@@ -30,9 +32,16 @@ export default function(props){
 
     const classes = useStyles();
 
+    const {
+        playlist,
+        onReorder
+    } = props
+
+    const draggablelistContainerRef = React.createRef();
+
     const [values, setValues] = useState(props.shuffle ? ['shuffle']: []);
     const [expanded, expand] = useState(false);
-
+    
     const handleChange = (event, newValues) => {
         setValues(newValues);
 
@@ -46,10 +55,20 @@ export default function(props){
 
             <Collapse
             collapsedHeight={'0'}
-            in={expanded}>
-                <ReactDraggableList className={classes.playlist}>
+            in={expanded}
+            >
+                <div
+                className={classes.draggablelistContainer} 
+                ref={draggablelistContainerRef}>
+                    <ReactDraggableList 
+                    list={playlist}
+                    itemKey='ID'
+                    template={PlaylistItemTemplate}
+                    onMoveEnd={(newList)=> {onReorder(newList)}}
+                    container={()=> draggablelistContainerRef.current }
+                    />
+                </div>
                     
-                </ReactDraggableList>
             </Collapse>
 
             <ToggleButtonGroup

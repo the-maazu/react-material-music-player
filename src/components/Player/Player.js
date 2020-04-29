@@ -14,6 +14,7 @@ import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
 
 import CoverArt from './jpg.jpg'
+import PlaylistModel from './model/PlaylistModel.js';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -53,27 +54,30 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function Player(){
+export default function Player(props){
 
     const classes = useStyles();
-    const [expanded, collapse] = useState(false);
 
-    var  gridProps;
+    const playlistModel = new PlaylistModel(props.tracks);
+
+    const [playlist, updatePlaylist] = useState(playlistModel.tracks);
+    const [expanded, collapse] = useState(props.expanded);
+
+    var  gridProps = expanded ? {
+        direction: 'column-reverse',
+        justify: 'space-between',
+        alignItems: 'center'
+    } : {
+        direction: 'row-reverse',
+        justify: 'space-between',
+        alignItems: 'center'
+    };
+
+    let onReorder = function(newList){
+        playlistModel.tracks = newList
+        updatePlaylist(playlistModel.tracks)
+    }
     
-    if(expanded){
-        gridProps = {
-            direction: 'column-reverse',
-            justify: 'space-between',
-            alignItems: 'center'
-        }
-    }
-    else{
-        gridProps = {
-            direction: 'row-reverse',
-            justify: 'space-between',
-            alignItems: 'center'
-        }
-    }
     return (
         <Collapse
         className={classes.root}
@@ -120,7 +124,11 @@ export default function Player(){
 
                     {expanded ?
                     <Grid item className={classes.playlistControl}>
-                        <PlaylistControl shuffle={true}/>
+                        <PlaylistControl 
+                        shuffle={true}
+                        playlist={playlist}
+                        onReorder={onReorder}
+                        />
                     </Grid> : null}
                     
                 </Grid>

@@ -1,30 +1,36 @@
 export default function PlaylistModel(arrayOfTracks){
 
-    this.currentIndex = 0
-    this.playlist = arrayOfTracks
+    var self = this;
+
+    this.currentTrack = 0
+    this.tracks = arrayOfTracks
 
     this.addTrack = function (track){
 
-        if(typeof track == 'array'){
-            playlist.push(...track)
+        if(Array.isArray(track)){
+            self.tracks.push(...track)
         }else  {
-            playlist.push(track)
+            self.tracks.push(track)
         }
     }
 
     this.removeTrack = function (index){
-        const index = index;
-        let track = playlist[index];
-        playlist = this.playlist.filter((track)=> {playlist.findIndex(track) != index})
+        
+        let track = self.tracks[index];
+        self.tracks = self.tracks.filter( (track, index) => index !== index)
+    }
+
+    this.updatePlayList = function (newList){
+        this.tracks = newList;
     }
 
     this.reorder = function (oldIndex, newIndex){
-
+        
         if(oldIndex == newIndex)
         return
 
-        const [begin, end] = oldIndex > newIndex ? [newIndex, oldIndex] : [oldIndex, newIndex]
-        let sliced = playlist.slice(begin, end)
+        var [begin, end] = oldIndex > newIndex ? [newIndex, oldIndex] : [oldIndex, newIndex]
+        let sliced = self.tracks.slice(begin, end)
 
         if(newIndex > oldIndex)
             sliced.push(sliced.shift())
@@ -32,7 +38,7 @@ export default function PlaylistModel(arrayOfTracks){
             sliced.unshift(sliced.pop())
 
         for(const element of sliced){
-            playlist[begin] = element
+            self.tracks[begin] = element
             begin = begin++
         }
 
