@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,13 +8,13 @@ import TrackDetails from './TrackDetials.js'
 import Paper from '@material-ui/core/Paper'
 import Grow from '@material-ui/core/Grow';
 import Zoom from '@material-ui/core/Zoom';
-import ProgressBar from './ProgressBar.js'
 import { Slider } from '@material-ui/core';
+
+import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
 import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
 
-import CoverArt from './jpg.jpg'
 import PlaylistModel from './model/PlaylistModel.js';
 
 const useStyles = makeStyles(theme => ({
@@ -58,24 +59,15 @@ export default function Player(props){
 
     const classes = useStyles();
 
-    const playlistModel = new PlaylistModel(props.tracks);
-
-    const [playlist, updatePlaylist] = useState(playlistModel.tracks);
+    const [playlist, updatePlaylistModel] = useState(new PlaylistModel(props.tracks));
     const [expanded, collapse] = useState(props.expanded);
 
-    var  gridProps = expanded ? {
-        direction: 'column-reverse',
-        justify: 'space-between',
-        alignItems: 'center'
-    } : {
-        direction: 'row-reverse',
-        justify: 'space-between',
-        alignItems: 'center'
-    };
+    const onReorder = function(newList){
+        let newPlaylist = new PlaylistModel(newList);
+        newPlaylist.shuffle=playlist.shuffle
+        newPlaylist.currentTrackIndex = playlist.currentTrackIndex
 
-    let onReorder = function(newList){
-        playlistModel.tracks = newList
-        updatePlaylist(playlistModel.tracks)
+        updatePlaylistModel(newPlaylist)
     }
     
     return (
@@ -88,7 +80,9 @@ export default function Player(props){
             className={classes.paper}>
                 <Grid
                 container
-                {...gridProps}
+                direction={expanded ? 'column-reverse' : 'row-reverse'}
+                justify='space-between'
+                alignItems='center'
                 wrap='nowrap'
                 className={classes.container}
                 style = { { height: expanded ? '90vh' : '10vh',}}
@@ -96,7 +90,7 @@ export default function Player(props){
                     <Grid item className={classes.coverArt}
                     onClick={() => collapse(!expanded)}>
                         <CoverArtFav 
-                        coverArt={CoverArt} 
+                        coverArt={playlist.getCurrentTrack().coverArt} 
                         collapsed={!expanded}/>
                     </Grid>
 
@@ -125,7 +119,6 @@ export default function Player(props){
                     {expanded ?
                     <Grid item className={classes.playlistControl}>
                         <PlaylistControl 
-                        shuffle={true}
                         playlist={playlist}
                         onReorder={onReorder}
                         />

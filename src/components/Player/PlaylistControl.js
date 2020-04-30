@@ -39,7 +39,7 @@ export default function(props){
 
     const draggablelistContainerRef = React.createRef();
 
-    const [values, setValues] = useState(props.shuffle ? ['shuffle']: []);
+    const [values, setValues] = useState(playlist.shuffle ? ['shuffle']: []);
     const [expanded, expand] = useState(false);
     
     const handleChange = (event, newValues) => {
@@ -61,11 +61,12 @@ export default function(props){
                 className={classes.draggablelistContainer} 
                 ref={draggablelistContainerRef}>
                     <ReactDraggableList 
-                    list={playlist}
+                    list={playlist.tracks}
                     itemKey='ID'
                     template={PlaylistItemTemplate}
                     onMoveEnd={(newList)=> {onReorder(newList)}}
                     container={()=> draggablelistContainerRef.current }
+                    commonProps={{currentTrackID: playlist.getCurrentTrack().ID}}
                     />
                 </div>
                     

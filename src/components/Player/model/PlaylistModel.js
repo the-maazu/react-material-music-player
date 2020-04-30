@@ -2,8 +2,9 @@ export default function PlaylistModel(arrayOfTracks){
 
     var self = this;
 
-    this.currentTrack = 0
+    this.currentTrackIndex = 0
     this.tracks = arrayOfTracks
+    this.shuffle = false;
 
     this.addTrack = function (track){
 
@@ -18,10 +19,6 @@ export default function PlaylistModel(arrayOfTracks){
         
         let track = self.tracks[index];
         self.tracks = self.tracks.filter( (track, index) => index !== index)
-    }
-
-    this.updatePlayList = function (newList){
-        this.tracks = newList;
     }
 
     this.reorder = function (oldIndex, newIndex){
@@ -42,5 +39,13 @@ export default function PlaylistModel(arrayOfTracks){
             begin = begin++
         }
 
+    }
+
+    this.getTrack = function (i){
+        return this.tracks[i];
+    }
+
+    this.getCurrentTrack = function(){
+        return this.tracks[this.currentTrackIndex]
     }
 }
