@@ -1,17 +1,35 @@
 import React,{useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import Paper from '@material-ui/core/Paper'
 import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
 
+const styles = {
+    root: {
+        maxHeight:'100%',
+        '& img': {
+            height:'50px'
+        },
+        '& img ~ div':{
+            position: 'absolute', 
+            top: 0, 
+            left: 0,
+            height: '100%', 
+            width: '100%'
+        }
+    },
+  };
 
-export default class PlaylistItemTemplate extends React.Component {
+class PlaylistItemTemplate extends React.Component {
 
     constructor(props){
         super(props);
 
         this.props = props
+
     }
 
 
@@ -22,29 +40,48 @@ export default class PlaylistItemTemplate extends React.Component {
             item,
             itemSelected,
             anySelected,
-            dragHandleProps
+            dragHandleProps,
+            commonProps,
+            classes
 
         } = this.props;
 
         return (
-            <div
+            <Grid 
+            container
+            direction='row'
             {...dragHandleProps}
-            style={{'max-height':'100%'}}
+            className={classes.root}
             >
-                <img src={item.coverArt}
-                style={{height:'10px'}}>
-                    {/* {Boolean(currentTrack == item.ID) ? <PlayIcon/> : null} */}
-                </img>
+                <Grid item style={{position: 'relative'}}>
+                    <img src={item.coverArt}/>
 
-                <div>
+                    <Grid 
+                    container
+                    justify='center'
+                    alignContent='center' 
+                    >
+                        <Grid item>
+                            {Boolean(commonProps.currentTrackID == item.ID) ? <PlayIcon item /> : null}
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+                <Grid item>
                     <Typography variant='subtitle1'>
                         {item.title}
                     </Typography>
                     <Typography variant='subtitle2'>
                         {item.artist}
                     </Typography>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         )
     }
 }
+
+PlaylistItemTemplate.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
+export default withStyles(styles)(PlaylistItemTemplate);
