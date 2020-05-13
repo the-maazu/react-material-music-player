@@ -17,6 +17,8 @@ import PlaylistControl from './PlaylistControl.js'
 
 import PlaylistModel from './model/PlaylistModel.js';
 
+import keyframes from './keyframes.css'
+
 const useStyles = makeStyles(theme => ({
     root: {
         position: "fixed",
