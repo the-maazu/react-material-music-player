@@ -6,10 +6,13 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
     root:{
-        margin: theme.spacing()
+        width: '100%',
+    },
+    timeText: {
+        margin: theme.spacing(1)
     },
     slider: {
-        width: '60vw'
+        width: '95%'
     }
   }));
 
@@ -21,12 +24,13 @@ export default function(){
         <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="center"
         alignItems="center"
+        wrap='nowrap'
         className={classes.root}
         >
             <Grid item>
-                <Typography>
+                <Typography className={classes.timeText}>
                     0:00
                 </Typography>
             </Grid>
@@ -34,7 +38,7 @@ export default function(){
                 <Slider aria-labelledby="continuous-slider" />
             </Grid>
             <Grid item>
-                <Typography>
+                <Typography className={classes.timeText}>
                     0:00
                 </Typography>
             </Grid>

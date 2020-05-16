@@ -8,8 +8,11 @@ import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 
 const useStyles = makeStyles(theme => ({
+    root:{
+        width: '100%'
+    },
     slider: {
-        width: '50vw'
+        width: '50%'
     }
   }));
 
@@ -21,8 +24,9 @@ export default function(){
         <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="center"
         alignItems="center"
+        wrap='nowrap'
         className={classes.root}
         >
             <Grid item>

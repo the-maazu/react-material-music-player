@@ -14,6 +14,7 @@ export default function(){
         direction="row"
         justify="center"
         alignItems="center"
+        wrap='nowrap'
         >
             <Grid item>
                 <IconButton>

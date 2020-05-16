@@ -15,7 +15,14 @@ import PlaylistItemTemplate from './PlaylistItemTemplate.js'
 const useStyles = makeStyles({
     root: {
         width: '100%',
+        position: isDesktop=> isDesktop? 'relative': null,
+        bottom: isDesktop=> isDesktop? 0 : null
     },
+    collapse: (isDesktop) => isDesktop? {
+        position: 'absolute',
+        bottom: '100%',
+        width: '100%'
+    } : null,
     draggablelistContainer: {
         overflow: 'auto',
         height: '60vh'
@@ -30,12 +37,13 @@ const useStyles = makeStyles({
 
 export default function(props){
 
-    const classes = useStyles();
-
     const {
         playlist,
+        isDesktop,
         onReorder
     } = props
+
+    const classes = useStyles(isDesktop);
 
     const draggablelistContainerRef = React.createRef();
 
@@ -55,9 +63,11 @@ export default function(props){
 
             <Collapse
             collapsedHeight={'0'}
+            className={classes.collapse}
             in={expanded}
             >
-                <div
+                <Paper
+                elevation='0'
                 className={classes.draggablelistContainer} 
                 ref={draggablelistContainerRef}>
                     <ReactDraggableList 
@@ -68,7 +78,7 @@ export default function(props){
                     container={()=> draggablelistContainerRef.current }
                     commonProps={{currentTrackID: playlist.getCurrentTrack().ID}}
                     />
-                </div>
+                </Paper>
                     
             </Collapse>
 
