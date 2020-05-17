@@ -38,16 +38,20 @@ const useStyles = makeStyles({
 export default function(props){
 
     const {
-        playlist,
+        list,
+        isShuffled,
+        currentTrackIndex,
         isDesktop,
         onReorder
     } = props
+
+    console.log(currentTrackIndex)
 
     const classes = useStyles(isDesktop);
 
     const draggablelistContainerRef = React.createRef();
 
-    const [values, setValues] = useState(playlist.shuffle ? ['shuffle']: []);
+    const [values, setValues] = useState(isShuffled ? ['shuffle']: []);
     const [expanded, expand] = useState(false);
     
     const handleChange = (event, newValues) => {
@@ -71,12 +75,12 @@ export default function(props){
                 className={classes.draggablelistContainer} 
                 ref={draggablelistContainerRef}>
                     <ReactDraggableList 
-                    list={playlist.tracks}
+                    list={list}
                     itemKey='ID'
                     template={PlaylistItemTemplate}
                     onMoveEnd={(newList)=> {onReorder(newList)}}
                     container={()=> draggablelistContainerRef.current }
-                    commonProps={{currentTrackID: playlist.getCurrentTrack().ID}}
+                    commonProps={{currentTrackID: list[currentTrackIndex].ID}}
                     />
                 </Paper>
                     

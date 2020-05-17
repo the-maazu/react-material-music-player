@@ -66,12 +66,9 @@ export default function Player(props){
     const [playlist, updatePlaylistModel] = useState(new PlaylistModel(props.tracks));
     const [expanded, expand] = useState(props.expanded);
 
-    const onReorder = function(newList){
-        let newPlaylist = new PlaylistModel(newList);
-        newPlaylist.shuffle=playlist.shuffle
-        newPlaylist.currentTrackIndex = playlist.currentTrackIndex
+    const onPlaylistReorder = function(newList){
 
-        updatePlaylistModel(newPlaylist)
+        updatePlaylistModel(playlist.getNewPlaylist(newList));
     }
     
     return (
@@ -129,9 +126,11 @@ export default function Player(props){
                     {expanded || isDesktop?
                     <Grid item className={classes.playlistControl}>
                         <PlaylistControl 
-                        playlist={playlist}
+                        list={playlist.getPlaylist()}
+                        isShuffled={playlist.isShuffled()}
+                        currentTrackIndex={playlist.getCurrentTrackIndex()}
                         isDesktop={isDesktop}
-                        onReorder={onReorder}
+                        onReorder={onPlaylistReorder}
                         />
                     </Grid> : null}
                     
