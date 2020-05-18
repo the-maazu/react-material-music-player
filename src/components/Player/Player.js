@@ -103,8 +103,9 @@ export default function Player(props){
 
                     <Grid 
                     item
-                    className={classes.trackDetails}>
-                        <TrackDetails/>
+                    className={classes.trackDetails}
+                    style={{width: expanded? '80%' : null}}>
+                        <TrackDetails showArtist={expanded}/>
                     </Grid>
 
                     {expanded || isDesktop ? 
