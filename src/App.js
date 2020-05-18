@@ -5,11 +5,13 @@ import './App.css';
 import Player from './components/Player/Player.js'
 import TrackModel from './components/Player/model/TrackModel.js'
 
+import jpg from './components/Player/jpg.jpg'
+
 function App() {
   
   const trackArray = [];
   for(var i=1; i<11; i++){
-    trackArray.push( new TrackModel(i, logo, 'let it rain', 'Mayonaise'))
+    trackArray.push( new TrackModel(i, jpg, 'let it rain', 'Mayonaise'))
   }
 
   return (

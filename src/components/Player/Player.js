@@ -10,6 +10,7 @@ import Grow from '@material-ui/core/Grow';
 import Zoom from '@material-ui/core/Zoom';
 import { Slider } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
@@ -30,8 +31,9 @@ const useStyles = makeStyles(theme => ({
         height: '90vh',
     },
     container: {
-        spacing: theme.spacing(),
-        padding: theme.spacing()
+        '& > div': {
+            margin: isDesktop => isDesktop? theme.spacing(): null
+        }
     },
     coverArt: {
         order: 6
@@ -53,23 +55,19 @@ const useStyles = makeStyles(theme => ({
         order: 2
     },
     playlistControl: {
-        width: isDesktop=> isDesktop? '20%':'100%',
+        width: isDesktop=> isDesktop? '10%':'100%',
         order: 1,
     } 
   }));
 
 export default function Player(props){
 
+    const theme = useTheme();
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
 
     const [playlist, updatePlaylistModel] = useState(new PlaylistModel(props.tracks));
     const [expanded, expand] = useState(props.expanded);
-
-    const onPlaylistReorder = function(newList){
-
-        updatePlaylistModel(playlist.getNewPlaylist(newList));
-    }
     
     return (
         <Collapse
@@ -86,7 +84,8 @@ export default function Player(props){
                 alignItems='center'
                 wrap='nowrap'
                 className={classes.container}
-                style = { { height: expanded ? '90vh' : '10vh',}}
+                style = {{ height: expanded ? '90vh' : '10vh',
+                        padding: expanded? theme.spacing(4): theme.spacing()}}
                 >
                     <Grid item className={classes.coverArt}
                     onClick={
@@ -98,7 +97,7 @@ export default function Player(props){
                     }>
                         <CoverArtFav 
                         coverArt={playlist.getCurrentTrack().coverArt} 
-                        collapsed={!expanded}/>
+                        large={expanded}/>
                     </Grid>
 
                     <Grid 
@@ -131,7 +130,9 @@ export default function Player(props){
                         isShuffled={playlist.isShuffled()}
                         currentTrackIndex={playlist.getCurrentTrackIndex()}
                         isDesktop={isDesktop}
-                        onReorder={onPlaylistReorder}
+                        onReorder={ newList =>{
+                            updatePlaylistModel(playlist.getNewPlaylist(newList));
+                        }}
                         />
                     </Grid> : null}
                     
