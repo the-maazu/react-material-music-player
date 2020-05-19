@@ -1,31 +1,28 @@
 import React,{useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import PlaylistIcon from "@material-ui/icons/QueueMusic";
 import Collapse from '@material-ui/core/Collapse';
 import ReactDraggableList from 'react-draggable-list';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
+import Popover from '@material-ui/core/Popover';
+
 import PlaylistItemTemplate from './PlaylistItemTemplate.js'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         position: isDesktop=> isDesktop? 'relative': null,
         bottom: isDesktop=> isDesktop? 0 : null
     },
-    collapse: (isDesktop) => isDesktop? {
-        position: 'absolute',
-        bottom: '100%',
-        width: '100%'
-    } : null,
     draggablelistContainer: {
         overflow: 'auto',
-        height: '60vh'
+        height: isDesktop => isDesktop ? '50vh' :'60vh',
+        width: isDesktop => isDesktop ? '25vw' : null,
+        margin: theme.spacing(),
     },
     buttonGroup: {
         width: '100%',
@@ -33,7 +30,7 @@ const useStyles = makeStyles({
     button: {
         width: '50%'
     }
-});
+}));
 
 export default function(props){
 
@@ -45,46 +42,67 @@ export default function(props){
         onReorder
     } = props
 
-    console.log(currentTrackIndex)
-
     const classes = useStyles(isDesktop);
-
-    const draggablelistContainerRef = React.createRef();
-
     const [values, setValues] = useState(isShuffled ? ['shuffle']: []);
     const [expanded, expand] = useState(false);
-    
+    const [anchorEl, setAnchor] = useState(null)
+
     const handleChange = (event, newValues) => {
         setValues(newValues);
-
-        if (Boolean(newValues.find((element)=> element == 'show-playlist' ))){
+        if (Boolean(newValues.find( element => element == 'show-playlist' ))){
+            setAnchor(event.target.parentElement.parentElement)
             expand(true);
         }else expand(false)
     };
 
+    const handlePopoverClose = (event) => {
+        const newValues = values.map(value => value != 'show-playlist')
+        setValues(newValues);
+        setAnchor(null)
+        expand(false);
+    };
+
+    const draggablelistContainerRef = React.createRef();
+    const reactDraggableList = (<Paper
+                                elevation='0'
+                                className={classes.draggablelistContainer}
+                                ref={draggablelistContainerRef}>
+                                    <ReactDraggableList 
+                                    list={list}
+                                    itemKey='ID'
+                                    template={PlaylistItemTemplate}
+                                    onMoveEnd={(newList)=> {onReorder(newList)}}
+                                    container={()=> draggablelistContainerRef.current }
+                                    commonProps={{currentTrackID: list[currentTrackIndex].ID}}
+                                    />
+                                </Paper>)
+                                
     return (
         <div className={classes.root}>
 
+            {isDesktop?
+            <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={handlePopoverClose}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+            >
+                {reactDraggableList}
+            </Popover>
+            :
             <Collapse
             collapsedHeight={'0'}
-            className={classes.collapse}
             in={expanded}
             >
-                <Paper
-                elevation='0'
-                className={classes.draggablelistContainer} 
-                ref={draggablelistContainerRef}>
-                    <ReactDraggableList 
-                    list={list}
-                    itemKey='ID'
-                    template={PlaylistItemTemplate}
-                    onMoveEnd={(newList)=> {onReorder(newList)}}
-                    container={()=> draggablelistContainerRef.current }
-                    commonProps={{currentTrackID: list[currentTrackIndex].ID}}
-                    />
-                </Paper>
-                    
-            </Collapse>
+                {reactDraggableList}
+            </Collapse>}
 
             <ToggleButtonGroup
             className={classes.buttonGroup}
@@ -107,6 +125,7 @@ export default function(props){
                 </ToggleButton>
 
             </ToggleButtonGroup>
+
         </div>
     )
 }
