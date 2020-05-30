@@ -16,7 +16,7 @@ import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
 import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
-import PlaylistModel from './model/PlaylistModel.js';
+import PlayerModel from './model/PlayerModel.js';
 
 import './keyframes.css'
 
@@ -66,7 +66,7 @@ export default function Player(props){
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
 
-    const [playlist, updatePlaylistModel] = useState(new PlaylistModel(props.tracks));
+    const [player, updatePlayerModel] = useState(new PlayerModel(props.tracks));
     const [expanded, expand] = useState(props.expanded);
     
     return (
@@ -96,7 +96,7 @@ export default function Player(props){
                         }
                     }>
                         <CoverArtFav 
-                        coverArt={playlist.getCurrentTrack().coverArt} 
+                        coverArt={player.getCurrentTrack().coverArt} 
                         large={expanded}/>
                     </Grid>
 
@@ -105,8 +105,8 @@ export default function Player(props){
                     className={classes.trackDetails}
                     style={{width: expanded? '80%' : null}}>
                         <TrackDetails 
-                        title={playlist.getCurrentTrack().title}
-                        artist={playlist.getCurrentTrack().artist}
+                        title={player.getCurrentTrack().title}
+                        artist={player.getCurrentTrack().artist}
                         showArtist={expanded}/>
                     </Grid>
 
@@ -129,12 +129,12 @@ export default function Player(props){
                     {expanded || isDesktop?
                     <Grid item className={classes.playlistControl}>
                         <PlaylistControl 
-                        list={playlist.getPlaylist()}
-                        isShuffled={playlist.isShuffled()}
-                        currentTrackIndex={playlist.getCurrentTrackIndex()}
+                        list={player.getPlaylist()}
+                        isShuffled={player.isShuffled()}
+                        currentTrackIndex={player.getCurrentTrackIndex()}
                         isDesktop={isDesktop}
                         onReorder={ newList =>{
-                            updatePlaylistModel(playlist.getNewPlaylist(newList));
+                            updatePlayerModel(player.getNewPlaylist(newList));
                         }}
                         />
                     </Grid> : null}

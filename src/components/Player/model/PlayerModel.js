@@ -1,24 +1,22 @@
-export default function PlaylistModel(arrayOfTracks){
+export default function PlaylistModel(tracks){
 
-    var self = this;
-
-    this.tracks = arrayOfTracks;
+    this.playlist = tracks;
     this.shuffled = false;
     this.currentTrackIndex = 0;
 
     this.addTrack = function (track){
 
         if(Array.isArray(track)){
-            self.tracks.push(...track)
+            this.playlist.push(...track)
         }else  {
-            self.tracks.push(track)
+            this.playlist.push(track)
         }
     }
 
     this.removeTrack = function (index){
         
-        let track = self.tracks[index];
-        self.tracks = self.tracks.filter( (track, index) => index !== index)
+        let track = this.playlist[index];
+        this.playlist = this.playlist.filter( (track, index) => index !== index)
     }
 
     // this.reorder = function (oldIndex, newIndex){
@@ -42,11 +40,11 @@ export default function PlaylistModel(arrayOfTracks){
     // }
 
     this.getTrack = function (i){
-        return this.tracks[i];
+        return this.playlist[i];
     }
 
     this.getCurrentTrack = function(){
-        return this.tracks[this.currentTrackIndex]
+        return this.playlist[this.currentTrackIndex]
     }
 
     this.getCurrentTrackIndex = function(){
@@ -57,14 +55,14 @@ export default function PlaylistModel(arrayOfTracks){
         let newPlaylist = new PlaylistModel(newList);
         newPlaylist.shuffled = this.shuffled;
         newPlaylist.currentTrackIndex = newList.findIndex( (element) => 
-            element.ID == this.tracks[this.currentTrackIndex].ID
+            element.ID == this.playlist[this.currentTrackIndex].ID
         )
 
         return newPlaylist;
     }
 
     this.getPlaylist = function(){
-        return this.tracks;
+        return this.playlist;
     }
 
     this.isShuffled = function(){
