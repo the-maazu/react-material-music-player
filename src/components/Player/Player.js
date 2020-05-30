@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function Player(props){
-
+    
     const theme = useTheme();
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
@@ -104,7 +104,10 @@ export default function Player(props){
                     item
                     className={classes.trackDetails}
                     style={{width: expanded? '80%' : null}}>
-                        <TrackDetails showArtist={expanded}/>
+                        <TrackDetails 
+                        title={playlist.getCurrentTrack().title}
+                        artist={playlist.getCurrentTrack().artist}
+                        showArtist={expanded}/>
                     </Grid>
 
                     {expanded || isDesktop ? 

@@ -5,17 +5,21 @@ import ScrollingText from './ScrollingText.js'
 
 export default function TrackDetails(props){
 
-    const showArtist = props.showArtist;
+    const {
+        title,
+        artist,
+        showArtist
+    } = props;
 
     return (
         <div>
             <ScrollingText>
-                Killing Me softly with 
+               {title}
             </ScrollingText>
 
             {showArtist ? 
             <ScrollingText >
-                Killer Mikestact
+                {artist}
             </ScrollingText> : null
             }
         </div>
