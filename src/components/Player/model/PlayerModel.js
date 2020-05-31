@@ -1,8 +1,10 @@
-export default function PlaylistModel(tracks){
+export default function PlayerModel(tracks){
 
+    const self = this
     this.playlist = tracks;
     this.shuffled = false;
     this.currentTrackIndex = 0;
+    this.audioElement = new Audio();
 
     this.addTrack = function (track){
 
@@ -51,8 +53,9 @@ export default function PlaylistModel(tracks){
         return this.currentTrackIndex
     }
 
-    this.getNewPlaylist = function(newList){
-        let newPlaylist = new PlaylistModel(newList);
+    this.updatePlaylist = function(newList){
+        let newPlaylist = new PlayerModel(newList);
+        newPlaylist = this.audioElement
         newPlaylist.shuffled = this.shuffled;
         newPlaylist.currentTrackIndex = newList.findIndex( (element) => 
             element.ID == this.playlist[this.currentTrackIndex].ID
@@ -67,5 +70,43 @@ export default function PlaylistModel(tracks){
 
     this.isShuffled = function(){
         return this.shuffled
+    }
+
+    this.play = function(){
+
+        self.audioElement.src = self.getCurrentTrack().source;
+
+        self.audioElement.play();
+    }
+
+    this.pause = function(){
+        if(self.audioElement.src !== undefined)
+        self.audioElement.pause()
+    }
+
+    this.updateCurrentTrack = function(newCurrentTrackIndex){
+
+        this.pause()
+
+        const newPlayerModel = new PlayerModel(this.playlist)
+        newPlayerModel.audioElement = this.audioElement;
+        newPlayerModel.shuffled = this.shuffled
+        newPlayerModel.currentTrackIndex = newCurrentTrackIndex;
+
+        newPlayerModel.audioElement.play();
+
+        return newPlayerModel;
+    }
+
+    this.onSkip = function(i){
+        console.log(i)
+        return self.updateCurrentTrack(( (this.currentTrackIndex + i) % this.playlist.size ))
+    }
+
+    this.paused = function(){
+        if(self.audioElement !== undefined)
+        return true;
+        else
+        return self.audioElement.paused
     }
 }

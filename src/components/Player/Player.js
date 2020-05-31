@@ -18,6 +18,9 @@ import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
 import PlayerModel from './model/PlayerModel.js';
 
+import { connect } from 'react-redux'
+import actionCreators from '../../redux/actionCreators.js'
+
 import './keyframes.css'
 
 const useStyles = makeStyles(theme => ({
@@ -60,82 +63,104 @@ const useStyles = makeStyles(theme => ({
     } 
   }));
 
-export default function Player(props){
+function Player(props){
     
     const theme = useTheme();
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
 
-    const [player, updatePlayerModel] = useState(new PlayerModel(props.tracks));
-    const [expanded, expand] = useState(props.expanded);
-    
+    // const [player, updatePlayerModel] = useState(new PlayerModel(props.tracks));
+    // const [maximised, expand] = useState(props.maximised);
+
+    const {
+        mediaState,
+        currentTrack,
+        shuffled,
+        maximised,
+        playlist,
+        onPlay,
+        onPause,
+        onSkipPrev,
+        onSkipNext,
+        onReorder,
+        onShuffle,
+        onMaximise,
+        onMinimise
+    } = props
+
     return (
         <Collapse
         className={classes.root}
         collapsedHeight='10vh'
-        in={expanded}
+        in={maximised}
         >
             <Paper 
             className={classes.paper}>
                 <Grid
                 container
-                direction={expanded ? 'column-reverse' : 'row-reverse'}
+                direction={maximised ? 'column-reverse' : 'row-reverse'}
                 justify='space-between'
                 alignItems='center'
                 wrap='nowrap'
                 className={classes.container}
-                style = {{ height: expanded ? '90vh' : '10vh',
-                        padding: expanded? theme.spacing(4): theme.spacing()}}
+                style = {{ height: maximised ? '90vh' : '10vh',
+                        padding: maximised? theme.spacing(4): theme.spacing()}}
                 >
                     <Grid item className={classes.coverArt}
                     onClick={
                         () => {
                             if(!isDesktop){
-                                expand(!expanded)
+                                if(maximised)
+                                onMinimise()
+                                else
+                                onMaximise()
                             }
                         }
                     }>
                         <CoverArtFav 
-                        coverArt={player.getCurrentTrack().coverArt} 
-                        large={expanded}/>
+                        coverArt={playlist[currentTrack].coverArt} 
+                        large={maximised}/>
                     </Grid>
 
                     <Grid 
                     item
                     className={classes.trackDetails}
-                    style={{width: expanded? '80%' : null}}>
+                    style={{width: maximised? '80%' : null}}>
                         <TrackDetails 
-                        title={player.getCurrentTrack().title}
-                        artist={player.getCurrentTrack().artist}
-                        showArtist={expanded}/>
+                        title={playlist[currentTrack].title}
+                        artist={playlist[currentTrack].artist}
+                        showArtist={maximised}/>
                     </Grid>
 
-                    {expanded || isDesktop ? 
+                    {maximised || isDesktop ? 
                     <Grid item className={classes.progressBar}>
                         <ProgressBar/>
                     </Grid> : null}
 
-                    <Grid 
+                    <Grid
                     item
                     className={classes.control}>
-                        <Controls />
+                        <Controls 
+                        isPlaying={mediaState == 'playing' ? true: false}
+                        onPlay={onPlay}
+                        onPause={onPause}
+                        onSkip={ i => {}}
+                        />
                     </Grid>
 
-                    {expanded || isDesktop ?
+                    {maximised || isDesktop ?
                     <Grid item className={classes.volumeControl}>
                         <VolumeControl/>
                     </Grid> : null}
 
-                    {expanded || isDesktop?
+                    {maximised || isDesktop?
                     <Grid item className={classes.playlistControl}>
                         <PlaylistControl 
-                        list={player.getPlaylist()}
-                        isShuffled={player.isShuffled()}
-                        currentTrackIndex={player.getCurrentTrackIndex()}
+                        list={playlist}
+                        isShuffled={shuffled}
+                        currentTrackIndex={currentTrack}
                         isDesktop={isDesktop}
-                        onReorder={ newList =>{
-                            updatePlayerModel(player.getNewPlaylist(newList));
-                        }}
+                        onReorder={(newList) => {onReorder(newList)}}
                         />
                     </Grid> : null}
                     
@@ -144,3 +169,22 @@ export default function Player(props){
         </Collapse>
     );
 }
+
+function mapStateToProps(state){
+    return {...state};
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        onPlay: () => dispatch(actionCreators.play()),
+        onPause: () => dispatch(actionCreators.pause()),
+        onSkipPrev: (index, size) => dispatch(actionCreators.skipPrev(index, size)),
+        onSkipNext: (index, size) => dispatch(actionCreators.skipNext(index, size)),
+        onReorder: (playlist) => dispatch(actionCreators.reorder(playlist)),
+        onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
+        onMaximise: () => dispatch(actionCreators.maximise()),
+        onMinimise: () => dispatch(actionCreators.minimise())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player)

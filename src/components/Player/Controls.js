@@ -6,7 +6,14 @@ import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import PauseIcon from "@material-ui/icons/PauseRounded";
 import { Grid } from '@material-ui/core';
 
-export default function(){
+export default function(props){
+
+    const {
+        isPlaying,
+        onPlay,
+        onPause,
+        onSkip,
+    } = props
 
     return (
         <Grid
@@ -17,17 +24,21 @@ export default function(){
         wrap='nowrap'
         >
             <Grid item>
-                <IconButton>
+                <IconButton onClick={() => onSkip(-1)}>
                     <SkipPreviousIcon fontSize="large"/>
                 </IconButton>
             </Grid>
             <Grid item>
-                <IconButton>
+                <IconButton onClick={ isPlaying? onPause : onPlay }>
+                    { isPlaying ? 
+                    <PauseIcon fontSize="large"/>
+                    :
                     <PlayIcon fontSize="large"/>
+                    }
                 </IconButton>
             </Grid>
             <Grid item>
-                <IconButton>
+                <IconButton onClick={() => onSkip(1)}>
                     <SkipNextIcon fontSize="large"/>
                 </IconButton>
             </Grid>
