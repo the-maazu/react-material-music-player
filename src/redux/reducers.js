@@ -20,7 +20,7 @@ function mediaState( state = 'stopped', action){
 }
 
 function playlist(state = [], action){
-    if(action.type == actionTypes.REORDER)
+    if(action.type == actionTypes.UPDATE_PLAYLIST)
     return action.payload.playlist;
     else
     return state

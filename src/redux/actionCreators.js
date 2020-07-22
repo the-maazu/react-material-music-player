@@ -24,8 +24,8 @@ export default {
         type: actionTypes.PAUSE
     }),
 
-    reorder: (playlist) => ({
-        type: actionTypes.REORDER,
+    updatePlaylist: (playlist) => ({
+        type: actionTypes.UPDATE_PLAYLIST,
         payload: {
             playlist: playlist
         }

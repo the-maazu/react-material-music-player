@@ -180,7 +180,7 @@ function mapDispatchToProps(dispatch){
         onPause: () => dispatch(actionCreators.pause()),
         onSkipPrev: (index, size) => dispatch(actionCreators.skipPrev(index, size)),
         onSkipNext: (index, size) => dispatch(actionCreators.skipNext(index, size)),
-        onReorder: (playlist) => dispatch(actionCreators.reorder(playlist)),
+        onReorder: (playlist) => dispatch(actionCreators.updatePlaylist(playlist)),
         onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
         onMaximise: () => dispatch(actionCreators.maximise()),
         onMinimise: () => dispatch(actionCreators.minimise())
