@@ -51,4 +51,18 @@ function maximised(state = false, action){
     }
 }
 
-export default combineReducers( {mediaState, playlist, currentTrack, shuffled, maximised});
+function currentTime(state = 0, action){
+    if(action.type === actionTypes.SET_CURRENT_TIME)
+    return action.payload.currentTime;
+    else
+    return state
+}
+
+function timeLeft(state = 0, action){
+    if(action.type === actionTypes.SET_TIME_LEFT)
+    return action.payload.timeLeft
+    else
+    return state
+}
+
+export default combineReducers( {mediaState, playlist, currentTrack, shuffled, maximised, currentTime, timeLeft});

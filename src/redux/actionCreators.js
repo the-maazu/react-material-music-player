@@ -49,5 +49,19 @@ export default {
 
     minimise: ()=> ({
         type: actionTypes.MINIMISE
+    }),
+
+    setCurrentTime: (currentTime) => ({
+        type: actionTypes.SET_CURRENT_TIME,
+        payload: {
+            currentTime: currentTime
+        }
+    }),
+
+    setTimeLeft: (timeLeft) => ({
+        type: actionTypes.SET_TIME_LEFT,
+        payload : {
+            timeLeft: timeLeft
+        }
     })
 }

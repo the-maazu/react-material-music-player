@@ -85,7 +85,9 @@ function Player(props){
         onReorder,
         onShuffle,
         onMaximise,
-        onMinimise
+        onMinimise,
+        currentTime,
+        timeLeft
     } = props
 
     return (
@@ -134,7 +136,7 @@ function Player(props){
 
                     {maximised || isDesktop ? 
                     <Grid item className={classes.progressBar}>
-                        <ProgressBar/>
+                        <ProgressBar currentTime={currentTime} timeLeft={timeLeft}/>
                     </Grid> : null}
 
                     <Grid

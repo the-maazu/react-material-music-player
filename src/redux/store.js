@@ -1,5 +1,8 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './reducers'
+
+import audioOutput from './middleware/audioOutput.js'
+import shuffler from './middleware/shuffler.js'
 
 import TrackModel from '../components/Player/model/TrackModel.js'
 import jpg from '../components/Player/jpg.jpg'
@@ -16,4 +19,4 @@ export default createStore(rootReducer, {
     shuffled: false,
     maximised: false,
     playlist: trackArray
-})
+}, applyMiddleware( audioOutput ))

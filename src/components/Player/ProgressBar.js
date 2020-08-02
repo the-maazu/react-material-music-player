@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 
+import secondsToString from '../../utils/secondsToString.js'
+
 const useStyles = makeStyles(theme => ({
     root:{
         width: '100%',
@@ -16,9 +18,16 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function(){
+export default function(props){
 
     const classes = useStyles();
+
+    const {
+        timeLeft,
+        currentTime
+    } = props
+
+    const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
 
     return (
         <Grid
@@ -31,15 +40,15 @@ export default function(){
         >
             <Grid item>
                 <Typography className={classes.timeText}>
-                    0:00
+                    {secondsToString(currentTime)}
                 </Typography>
             </Grid>
             <Grid item className={classes.slider}>
-                <Slider aria-labelledby="continuous-slider" />
+                <Slider aria-labelledby="continuous-slider" value={progress}/>
             </Grid>
             <Grid item>
                 <Typography className={classes.timeText}>
-                    0:00
+                    {secondsToString(timeLeft)}
                 </Typography>
             </Grid>
         </Grid>
