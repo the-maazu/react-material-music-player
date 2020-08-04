@@ -15,6 +15,13 @@ export default {
             index: (index-1)% size
         }
     }),
+    
+    changeTrack: (index) => ({
+        type: actionTypes.CHANGE_TRACK,
+        payload: {
+            index: index
+        }
+    }),
 
     play: () => ({
         type: actionTypes.PLAY,

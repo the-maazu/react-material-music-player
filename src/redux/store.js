@@ -10,7 +10,7 @@ import mp3 from '../test_resources/1.mp3'
 
 const trackArray = [];
 for(var i=1; i<11; i++){
-  trackArray.push( new TrackModel(i, jpg, 'let it rain', 'Mayonaise', mp3))
+  trackArray.push( new TrackModel(i, jpg, `${i}`, 'Mayonaise', mp3))
 }
 
 export default createStore(rootReducer, {
@@ -19,4 +19,10 @@ export default createStore(rootReducer, {
     shuffled: false,
     maximised: false,
     playlist: trackArray
-}, applyMiddleware( audioOutput ))
+}, applyMiddleware( audioOutput, shuffler ))
+
+export var MediaStates = {
+  stopped: 'stopped',
+  playing: 'playing',
+  paused: 'paused'
+}

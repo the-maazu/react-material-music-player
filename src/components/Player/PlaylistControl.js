@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper'
 import Popover from '@material-ui/core/Popover';
 
 import PlaylistItemTemplate from './PlaylistItemTemplate.js'
+import store from '../../redux/store.js';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -39,7 +40,8 @@ export default function(props){
         isShuffled,
         currentTrackIndex,
         isDesktop,
-        onReorder
+        onReorder,
+        onShuffle
     } = props
 
     const classes = useStyles(isDesktop);
@@ -53,10 +55,15 @@ export default function(props){
             setAnchor(event.target.parentElement.parentElement)
             expand(true);
         }else expand(false)
+
+        if (Boolean(newValues.find( element => element == 'shuffle' ))){
+            onShuffle(true)
+        }else onShuffle(false)
     };
 
     const handlePopoverClose = (event) => {
-        const newValues = values.map(value => value != 'show-playlist')
+        const newValues = values.filter(value => value != 'show-playlist')
+        console.log(newValues)
         setValues(newValues);
         setAnchor(null)
         expand(false);
@@ -71,7 +78,17 @@ export default function(props){
                                     list={list}
                                     itemKey='ID'
                                     template={PlaylistItemTemplate}
-                                    onMoveEnd={(newList)=> {onReorder(newList)}}
+                                    onMoveEnd={(newList)=> {
+                                        onReorder(
+                                            newList, 
+                                            newList.findIndex(
+                                                (track) => {
+                                                    console.log(track.ID == list[currentTrackIndex].ID)
+                                                    return track.ID == list[currentTrackIndex].ID
+                                                }
+                                            )
+                                        )}
+                                    }
                                     container={()=> draggablelistContainerRef.current }
                                     commonProps={{currentTrackID: list[currentTrackIndex].ID}}
                                     />

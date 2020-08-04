@@ -162,7 +162,8 @@ function Player(props){
                         isShuffled={shuffled}
                         currentTrackIndex={currentTrack}
                         isDesktop={isDesktop}
-                        onReorder={(newList) => {onReorder(newList)}}
+                        onReorder={onReorder}
+                        onShuffle={onShuffle}
                         />
                     </Grid> : null}
                     
@@ -182,7 +183,10 @@ function mapDispatchToProps(dispatch){
         onPause: () => dispatch(actionCreators.pause()),
         onSkipPrev: (index, size) => dispatch(actionCreators.skipPrev(index, size)),
         onSkipNext: (index, size) => dispatch(actionCreators.skipNext(index, size)),
-        onReorder: (playlist) => dispatch(actionCreators.updatePlaylist(playlist)),
+        onReorder: (playlist, currentTrack) =>{
+            dispatch(actionCreators.updatePlaylist(playlist))
+            dispatch(actionCreators.changeTrack(currentTrack))
+        },
         onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
         onMaximise: () => dispatch(actionCreators.maximise()),
         onMinimise: () => dispatch(actionCreators.minimise())
