@@ -12,7 +12,8 @@ export default function(props){
         isPlaying,
         onPlay,
         onPause,
-        onSkip,
+        onSkipPrev,
+        onSkipNext
     } = props
 
     return (
@@ -24,7 +25,7 @@ export default function(props){
         wrap='nowrap'
         >
             <Grid item>
-                <IconButton onClick={() => onSkip(-1)}>
+                <IconButton onClick={() => onSkipPrev()}>
                     <SkipPreviousIcon fontSize="large"/>
                 </IconButton>
             </Grid>
@@ -38,7 +39,7 @@ export default function(props){
                 </IconButton>
             </Grid>
             <Grid item>
-                <IconButton onClick={() => onSkip(1)}>
+                <IconButton onClick={() => onSkipNext()}>
                     <SkipNextIcon fontSize="large"/>
                 </IconButton>
             </Grid>

@@ -146,7 +146,8 @@ function Player(props){
                         isPlaying={mediaState == 'playing' ? true: false}
                         onPlay={onPlay}
                         onPause={onPause}
-                        onSkip={ i => {}}
+                        onSkipNext={() => onSkipNext(currentTrack, playlist.length )}
+                        onSkipPrev={() => onSkipPrev(currentTrack, playlist.length )}
                         />
                     </Grid>
 
