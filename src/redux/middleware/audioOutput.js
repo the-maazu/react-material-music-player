@@ -1,8 +1,6 @@
 import actionTypes from '../actionTypes.js'
 import actionCreators from '../actionCreators.js'
 
-import {MediaStates} from '../store.js'
-
 const audioElement = new Audio();
 
 const audioOutput = (store) => {
@@ -10,6 +8,10 @@ const audioOutput = (store) => {
     let progressWorker
 
     function setProgressWorker(){
+        
+        // clear before generating new worker
+        window.clearInterval(progressWorker)
+
         progressWorker = window.setInterval(
             () => {
                 // update current time
@@ -40,8 +42,10 @@ const audioOutput = (store) => {
         
             switch(action.type){
                 case actionTypes.CHANGE_TRACK:
+                    // break if new source same as current source
+                    if(audioElement.src.includes(state.playlist[state.currentTrack].source))
+                    break
                     audioElement.src = state.playlist[state.currentTrack].source
-                    if( state.mediaState === MediaStates.playing) // continue playing if already playing before track changed
                     audioElement.play()
                     break
                 case actionTypes.PLAY:
