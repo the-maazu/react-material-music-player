@@ -22,7 +22,8 @@ export default createStore(rootReducer, {
     currentTrack: 0,
     shuffled: false,
     maximised: false,
-    playlist: trackArray
+    playlist: trackArray,
+    volume: 25
 }, applyMiddleware( audioOutput, shuffler ))
 
 export var MediaStates = {

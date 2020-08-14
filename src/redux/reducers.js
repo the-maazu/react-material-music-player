@@ -65,4 +65,11 @@ function timeLeft(state = 0, action){
     return state
 }
 
-export default combineReducers( {mediaState, playlist, currentTrack, shuffled, maximised, currentTime, timeLeft});
+function volume(state = 0, action){
+    if(action.type == actionTypes.CHANGE_VOLUME)
+    return action.payload.volume
+    else
+    return state
+}
+
+export default combineReducers( {mediaState, playlist, currentTrack, shuffled, maximised, currentTime, timeLeft, volume});

@@ -35,6 +35,9 @@ const audioOutput = (store) => {
         window.clearInterval(progressWorker)
     }
 
+    // set default volume level
+    audioElement.volume = store.getState().volume/100
+
     return (next) => (action) => {
 
             let results = next(action);
@@ -63,6 +66,9 @@ const audioOutput = (store) => {
                     break
                 case actionTypes.SEEK:
                     audioElement.currentTime = action.payload.time;
+                    break
+                case actionTypes.CHANGE_VOLUME:
+                    audioElement.volume = action.payload.volume/100;
                     break
             }
         

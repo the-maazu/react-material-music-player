@@ -77,5 +77,12 @@ export default {
         payload: {
             time: time
         }
+    }),
+
+    changeVolume: (value) => ({
+        type: actionTypes.CHANGE_VOLUME,
+        payload: {
+            volume: value
+        }
     })
 }

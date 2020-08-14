@@ -88,7 +88,9 @@ function Player(props){
         onMinimise,
         currentTime,
         timeLeft,
-        onSeek
+        onSeek,
+        onVolumeChange,
+        volume
     } = props
 
     return (
@@ -157,7 +159,9 @@ function Player(props){
 
                     {maximised || isDesktop ?
                     <Grid item className={classes.volumeControl}>
-                        <VolumeControl/>
+                        <VolumeControl 
+                        value = {volume}
+                        onVolumeChange={onVolumeChange}/>
                     </Grid> : null}
 
                     {maximised || isDesktop?
@@ -195,7 +199,8 @@ function mapDispatchToProps(dispatch){
         onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
         onMaximise: () => dispatch(actionCreators.maximise()),
         onMinimise: () => dispatch(actionCreators.minimise()),
-        onSeek: (time) => dispatch(actionCreators.seek(time))
+        onSeek: (time) => dispatch(actionCreators.seek(time)),
+        onVolumeChange: (value) => dispatch(actionCreators.changeVolume(value))
     }
 }
 

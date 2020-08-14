@@ -16,9 +16,18 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function(){
+export default function(props){
 
     const classes = useStyles();
+
+    const {
+        value,
+        onVolumeChange
+    } = props
+
+    const handleSliderChange = (event, newValue) => {
+        onVolumeChange(newValue)
+    };
 
     return (
         <Grid
@@ -30,15 +39,24 @@ export default function(){
         className={classes.root}
         >
             <Grid item>
-                <IconButton>
+                <IconButton
+                onClick={
+                    () => onVolumeChange( value < 10? 0 : value-10)
+                }>
                     <VolumeDownIcon/>
                 </IconButton>
             </Grid>
             <Grid item className={classes.slider}>
-                <Slider aria-labelledby="continuous-slider" />
+                <Slider 
+                value={value}
+                aria-labelledby="continuous-slider" 
+                onChange={handleSliderChange}/>
             </Grid>
             <Grid item>
-                <IconButton>
+                <IconButton
+                onClick={
+                    () => onVolumeChange( value > 90 ? 100 : value+10)
+                }>
                     <VolumeUpIcon/>
                 </IconButton>
             </Grid>
