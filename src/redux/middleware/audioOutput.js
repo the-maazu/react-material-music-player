@@ -61,6 +61,9 @@ const audioOutput = (store) => {
                     audioElement.src = ""
                     clearProgressWorker()
                     break
+                case actionTypes.SEEK:
+                    audioElement.currentTime = action.payload.time;
+                    break
             }
         
             return results;

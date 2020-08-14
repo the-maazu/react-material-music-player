@@ -87,7 +87,8 @@ function Player(props){
         onMaximise,
         onMinimise,
         currentTime,
-        timeLeft
+        timeLeft,
+        onSeek
     } = props
 
     return (
@@ -136,7 +137,10 @@ function Player(props){
 
                     {maximised || isDesktop ? 
                     <Grid item className={classes.progressBar}>
-                        <ProgressBar currentTime={currentTime} timeLeft={timeLeft}/>
+                        <ProgressBar 
+                        currentTime={currentTime} 
+                        timeLeft={timeLeft}
+                        onSeek={onSeek}/>
                     </Grid> : null}
 
                     <Grid
@@ -190,7 +194,8 @@ function mapDispatchToProps(dispatch){
         },
         onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
         onMaximise: () => dispatch(actionCreators.maximise()),
-        onMinimise: () => dispatch(actionCreators.minimise())
+        onMinimise: () => dispatch(actionCreators.minimise()),
+        onSeek: (time) => dispatch(actionCreators.seek(time))
     }
 }
 

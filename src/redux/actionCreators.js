@@ -70,5 +70,12 @@ export default {
         payload : {
             timeLeft: timeLeft
         }
+    }),
+
+    seek: (time) => ({
+        type: actionTypes.SEEK,
+        payload: {
+            time: time
+        }
     })
 }

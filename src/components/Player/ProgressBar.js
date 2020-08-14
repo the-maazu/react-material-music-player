@@ -24,10 +24,15 @@ export default function(props){
 
     const {
         timeLeft,
-        currentTime
+        currentTime,
+        onSeek
     } = props
 
     const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
+
+    const handleSliderChange = (event, newValue) => {
+        onSeek( (newValue/100) * (currentTime + timeLeft) )
+    };
 
     return (
         <Grid
@@ -44,7 +49,10 @@ export default function(props){
                 </Typography>
             </Grid>
             <Grid item className={classes.slider}>
-                <Slider aria-labelledby="continuous-slider" value={progress}/>
+                <Slider 
+                aria-labelledby="continuous-slider" 
+                value={progress}
+                onChange={handleSliderChange}/>
             </Grid>
             <Grid item>
                 <Typography className={classes.timeText}>
