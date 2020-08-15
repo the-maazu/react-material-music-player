@@ -1,4 +1,5 @@
 import React, { useState, Children } from 'react';
+
 import IconButton from "@material-ui/core/IconButton";
 import SkipNextIcon from "@material-ui/icons/SkipNextRounded";
 import SkipPreviousIcon from "@material-ui/icons/SkipPreviousRounded";
@@ -13,7 +14,8 @@ export default function(props){
         onPlay,
         onPause,
         onSkipPrev,
-        onSkipNext
+        onSkipNext,
+        disabled
     } = props
 
     return (
@@ -25,12 +27,16 @@ export default function(props){
         wrap='nowrap'
         >
             <Grid item>
-                <IconButton onClick={() => onSkipPrev()}>
+                <IconButton 
+                onClick={() => onSkipPrev()}
+                disabled={disabled}>
                     <SkipPreviousIcon fontSize="large"/>
                 </IconButton>
             </Grid>
             <Grid item>
-                <IconButton onClick={ isPlaying? onPause : onPlay }>
+                <IconButton 
+                onClick={ isPlaying? onPause : onPlay }
+                disabled={disabled}>
                     { isPlaying ? 
                     <PauseIcon fontSize="large"/>
                     :
@@ -39,7 +45,9 @@ export default function(props){
                 </IconButton>
             </Grid>
             <Grid item>
-                <IconButton onClick={() => onSkipNext()}>
+                <IconButton 
+                onClick={() => onSkipNext()}
+                disabled={disabled}>
                     <SkipNextIcon fontSize="large"/>
                 </IconButton>
             </Grid>

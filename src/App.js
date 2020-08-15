@@ -2,10 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Player from './components/Player/Player.js'
-
-import store from './redux/store.js'
 import {Provider} from 'react-redux'
+
+import Player from './module/index.js'
+import store from './module/redux/store.js'
 
 function App() {
   return (

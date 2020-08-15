@@ -3,25 +3,21 @@ import React, { useState } from 'react'
 import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
-import CoverArtFav from './CoverArtFav.js';
-import TrackDetails from './TrackDetials.js'
 import Paper from '@material-ui/core/Paper'
-import Grow from '@material-ui/core/Grow';
-import Zoom from '@material-ui/core/Zoom';
-import { Slider } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
+import CoverArtFav from './CoverArtFav.js';
+import TrackDetails from './TrackDetials.js'
 import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
 import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
-import PlayerModel from './model/PlayerModel.js';
 
 import { connect } from 'react-redux'
-import actionCreators from '../../redux/actionCreators.js'
+import actionCreators from '../redux/actionCreators.js'
 
-import './keyframes.css'
+import '../css/keyframes.css'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -69,9 +65,6 @@ function Player(props){
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
 
-    // const [player, updatePlayerModel] = useState(new PlayerModel(props.tracks));
-    // const [maximised, expand] = useState(props.maximised);
-
     const {
         mediaState,
         currentTrack,
@@ -92,6 +85,9 @@ function Player(props){
         onVolumeChange,
         volume
     } = props
+
+    if(playlist.length == 0)
+    return null;
 
     return (
         <Collapse
@@ -148,7 +144,8 @@ function Player(props){
                     <Grid
                     item
                     className={classes.control}>
-                        <Controls 
+                        <Controls
+                        disabled = {playlist.length == 0}
                         isPlaying={mediaState == 'playing' ? true: false}
                         onPlay={onPlay}
                         onPause={onPause}

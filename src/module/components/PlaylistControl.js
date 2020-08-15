@@ -11,7 +11,6 @@ import Paper from '@material-ui/core/Paper'
 import Popover from '@material-ui/core/Popover';
 
 import PlaylistItemTemplate from './PlaylistItemTemplate.js'
-import store from '../../redux/store.js';
 
 const useStyles = makeStyles(theme => ({
     root: {

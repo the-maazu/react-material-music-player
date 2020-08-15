@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography'
 
-import secondsToString from '../../utils/secondsToString.js'
+import IconButton from "@material-ui/core/IconButton";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 
 const useStyles = makeStyles(theme => ({
     root:{
-        width: '100%',
-    },
-    timeText: {
-        margin: theme.spacing(1)
+        width: '100%'
     },
     slider: {
-        width: '95%'
+        width: '50%'
     }
   }));
 
@@ -23,15 +21,12 @@ export default function(props){
     const classes = useStyles();
 
     const {
-        timeLeft,
-        currentTime,
-        onSeek
+        value,
+        onVolumeChange
     } = props
 
-    const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
-
     const handleSliderChange = (event, newValue) => {
-        onSeek( (newValue/100) * (currentTime + timeLeft) )
+        onVolumeChange(newValue)
     };
 
     return (
@@ -44,20 +39,26 @@ export default function(props){
         className={classes.root}
         >
             <Grid item>
-                <Typography className={classes.timeText}>
-                    {secondsToString(currentTime)}
-                </Typography>
+                <IconButton
+                onClick={
+                    () => onVolumeChange( value < 10? 0 : value-10)
+                }>
+                    <VolumeDownIcon/>
+                </IconButton>
             </Grid>
             <Grid item className={classes.slider}>
                 <Slider 
+                value={value}
                 aria-labelledby="continuous-slider" 
-                value={progress}
                 onChange={handleSliderChange}/>
             </Grid>
             <Grid item>
-                <Typography className={classes.timeText}>
-                    {secondsToString(timeLeft)}
-                </Typography>
+                <IconButton
+                onClick={
+                    () => onVolumeChange( value > 90 ? 100 : value+10)
+                }>
+                    <VolumeUpIcon/>
+                </IconButton>
             </Grid>
         </Grid>
     )

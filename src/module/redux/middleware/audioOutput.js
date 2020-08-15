@@ -54,7 +54,7 @@ const audioOutput = (store) => {
                 case actionTypes.PLAY:
                     if( audioElement.src == "" )
                         audioElement.src = state.playlist[state.currentTrack].source
-                    audioElement.play();
+                    audioElement.play()
                     setProgressWorker();
                     break
                 case actionTypes.PAUSE:
