@@ -2,9 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {Provider} from 'react-redux'
+// To use the player this is what you need to import
+import Player, { TrackModel, PlayerInterface } from './module/index.js'
 
-import Player, { TrackModel, PlayerInterface, PlayerStore } from './module/index.js'
+// Test music and cover art file
 import jpg from './test_media/220px-Frances_Densmore_recording_Mountain_Chief2.jpg'
 import mp1 from './test_media/Kham_Hom_-_Sweet_Words.ogg'
 
@@ -13,12 +14,11 @@ window.setTimeout(
   () => PlayerInterface.play( 
     [ new TrackModel(1, jpg,"Sweet Words", "Kham Hom",mp1)] 
   ), 
-  3000
+  3000 // 3 seconds
 )
 
 function App() {
   return (
-    <Provider store={PlayerStore}>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -33,10 +33,12 @@ function App() {
         >
           Learn React
         </a>
+
+        {/* simply render player*/}
         <Player/>
+        
       </header>
     </div>
-    </Provider>
   );
 }
 
