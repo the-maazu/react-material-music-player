@@ -4,12 +4,21 @@ import './App.css';
 
 import {Provider} from 'react-redux'
 
-import Player from './module/index.js'
-import store from './module/redux/store.js'
+import Player, { TrackModel, PlayerInterface, PlayerStore } from './module/index.js'
+import jpg from './test_media/220px-Frances_Densmore_recording_Mountain_Chief2.jpg'
+import mp1 from './test_media/Kham_Hom_-_Sweet_Words.ogg'
+
+// update playlist with test data after 3 seconds
+window.setTimeout(
+  () => PlayerInterface.play( 
+    [ new TrackModel(1, jpg,"Sweet Words", "Kham Hom",mp1)] 
+  ), 
+  3000
+)
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={PlayerStore}>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
