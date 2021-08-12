@@ -1,20 +1,6 @@
 import actionTypes from './actionTypes.js'
 
 export default {
-
-    skipNext: (index, size) =>  ({
-        type: actionTypes.CHANGE_TRACK,
-        payload: {
-            index: (index+1)% size
-        }
-    }),
-
-    skipPrev: (index, size) =>  ({
-        type: actionTypes.CHANGE_TRACK,
-        payload: {
-            index: (index-1)% size
-        }
-    }),
     
     changeTrack: (index) => ({
         type: actionTypes.CHANGE_TRACK,

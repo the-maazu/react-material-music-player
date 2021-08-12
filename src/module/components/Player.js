@@ -73,8 +73,7 @@ function Player(props){
         playlist,
         onPlay,
         onPause,
-        onSkipPrev,
-        onSkipNext,
+        onChangeTrack,
         onReorder,
         onShuffle,
         onMaximise,
@@ -149,8 +148,8 @@ function Player(props){
                         isPlaying={mediaState == 'playing' ? true: false}
                         onPlay={onPlay}
                         onPause={onPause}
-                        onSkipNext={() => onSkipNext(currentTrack, playlist.length )}
-                        onSkipPrev={() => onSkipPrev(currentTrack, playlist.length )}
+                        onSkipNext={() => onChangeTrack(currentTrack+1)}
+                        onSkipPrev={() => onChangeTrack(currentTrack-1)}
                         />
                     </Grid>
 
@@ -187,8 +186,7 @@ function mapDispatchToProps(dispatch){
     return {
         onPlay: () => dispatch(actionCreators.play()),
         onPause: () => dispatch(actionCreators.pause()),
-        onSkipPrev: (index, size) => dispatch(actionCreators.skipPrev(index, size)),
-        onSkipNext: (index, size) => dispatch(actionCreators.skipNext(index, size)),
+        onChangeTrack: (index) => dispatch(actionCreators.changeTrack(index)),
         onReorder: (playlist, currentTrack) =>{
             dispatch(actionCreators.updatePlaylist(playlist))
             dispatch(actionCreators.changeTrack(currentTrack))
