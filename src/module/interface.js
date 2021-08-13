@@ -1,12 +1,22 @@
 import EventTypes from './constants/EventTypes.js'
-import store from './redux/store.js'
-
 
 function play( playlist ){
     const event = new CustomEvent(EventTypes.PLAY, {detail: playlist})
     window.dispatchEvent(event)
 }
 
+function playNext( playlist ){
+    const event = new CustomEvent(EventTypes.PLAYNEXT, {detail: playlist})
+    window.dispatchEvent(event)
+}
+
+function playLater( playlist ){
+    const event = new CustomEvent(EventTypes.PLAYLATER, {detail: playlist})
+    window.dispatchEvent(event)
+}
+
 export default {
-    play: play
+    play: play,
+    playNext: playNext,
+    playLater: playLater
 }
