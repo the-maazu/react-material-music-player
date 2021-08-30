@@ -1,68 +1,45 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## For the culture
 
-In the project directory, you can run:
+This is a "first project" long overdue.
 
-### `npm start`
+Basically I tried to create a "biolerplateless" music player that can be easily customised. &#128540;
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Feel free to fork or contribute here.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+<img src="public/desktop_mode.png" alt="destop">
+<img src="public/mobile_minimised.png" alt="mobile minimised" style="width:30%">
+<img src="public/mobile_maximised.png" alt="mobile maximised" style="width:30%">
+<img src="public/mobile_maximised_playlist.png" alt="mobile maximised with playlist" style="width:30%">
 
-### `npm test`
+## Documentation
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+A little info below &#128071;&#127998;
 
-### `npm run build`
+Basically all the code you should care about is in src/module.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To use the player clone this repo
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+* npm install 'path_to_project_root'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* import [Player](https://github.com/the-maazu/react-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-music-player/blob/master/src/module/interface.js) } from 'material-react-music-player'
 
-### `npm run eject`
+refer to [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js) for example usage.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Theming
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This player is 100% made of react [material-ui](https://material-ui.com/) component and can be customised using theming as described [here](https://material-ui.com/customization/theming/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Hack your way through the code if you want more customisation. Safe to say the UI can be heavily modified without really affecting core functionality(redux and middleware)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Scripts
 
-## Learn More
+'yarn start' to run the example react app with sample music files loaded in [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* [material-ui](https://material-ui.com/)
+* [react](https://reactjs.org/)
+* [react-redux](https://react-redux.js.org/)
+* [react-draggable-list](https://www.npmjs.com/package/react-draggable-list)

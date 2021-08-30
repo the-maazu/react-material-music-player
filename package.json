@@ -1,31 +1,36 @@
 {
-  "name": "player",
-  "version": "0.1.0",
-  "private": true,
-  "main": "src/module/index.js",
+  "name": "material-react-music-player",
+  "version": "1.0.0",
+  "main": "build_modules/index.js",
+  "files": [
+    "build_module"
+  ],
   "dependencies": {
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-draggable-list": "^4.0.3",
-    "redux": "^4.0.5"
-  },
-  "peerDependencies": {
-    "react-redux": "^7.2.0"
+    "react-redux": "^7.2.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "babel-plugin-react-css-modules": "^5.2.6",
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepublishOnly": "babel src/module --out-dir build_module/ --copy-files"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +46,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "react music player",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-maazu/react-music-player.git"
+  },
+  "keywords": [
+    "react",
+    "music",
+    "player",
+    "material",
+    "ui"
+  ],
+  "author": "hassanmaazu@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/the-maazu/react-music-player/issues"
   }
 }
