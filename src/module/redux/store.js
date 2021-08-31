@@ -19,4 +19,4 @@ export default createStore(rootReducer, {
     maximised: false,
     playlist: [],
     volume: 25
-}, applyMiddleware( audioOutput, shuffler,  eventHandler, changeTrackHelper))
+}, applyMiddleware( shuffler, eventHandler, changeTrackHelper, audioOutput ))
