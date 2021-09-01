@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function(props){
+export default function PlaylistControl(props){
 
     const {
         list,
@@ -50,18 +50,18 @@ export default function(props){
 
     const handleChange = (event, newValues) => {
         setValues(newValues);
-        if (Boolean(newValues.find( element => element == 'show-playlist' ))){
+        if (Boolean(newValues.find( element => element === 'show-playlist' ))){
             setAnchor(event.target.parentElement.parentElement)
             expand(true);
         }else expand(false)
 
-        if (Boolean(newValues.find( element => element == 'shuffle' ))){
+        if (Boolean(newValues.find( element => element === 'shuffle' ))){
             onShuffle(true)
         }else onShuffle(false)
     };
 
     const handlePopoverClose = (event) => {
-        const newValues = values.filter(value => value != 'show-playlist')
+        const newValues = values.filter(value => value !== 'show-playlist')
         console.log(newValues)
         setValues(newValues);
         setAnchor(null)
@@ -82,8 +82,8 @@ export default function(props){
                                             newList, 
                                             newList.findIndex(
                                                 (track) => {
-                                                    console.log(track.ID == list[currentTrackIndex].ID)
-                                                    return track.ID == list[currentTrackIndex].ID
+                                                    console.log(track.ID === list[currentTrackIndex].ID)
+                                                    return track.ID === list[currentTrackIndex].ID
                                                 }
                                             )
                                         )}

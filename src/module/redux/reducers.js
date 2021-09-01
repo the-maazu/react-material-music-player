@@ -7,34 +7,31 @@ function mediaState( state = 'stopped', action){
     switch(action.type){
         case actionTypes.PLAY:
             return 'playing'
-            break;
         case actionTypes.PAUSE:
             return 'paused'
-            break
         case actionTypes.STOP:
             return 'stopped'
-            break;
         default:
             return state
     }
 }
 
 function playlist(state = [], action){
-    if(action.type == actionTypes.UPDATE_PLAYLIST)
+    if(action.type === actionTypes.UPDATE_PLAYLIST)
     return action.payload.playlist;
     else
     return state
 }
 
 function currentTrack(state = 0, action){
-    if(action.type == actionTypes.CHANGE_TRACK)
+    if(action.type === actionTypes.CHANGE_TRACK)
     return action.payload.index;
     else
     return state
 }
 
 function shuffled(state = false, action){
-    if(action.type == actionTypes.SHUFFLE)
+    if(action.type === actionTypes.SHUFFLE)
     return action.payload.shuffle
     else
     return state
@@ -66,7 +63,7 @@ function timeLeft(state = 0, action){
 }
 
 function volume(state = 0, action){
-    if(action.type == actionTypes.CHANGE_VOLUME)
+    if(action.type === actionTypes.CHANGE_VOLUME)
     return action.payload.volume
     else
     return state

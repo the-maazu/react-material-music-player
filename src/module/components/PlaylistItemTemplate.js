@@ -1,9 +1,8 @@
-import React,{useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import PlayIcon from "@material-ui/icons/PlayArrowRounded";
-import Paper from '@material-ui/core/Paper'
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 
@@ -38,8 +37,6 @@ class PlaylistItemTemplate extends React.Component {
         const {
 
             item,
-            itemSelected,
-            anySelected,
             dragHandleProps,
             commonProps,
             classes
@@ -54,7 +51,7 @@ class PlaylistItemTemplate extends React.Component {
             className={classes.root}
             >
                 <Grid item style={{position: 'relative'}}>
-                    <img src={item.coverArt}/>
+                    <img src={item.coverArt} alt={"cover art"}/>
 
                     <Grid 
                     container
@@ -62,7 +59,7 @@ class PlaylistItemTemplate extends React.Component {
                     alignContent='center' 
                     >
                         <Grid item>
-                            {Boolean(commonProps.currentTrackID == item.ID) ? <PlayIcon item /> : null}
+                            {Boolean(commonProps.currentTrackID === item.ID) ? <PlayIcon item /> : null}
                         </Grid>
                     </Grid>
                 </Grid>

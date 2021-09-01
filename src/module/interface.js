@@ -15,8 +15,10 @@ function playLater( playlist ){
     window.dispatchEvent(event)
 }
 
-export default {
+const interfaceObject = {
     play: play,
     playNext: playNext,
     playLater: playLater
 }
+
+export default interfaceObject

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function(props){
+export default function VolumeControl(props){
 
     const classes = useStyles();
 

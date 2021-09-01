@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function(props){
+export default function ProgressBar(props){
 
     const classes = useStyles();
 

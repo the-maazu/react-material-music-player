@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Collapse from '@material-ui/core/Collapse'
 import Grid from '@material-ui/core/Grid'
@@ -85,7 +85,7 @@ function Player(props){
         volume
     } = props
 
-    if(playlist.length == 0)
+    if(playlist.length === 0)
     return null;
 
     return (
@@ -144,8 +144,8 @@ function Player(props){
                     item
                     className={classes.control}>
                         <Controls
-                        disabled = {playlist.length == 0}
-                        isPlaying={mediaState == 'playing' ? true: false}
+                        disabled = {playlist.length === 0}
+                        isPlaying={mediaState === 'playing' ? true: false}
                         onPlay={onPlay}
                         onPause={onPause}
                         onSkipNext={() => onChangeTrack(currentTrack+1)}

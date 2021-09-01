@@ -22,7 +22,7 @@ export default function eventHandler(store){
 
         let newPlaylist = []
 
-        if(e.type == EventTypes.PLAYNEXT)
+        if(e.type === EventTypes.PLAYNEXT)
             newPlaylist = currentPlaylist.reduce( 
 
                 (accumulator, currentValue , index) => {
@@ -33,7 +33,7 @@ export default function eventHandler(store){
                 },
                 []
             )
-        else if(e.type == EventTypes.PLAYLATER){
+        else if(e.type === EventTypes.PLAYLATER){
             newPlaylist = currentPlaylist.concat(e.detail)
         }
 

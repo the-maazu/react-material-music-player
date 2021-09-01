@@ -38,7 +38,7 @@ const audioOutput = (store) => {
                     audioElement.play() // continue playing if previous track was playing
                     break
                 case actionTypes.PLAY:
-                    if( audioElement.src == "" )
+                    if( audioElement.src === "" )
                         audioElement.src = state.playlist[state.currentTrack].source
                     audioElement.play()
                     break
@@ -53,6 +53,8 @@ const audioOutput = (store) => {
                     break
                 case actionTypes.CHANGE_VOLUME:
                     audioElement.volume = action.payload.volume/100;
+                    break
+                default:
                     break
             }
         

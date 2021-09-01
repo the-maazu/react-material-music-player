@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         height: '100%'
     }
 }))
-export default function(props){
+export default function CoverArtFav(props){
 
     const {
         coverArt,
@@ -41,7 +41,7 @@ export default function(props){
         onMouseLeave={() => hovering(false)}
         className={classes.root}
         >
-            <img src={coverArt}/>
+            <img src={coverArt} alt={"cover art"}/>
             
             <Fade
             in={hovered}

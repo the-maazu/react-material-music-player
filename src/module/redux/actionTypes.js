@@ -1,4 +1,4 @@
- export default { 
+const actionTypes = { 
      CHANGE_TRACK: 'CHANGE_TRACK',
      PLAY: 'PLAY',
      PAUSE:'PAUSE',
@@ -14,3 +14,5 @@
      MINIMISE: 'MINIMISE',
      SEEK: 'SEEK'
 }
+
+export default actionTypes

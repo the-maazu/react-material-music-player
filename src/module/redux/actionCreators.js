@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes.js'
 
-export default {
+const actionCreators = {
     
     changeTrack: (index) => ({
         type: actionTypes.CHANGE_TRACK,
@@ -72,3 +72,5 @@ export default {
         }
     })
 }
+
+export default actionCreators 

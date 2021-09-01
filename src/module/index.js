@@ -6,7 +6,7 @@ import trackModel from './model/TrackModel.js'
 import playerInterface from './interface.js'
 import store from './redux/store.js'
 
-export default function(){
+export default function main(){
     return(
         <Provider store={store}>
             <Player/>

@@ -11,7 +11,7 @@ const shuffler = (store) => (next) => (action) => {
     let results = next(action);
     let state = store.getState();
 
-    if(action.type == actionTypes.SHUFFLE){
+    if(action.type === actionTypes.SHUFFLE){
         
         if( action.payload.shuffle){
 

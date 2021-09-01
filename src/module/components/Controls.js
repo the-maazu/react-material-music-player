@@ -1,4 +1,4 @@
-import React, { useState, Children } from 'react';
+import React from 'react';
 
 import IconButton from "@material-ui/core/IconButton";
 import SkipNextIcon from "@material-ui/icons/SkipNextRounded";
@@ -7,7 +7,7 @@ import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import PauseIcon from "@material-ui/icons/PauseRounded";
 import { Grid } from '@material-ui/core';
 
-export default function(props){
+export default function Controls(props){
 
     const {
         isPlaying,
@@ -54,3 +54,4 @@ export default function(props){
         </Grid>
     )
 }
+

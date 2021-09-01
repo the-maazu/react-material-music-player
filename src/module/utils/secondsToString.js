@@ -1,7 +1,7 @@
 function secondsToString(seconds){
 
-    let minutes = new String(Math.floor(seconds/60)) 
-    let mseconds = new String(Math.floor(seconds%60))
+    let minutes = Math.floor(seconds/60).toString()
+    let mseconds = Math.floor(seconds%60).toString()
 
     return minutes + ':' + ( mseconds.length < 2 ? '0' : '' ) + mseconds
 }
