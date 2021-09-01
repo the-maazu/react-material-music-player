@@ -1,19 +1,14 @@
 export default function shuffle(array){
 
-    if(array.length === 1)
+    for(let i = 0; i<Math.ceil(array.length/2); i++){
+
+        let randIndex1 = Math.random() * array.length
+        let randIndex2 = randIndex1 + Math.random() * array.length
+
+        let temp = array[randIndex1]
+        array[randIndex1] = array[randIndex2]
+        array[randIndex2] = temp
+    }
+
     return array
-
-    let randomIndex = Math.floor(Math.random() * (array.length-1))
-    let [picked , remaining] = pick(randomIndex, array);
-
-    return picked.concat(shuffle(remaining))
-}
-
-// returns picked value and remaining array
-export function pick(index , array){
-    
-    let remaining = Array.from(array);
-    let picked = remaining.splice(index, 1)
-
-    return [picked, remaining]
 }
