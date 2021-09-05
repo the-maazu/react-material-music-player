@@ -9,7 +9,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import { ArrowForwardIos } from '@material-ui/icons';
 
-import CoverArtFav from './CoverArtFav.js';
+import CoverArt from './CoverArt.js';
 import TrackDetails from './TrackDetials.js'
 import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
@@ -147,9 +147,9 @@ function Player(props){
                     </IconButton>: null}
 
                     <Grid item className={classes.coverArt}>
-                        <CoverArtFav 
-                        coverArt={playlist[currentTrack].coverArt} 
-                        large={maximised}/>
+                        <CoverArt 
+                        src={playlist[currentTrack].coverArt} 
+                        size={maximised? '40vh': '6vh'}/>
                     </Grid>
 
                     <Grid 
