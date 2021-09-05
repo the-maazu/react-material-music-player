@@ -7,6 +7,8 @@ import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import PauseIcon from "@material-ui/icons/PauseRounded";
 import { Grid } from '@material-ui/core';
 
+import withoutPropagation from '../utils/withoutPropagation';
+
 export default function Controls(props){
 
     const {
@@ -28,14 +30,14 @@ export default function Controls(props){
         >
             <Grid item>
                 <IconButton 
-                onClick={() => onSkipPrev()}
+                onClick={withoutPropagation(onSkipPrev)}
                 disabled={disabled}>
                     <SkipPreviousIcon fontSize="large"/>
                 </IconButton>
             </Grid>
             <Grid item>
                 <IconButton 
-                onClick={ isPlaying? onPause : onPlay }
+                onClick={ withoutPropagation(isPlaying? onPause : onPlay )}
                 disabled={disabled}>
                     { isPlaying ? 
                     <PauseIcon fontSize="large"/>
@@ -46,7 +48,7 @@ export default function Controls(props){
             </Grid>
             <Grid item>
                 <IconButton 
-                onClick={() => onSkipNext()}
+                onClick={withoutPropagation(onSkipNext)}
                 disabled={disabled}>
                     <SkipNextIcon fontSize="large"/>
                 </IconButton>

@@ -7,6 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 
+import withoutPropagation from '../utils/withoutPropagation';
+
 const useStyles = makeStyles(theme => ({
     root:{
         width: '100%'
@@ -41,7 +43,7 @@ export default function VolumeControl(props){
             <Grid item>
                 <IconButton
                 onClick={
-                    () => onVolumeChange( value < 10? 0 : value-10)
+                    withoutPropagation(onVolumeChange, value < 10? 0 : value-10)
                 }>
                     <VolumeDownIcon/>
                 </IconButton>
@@ -55,7 +57,7 @@ export default function VolumeControl(props){
             <Grid item>
                 <IconButton
                 onClick={
-                    () => onVolumeChange( value > 90 ? 100 : value+10)
+                    withoutPropagation(onVolumeChange, value > 90 ? 100 : value+10)
                 }>
                     <VolumeUpIcon/>
                 </IconButton>

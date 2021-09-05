@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { IconButton } from '@material-ui/core';
+import { ArrowForwardIos } from '@material-ui/icons';
 
 import CoverArtFav from './CoverArtFav.js';
 import TrackDetails from './TrackDetials.js'
@@ -13,11 +15,15 @@ import ProgressBar from './ProgressBar.js'
 import Controls from './Controls.js';
 import VolumeControl from './VolumeControl.js'
 import PlaylistControl from './PlaylistControl.js'
+import withoutPropagation from '../utils/withoutPropagation.js';
 
 import { connect } from 'react-redux'
 import actionCreators from '../redux/actionCreators.js'
 
 import '../css/keyframes.css'
+
+const MAXHEIGHT = '90vh'
+const MINHEIGHT = '10vh'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,11 +33,18 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         width:'100vw',
-        height: '90vh',
+        height: MAXHEIGHT,
     },
     container: {
         '& > div': {
             margin: isDesktop => isDesktop? theme.spacing(): null
+        }
+    },
+    dropDownButton: {
+        width: '100%',
+        order: 7,
+        '& > *':{
+            transform: 'rotate(90deg)',
         }
     },
     coverArt: {
@@ -60,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function Player(props){
-    
+
     const theme = useTheme();
     const isDesktop = useMediaQuery('(min-width:768px)');
     const classes = useStyles(isDesktop);
@@ -85,17 +98,33 @@ function Player(props){
         volume
     } = props
 
+    // if no songs are loaded do not load player
     if(playlist.length === 0)
     return null;
+
+    const maximise = () => {
+        if(isDesktop || maximised)
+        return
+
+        onMaximise()
+    }
+
+    const minimise = () => {
+        if(!maximised)
+        return
+
+        onMinimise()
+    }
 
     return (
         <Collapse
         className={classes.root}
-        collapsedHeight='10vh'
+        collapsedHeight={MINHEIGHT}
         in={maximised}
         >
             <Paper 
-            className={classes.paper}>
+            className={classes.paper}
+            onClick={withoutPropagation(maximise)}>
                 <Grid
                 container
                 direction={maximised ? 'column-reverse' : 'row-reverse'}
@@ -103,20 +132,21 @@ function Player(props){
                 alignItems='center'
                 wrap='nowrap'
                 className={classes.container}
-                style = {{ height: maximised ? '90vh' : '10vh',
-                        padding: maximised? theme.spacing(4): theme.spacing()}}
+                style = {{
+                    height: maximised ? MAXHEIGHT : MINHEIGHT,
+                    padding: maximised? theme.spacing(4): theme.spacing(),
+                    paddingTop: '0px' // push drop down button up
+                }}
                 >
-                    <Grid item className={classes.coverArt}
-                    onClick={
-                        () => {
-                            if(!isDesktop){
-                                if(maximised)
-                                onMinimise()
-                                else
-                                onMaximise()
-                            }
-                        }
-                    }>
+                    {maximised ?
+                    <IconButton
+                    className={classes.dropDownButton}
+                    onClick={withoutPropagation(minimise)}
+                    >
+                        <ArrowForwardIos fontSize="small"/>
+                    </IconButton>: null}
+
+                    <Grid item className={classes.coverArt}>
                         <CoverArtFav 
                         coverArt={playlist[currentTrack].coverArt} 
                         large={maximised}/>

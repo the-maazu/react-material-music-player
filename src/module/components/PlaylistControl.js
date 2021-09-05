@@ -49,6 +49,8 @@ export default function PlaylistControl(props){
     const [anchorEl, setAnchor] = useState(null)
 
     const handleChange = (event, newValues) => {
+        event.stopPropagation()
+        
         setValues(newValues);
         if (Boolean(newValues.find( element => element === 'show-playlist' ))){
             setAnchor(event.target.parentElement.parentElement)
