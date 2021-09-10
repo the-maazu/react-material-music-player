@@ -40,7 +40,8 @@ export default function PlaylistControl(props){
         currentTrackIndex,
         isDesktop,
         onReorder,
-        onShuffle
+        onShuffle,
+        onTrackSelect
     } = props
 
     const classes = useStyles(isDesktop);
@@ -84,14 +85,17 @@ export default function PlaylistControl(props){
                                             newList, 
                                             newList.findIndex(
                                                 (track) => {
-                                                    console.log(track.ID === list[currentTrackIndex].ID)
                                                     return track.ID === list[currentTrackIndex].ID
                                                 }
                                             )
                                         )}
                                     }
                                     container={()=> draggablelistContainerRef.current }
-                                    commonProps={{currentTrackID: list[currentTrackIndex].ID}}
+                                    commonProps={{
+                                        listOfID: list.map((element) => element.ID),
+                                        currentTrackID: list[currentTrackIndex].ID,
+                                        onTrackSelect: onTrackSelect
+                                    }}
                                     />
                                 </Paper>)
                                 

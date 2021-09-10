@@ -199,6 +199,7 @@ function Player(props){
                         isDesktop={isDesktop}
                         onReorder={onReorder}
                         onShuffle={onShuffle}
+                        onTrackSelect={onChangeTrack}
                         />
                     </Grid> : null}
                     

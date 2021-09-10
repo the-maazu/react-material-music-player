@@ -1,26 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
+import PropTypes from 'prop-types';
+
+import { withStyles } from '@material-ui/core/styles';
 import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
+import ReorderIcon from '@material-ui/icons/Menu'
 
-const styles = {
+import CoverArt from './CoverArt';
+import withoutPropagation from '../utils/withoutPropagation';
+
+const styles = theme => ({
     root: {
         maxHeight:'100%',
-        '& img': {
-            height:'50px'
-        },
-        '& img ~ div':{
-            position: 'absolute', 
-            top: 0, 
-            left: 0,
-            height: '100%', 
-            width: '100%'
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: theme.shape.borderRadius,
+        padding: theme.spacing(),
+        '& > *':{
+            marginRight: theme.spacing()
         }
     },
-  };
+    coverArt: {
+        height:'50px'
+    },
+    nowPlayingIconContainer: {
+        position: 'absolute', 
+        top: 0, 
+        left: 0,
+        height: '100%', 
+        width: '100%'
+    }
+  });
 
 class PlaylistItemTemplate extends React.Component {
 
@@ -47,30 +58,33 @@ class PlaylistItemTemplate extends React.Component {
             <Grid 
             container
             direction='row'
-            {...dragHandleProps}
+            justifyContent='space-between'
+            alignItems='center'
+            wrap='nowrap'
             className={classes.root}
+            onClick={
+                withoutPropagation(
+                    commonProps.onTrackSelect, commonProps.listOfID.findIndex((ID) => ID === item.ID)
+                )
+            }
             >
-                <Grid item style={{position: 'relative'}}>
-                    <img src={item.coverArt} alt={"cover art"}/>
-
-                    <Grid 
-                    container
-                    justify='center'
-                    alignContent='center' 
-                    >
-                        <Grid item>
-                            {Boolean(commonProps.currentTrackID === item.ID) ? <PlayIcon item /> : null}
-                        </Grid>
-                    </Grid>
-                </Grid>
+                {Boolean(commonProps.currentTrackID === item.ID) ? <PlayIcon item /> : null}
                 
-                <Grid item>
+                <CoverArt item src={item.coverArt} size='50px'/>
+                
+                <Grid item xs={9}>
                     <Typography variant='subtitle1'>
                         {item.title}
                     </Typography>
                     <Typography variant='subtitle2'>
                         {item.artist}
                     </Typography>
+                </Grid>
+                
+                <Grid item xs={1}>
+                    <ReorderIcon 
+                    item {...dragHandleProps}
+                    onClick={(e) => {e.stopPropagation()}}/>
                 </Grid>
             </Grid>
         )
