@@ -2,7 +2,9 @@ import actionTypes from '../actionTypes.js'
 import actionCreators from '../actionCreators.js'
 import { MediaStates } from '../store.js';
 
-const audioElement = new Audio();
+import AudioOutput from '../../model/AudioOutput.js';
+
+const audioElement = new AudioOutput()
 
 const audioOutput = (store) => {
 
@@ -18,7 +20,7 @@ const audioOutput = (store) => {
         // set time left updater
         store.dispatch(
             actionCreators.setTimeLeft(
-                Math.floor(audioElement.duration - audioElement.currentTime)
+                Math.floor(isNaN(audioElement.duration)? 0 : audioElement.duration - audioElement.currentTime)
             )
         )
 
@@ -53,22 +55,22 @@ const audioOutput = (store) => {
     
         switch(action.type){
             case actionTypes.CHANGE_TRACK:
-                let currentTrack = state.playlist[state.currentTrack]
+                let currentTrack = audioElement.track
                 let newTrack = state.playlist[action.payload.index]
 
-                if(currentTrack.ID === newTrack.ID) // if same track do nothing
-                break
-
-                audioElement.src = state.playlist[action.payload.index].source
-                if(
-                    state.mediaState === MediaStates.playing 
-                    && audioElement.readyState >= 2 ) // buffered enough to start playing
-                audioElement.play() // continue playing if previous track was playing
+                if(currentTrack.ID !== newTrack.ID) // only update if not same track
+                {
+                    audioElement.src = state.playlist[action.payload.index]
+                    if(
+                        state.mediaState === MediaStates.playing 
+                        && audioElement.readyState >= 2 ) // buffered enough to start playing
+                    audioElement.play() // continue playing if previous track was playing
+                }
                 break
 
             case actionTypes.PLAY:
                 if( audioElement.src === "" )
-                    audioElement.src = state.playlist[state.currentTrack].source
+                    audioElement.src = state.playlist[state.currentTrack]
                 audioElement.play()
                 break
 
