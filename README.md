@@ -1,41 +1,45 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## For the culture
-
-This is a "first project" long overdue.
+## The Player
 
 Basically I tried to create a "biolerplateless" music player that can be easily customised. &#128540;
 
-Feel free to fork or contribute here.
-
-<img src="public/desktop_mode.png" alt="destop">
-<img src="public/mobile_minimised.png" alt="mobile minimised" style="width:30%">
-<img src="public/mobile_maximised.png" alt="mobile maximised" style="width:30%">
-<img src="public/mobile_maximised_playlist.png" alt="mobile maximised with playlist" style="width:30%">
+Example hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 ## Documentation
 
-A little info below &#128071;&#127998;
+To use the player
 
-Basically all the code you should care about is in src/module.
+1. npm install react-material-music-player
 
-To use the player clone this repo
+2. import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'
 
-* npm install 'path_to_project_root'
+3. render player preferably in root of your app (App.js)
 
-* import [Player](https://github.com/the-maazu/react-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-music-player/blob/master/src/module/interface.js) } from 'material-react-music-player'
+    <code>&lt;Player/&gt;</code>
 
-refer to [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js) for example usage.
+4. create tracks: 
 
-### Theming
+    <code> new TrackModel( index: number, coverArt: string, artist: string, source: string) </code>
 
-This player is 100% made of react [material-ui](https://material-ui.com/) component and can be customised using theming as described [here](https://material-ui.com/customization/theming/)
+5. <code> PlayerInterface.play([arrayOfTracks]) // sets a new playlist</code>
 
-Hack your way through the code if you want more customisation. Safe to say the UI can be heavily modified without really affecting core functionality(redux and middleware)
+6. <code> PlayerInterface.playLater([arrayOfTracks]) // appends to end of playlist </code>
 
-## Scripts
+7. <code> PlayerInterface.playAfter([arrayOfTracks]) // inserts after current track </code>
 
-'yarn start' to run the example react app with sample music files loaded in [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js)
+refer to [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js) for example usage.
+
+### Theming & Customisation
+
+This player is 100% made of react [material-ui](https://material-ui.com/) component and can be customised as described [here](https://material-ui.com/customization/theming/). 
+
+The player should inherit your themes and style overrides if your app is already using material-ui theming(ThemeProvider).
+
+If you want more customisation beyond styles and theme, I suggest you clone and copy [src/module](https://github.com/the-maazu/react-material-music-player/tree/master/src/module) to your project and make more customisation as you please. Safe to say the UI can be heavily customised without affecting functionality (redux and middleware).
+
+Also feel free to make suggestion or feature requests [here](https://github.com/the-maazu/react-material-music-player/discussions/new), kindly set category to "idea".
+Report bugs [here](https://github.com/the-maazu/react-material-music-player/issues). And if you want to contribute just make a pull request &#128522;.
 
 ## Dependencies
 

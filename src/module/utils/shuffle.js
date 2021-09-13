@@ -1,6 +1,6 @@
 export default function shuffle(array){
 
-    let newArray = array;
+    let newArray = array.slice();
 
     for(let i = 0; i<Math.ceil(array.length/2); i++){
 

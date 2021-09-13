@@ -1,7 +1,7 @@
 {
-  "name": "material-react-music-player",
+  "name": "react-material-music-player",
   "version": "1.0.0",
-  "main": "build_modules/index.js",
+  "main": "build_module/index.js",
   "files": [
     "build_module"
   ],
@@ -23,6 +23,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "babel-plugin-react-css-modules": "^5.2.6",
+    "gh-pages": "^3.2.3",
     "react-scripts": "^4.0.3"
   },
   "scripts": {
@@ -30,7 +31,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepublishOnly": "babel src/module --out-dir build_module/ --copy-files"
+    "prepublishOnly": "babel src/module --out-dir build_module/ --copy-files",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,7 +53,7 @@
   "description": "react music player",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/the-maazu/react-music-player.git"
+    "url": "git+https://github.com/the-maazu/react-material-music-player.git"
   },
   "keywords": [
     "react",
@@ -63,5 +66,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/the-maazu/react-music-player/issues"
-  }
+  },
+  "homepage": "https://the-maazu.github.io/react-material-music-player"
 }
