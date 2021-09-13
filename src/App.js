@@ -5,32 +5,40 @@ import './App.css';
 // To use the player this is what you need to import
 import Player, { TrackModel, PlayerInterface } from './module/index.js'
 
-// Test music and cover art file
-import jpg from './test_media/220px-Frances_Densmore_recording_Mountain_Chief2.jpg'
-import mp1 from './test_media/Kham_Hom_-_Sweet_Words.ogg'
-import jpg1 from './test_media/220px-Emile_Berliner_with_phonograph.jpg'
-import mp2 from './test_media/1860-Scott-Au-Clair-de-la-Lune-05-09.ogg'
+// get media data over tthe internet
+const TEST_MEDIA = "https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/sample_media/"
 
 // update playlist with test data after 3 seconds
 window.setTimeout(
   () => PlayerInterface.play( 
-    [ new TrackModel(1, jpg,"Sweet Words", "Kham Hom",mp1)] 
+    [ new TrackModel(
+      1, TEST_MEDIA +"bach.jpg","68 Choral", "Bach",
+      TEST_MEDIA+"Bach%20--%20BWV%20245%20--%2068%20Choral.mp3")
+    ] 
   ), 
   3000 // 3 seconds
 )
 
+// play later adds music at end of playlist
 window.setTimeout(
   () => PlayerInterface.playLater( 
-    [ new TrackModel(3, jpg,"Sweet Words", "Kham Hom",mp1)] 
+    [ new TrackModel(
+      2, TEST_MEDIA +"emerson.jpeg","All through the night", 
+      "Emerson",TEST_MEDIA +"Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3")
+    ] 
   ), 
   3000 // 3 seconds
 )
 
+// play next adds music right after the current track
 window.setTimeout(
   () => PlayerInterface.playNext(
-    [ new TrackModel(2, jpg1,"Free me", "Kham Ham",mp2)] 
+    [ new TrackModel(
+      3, TEST_MEDIA +"guido.jpg","Ut queant laxis", "Guido von Arezzo",
+      TEST_MEDIA +"Guido%20von%20Arezzo%20--%20Ut%20queant%20laxis.mp3")
+    ]
   ),
-  6000// 3 seconds
+  6000// 6 seconds
 )
 
 function App() {
@@ -39,21 +47,29 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          react-material-music-player
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://github.com/the-maazu/react-material-music-player"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          GitHub
         </a>
-
-        {/* simply render player*/}
-        <Player/>
-        
+        <a
+          className="App-link"
+          href="https://www.npmjs.com/package/react-material-music-player"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          npmjs
+        </a>
       </header>
+
+      {/* simply render player*/}
+      <Player/>
+      
     </div>
   );
 }

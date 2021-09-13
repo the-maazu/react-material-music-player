@@ -8,10 +8,10 @@ Basically I tried to create a "biolerplateless" music player that can be easily 
 
 Feel free to fork or contribute here.
 
-<img src="public/desktop_mode.png" alt="destop">
-<img src="public/mobile_minimised.png" alt="mobile minimised" style="width:30%">
-<img src="public/mobile_maximised.png" alt="mobile maximised" style="width:30%">
-<img src="public/mobile_maximised_playlist.png" alt="mobile maximised with playlist" style="width:30%">
+<img src="https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/public/desktop_mode.png" alt="destop">
+<img src="https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/public/mobile_minimised.png" alt="mobile minimised" style="width:30%">
+<img src="https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/public/mobile_maximised.png" alt="mobile maximised" style="width:30%">
+<img src="https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/public/mobile_maximised_playlist.png" alt="mobile maximised with playlist" style="width:30%">
 
 ## Documentation
 
@@ -21,11 +21,13 @@ Basically all the code you should care about is in src/module.
 
 To use the player clone this repo
 
-* npm install 'path_to_project_root'
+* npm install react-material-music-player
 
-* import [Player](https://github.com/the-maazu/react-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-music-player/blob/master/src/module/interface.js) } from 'material-react-music-player'
+* import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'
 
-refer to [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js) for example usage.
+refer to [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js) for example usage.
+
+Example hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 ### Theming
 
@@ -35,7 +37,7 @@ Hack your way through the code if you want more customisation. Safe to say the U
 
 ## Scripts
 
-'yarn start' to run the example react app with sample music files loaded in [App.js](https://github.com/the-maazu/react-music-player/blob/master/src/App.js)
+'yarn start' to run the example react app with sample music files loaded in [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js)
 
 ## Dependencies
 
