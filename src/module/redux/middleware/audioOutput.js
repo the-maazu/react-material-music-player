@@ -10,40 +10,41 @@ const audioOutput = (store) => {
 
     audioElement.addEventListener('timeupdate', () => {
 
-        //set current time updater
+        //set current time
         store.dispatch(
             actionCreators.setCurrentTime(
                 Math.floor(audioElement.currentTime)
             )
         )
 
-        // set time left updater
+        // set time left
         store.dispatch(
             actionCreators.setTimeLeft(
-                Math.floor(isNaN(audioElement.duration)? 0 : audioElement.duration - audioElement.currentTime)
+                Math.floor(
+                    isNaN(audioElement.duration)? 
+                    0 : audioElement.duration - audioElement.currentTime
+                )
             )
         )
+    })
 
-        // set canplay listener incase there is buffering
-        audioElement.addEventListener('canplay', ()=>{
-            let mediaState = store.getState().mediaState
-            if(mediaState === MediaStates.playing)
-            audioElement.play()
-        })
+    // set canplay listener
+    audioElement.addEventListener('canplay', ()=>{
+        let mediaState = store.getState().mediaState
+        if(mediaState === MediaStates.playing)
+        audioElement.play()
+    })
 
-        // skip to next track after playback ends
-        audioElement.addEventListener('ended', ()=>{
+    // skip to next track after playback ends
+    audioElement.addEventListener('ended', ()=>{
 
-            // check if fully ended
-            if(audioElement.currentTime !== audioElement.duration)
-            return
+        let currentIndex = store.getState().currentTrack
+        let mediaState = store.getState().mediaState
 
-            let currentIndex = store.getState().currentTrack
-            let mediaState = store.getState().mediaState
-
-            if(mediaState === MediaStates.playing)
+        if(store.getState().currentTrack === store.getState().playlist.length-1)
+            store.dispatch(actionCreators.stop())
+        else if(mediaState === MediaStates.playing)
             store.dispatch(actionCreators.changeTrack(++currentIndex))
-        })
     })
 
     // set default volume level
@@ -55,23 +56,16 @@ const audioOutput = (store) => {
     
         switch(action.type){
             case actionTypes.CHANGE_TRACK:
-                let currentTrack = audioElement.track
                 let newTrack = state.playlist[action.payload.index]
 
-                if(currentTrack.ID !== newTrack.ID) // only update if not same track
-                {
-                    audioElement.src = state.playlist[action.payload.index]
-                    if(
-                        state.mediaState === MediaStates.playing 
-                        && audioElement.readyState >= 2 ) // buffered enough to start playing
-                    audioElement.play() // continue playing if previous track was playing
-                }
+                // set new track if new not same as previous
+                if( !audioElement.isCurrent(newTrack) ) 
+                    audioElement.src = newTrack 
+
                 break
 
             case actionTypes.PLAY:
-                if( audioElement.src === "" )
-                    audioElement.src = state.playlist[state.currentTrack]
-                audioElement.play()
+                audioElement.src = state.playlist[state.currentTrack]
                 break
 
             case actionTypes.PAUSE:
@@ -83,7 +77,6 @@ const audioOutput = (store) => {
                 break
 
             case actionTypes.SEEK:
-                if( audioElement.src !== "")
                 audioElement.currentTime = action.payload.time;
                 break
 

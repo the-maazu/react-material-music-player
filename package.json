@@ -60,7 +60,8 @@
     "music",
     "player",
     "material",
-    "ui"
+    "ui",
+    "audio"
   ],
   "author": "hassanmaazu@gmail.com",
   "license": "MIT",

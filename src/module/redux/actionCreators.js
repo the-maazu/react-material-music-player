@@ -17,6 +17,10 @@ const actionCreators = {
         type: actionTypes.PAUSE
     }),
 
+    stop: () => ({
+        type: actionTypes.STOP
+    }),
+
     updatePlaylist: (playlist) => ({
         type: actionTypes.UPDATE_PLAYLIST,
         payload: {

@@ -3,18 +3,24 @@ import EventTypes from '../../constants/EventTypes.js'
 
 export default function eventHandler(store){
 
-    window.addEventListener( 
+    window.addEventListener(
         EventTypes.PLAY, 
         function(e) { 
             store.dispatch(
+                actionCreators.stop()
+            )
+            store.dispatch(
+                actionCreators.changeTrack(0)
+            )
+            store.dispatch(
                 actionCreators.updatePlaylist(e.detail)
+            )
+            store.dispatch(
+                actionCreators.play()
             )
         }
     );
 
-
-
-    // track change event listener
     let playNextAfterHandler = (e) => {
 
         let currentPlaylist = store.getState().playlist

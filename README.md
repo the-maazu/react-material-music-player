@@ -14,21 +14,33 @@ To use the player
 
 2. import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'
 
-3. render player preferably in root of your app (App.js)
+3. render player preferably in root of your app (App.js):
 
-    <code>&lt;Player/&gt;</code>
+        <Player/>
 
-4. create tracks: 
+4. create tracks:  
+<pre><code>
+    new TrackModel( 
+        index: number, 
+        coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>, 
+        artist: string, 
+        source: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/src">string</a>
+    )
+</code></pre>
 
-    <code> new TrackModel( index: number, coverArt: string, artist: string, source: string) </code>
+5. sets a new playlist:  
 
-5. <code> PlayerInterface.play([arrayOfTracks]) // sets a new playlist</code>
+    <code> PlayerInterface.play([arrayOfTracks])</code>
 
-6. <code> PlayerInterface.playLater([arrayOfTracks]) // appends to end of playlist </code>
+    appends to end of playlist:  
 
-7. <code> PlayerInterface.playAfter([arrayOfTracks]) // inserts after current track </code>
+    <code> PlayerInterface.playLater([arrayOfTracks]) </code>
 
-refer to [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js) for example usage.
+    insert after current track:  
+
+    <code> PlayerInterface.playAfter([arrayOfTracks])</code>
+
+example usage at [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js).
 
 ### Theming & Customisation
 

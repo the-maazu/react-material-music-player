@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from './reducers'
 
 import audioOutput from './middleware/audioOutput.js'
@@ -12,6 +12,7 @@ export var MediaStates = {
   paused: 'paused'
 }
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default createStore(rootReducer, {
     mediaState: MediaStates.stopped,
     currentTrack: 0,
@@ -19,4 +20,4 @@ export default createStore(rootReducer, {
     maximised: false,
     playlist: [],
     volume: 25
-}, applyMiddleware(eventHandler, shuffler, changeTrackHelper, audioOutput))
+}, composeEnhancers(applyMiddleware(eventHandler, shuffler, changeTrackHelper, audioOutput)))
