@@ -65,7 +65,6 @@ export default function PlaylistControl(props){
 
     const handlePopoverClose = (event) => {
         const newValues = values.filter(value => value !== 'show-playlist')
-        console.log(newValues)
         setValues(newValues);
         setAnchor(null)
         expand(false);

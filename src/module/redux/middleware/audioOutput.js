@@ -29,7 +29,7 @@ const audioOutput = (store) => {
     })
 
     // set error listener
-    audioElement.addEventListener('error', () => {
+    audioElement.addEventListener('error', ()=>{
         store.dispatch(actionCreators.stop())
     })
 
@@ -64,11 +64,11 @@ const audioOutput = (store) => {
         switch(action.type){
             case actionTypes.CHANGE_TRACK:
                  let nexTrack = state.playlist[action.payload.index]
-                audioElement.src = nexTrack 
+                audioElement.setSrc(nexTrack)
                 break
 
             case actionTypes.PLAY:
-                audioElement.src = state.playlist[state.currentTrack]
+                audioElement.setSrc(state.playlist[state.currentTrack]) 
                 audioElement.play().catch(
                     () => store.dispatch(actionCreators.stop())
                 )
@@ -79,7 +79,7 @@ const audioOutput = (store) => {
                 break
 
             case actionTypes.STOP:
-                audioElement.src = ""
+                audioElement.clear()
                 break
 
             case actionTypes.SEEK:

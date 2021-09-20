@@ -4,26 +4,24 @@ export default class AudioOutput extends Audio{
 
     constructor(){
         super()
-        this.src = new TrackModel(-1,"", "", "", "") // default track
+        this.track = new TrackModel(-1,"", "", "", "") // default track
     }
 
-    set src(track){
+    setSrc(track){
         if(track === undefined)
-            super.src = ""      
-        if(this.isCurrent(track))
             return
-        else {
+        if(!this.isCurrent(track)){
             super.src = track.source
+            this.track = track
         }
     }
 
-    get src(){
-        return super.src
+    clear(){
+        if(super.src === "")
+            return
+        this.setSrc(new TrackModel(-1,"", "", "", ""))
     }
-
     isCurrent(track){
-        if(typeof track === "string")
-            return super.src === track;
-        else return super.src === track.source
+        return this.track.ID === track.ID
     }
 }
