@@ -18,11 +18,12 @@ To use the player
 
         <Player/>
 
-4. create tracks:  
+4. create tracks:
 <pre><code>
     new TrackModel( 
         index: number, 
-        coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>, 
+        coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>,
+        title: string,
         artist: string, 
         source: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/src">string</a>
     )
@@ -39,6 +40,8 @@ To use the player
     insert after current track:  
 
     <code> PlayerInterface.playAfter([arrayOfTracks])</code>
+
+NOTE: index should be unique to every track including ones being appended and inserted. Sorting and shuffling is dependent on the index value.
 
 example usage at [App.js](https://github.com/the-maazu/react-material-music-player/blob/master/src/App.js).
 

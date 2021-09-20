@@ -5,6 +5,7 @@ import audioOutput from './middleware/audioOutput.js'
 import shuffler from './middleware/shuffler.js'
 import eventHandler from './middleware/events.js'
 import changeTrackHelper from './middleware/changeTrackHelper'
+import updatePlaylistHelper from './middleware/updatePlaylistHelper'
 
 export var MediaStates = {
   stopped: 'stopped',
@@ -20,4 +21,4 @@ export default createStore(rootReducer, {
     maximised: false,
     playlist: [],
     volume: 25
-}, composeEnhancers(applyMiddleware(eventHandler, shuffler, changeTrackHelper, audioOutput)))
+}, composeEnhancers(applyMiddleware(eventHandler, shuffler, updatePlaylistHelper,changeTrackHelper, audioOutput)))

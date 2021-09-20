@@ -28,11 +28,18 @@ const audioOutput = (store) => {
         )
     })
 
+    // set error listener
+    audioElement.addEventListener('error', () => {
+        store.dispatch(actionCreators.stop())
+    })
+
     // set canplay listener
     audioElement.addEventListener('canplay', ()=>{
         let mediaState = store.getState().mediaState
         if(mediaState === MediaStates.playing)
-        audioElement.play()
+        audioElement.play().catch(
+            () => store.dispatch(actionCreators.stop())
+        )
     })
 
     // skip to next track after playback ends
@@ -53,20 +60,19 @@ const audioOutput = (store) => {
     return (next) => (action) => {
 
         let state = store.getState();
-    
+
         switch(action.type){
             case actionTypes.CHANGE_TRACK:
-                let newTrack = state.playlist[action.payload.index]
-
-                // set new track if new not same as previous
-                if( !audioElement.isCurrent(newTrack) ) 
-                    audioElement.src = newTrack 
-
+                 let nexTrack = state.playlist[action.payload.index]
+                audioElement.src = nexTrack 
                 break
 
             case actionTypes.PLAY:
                 audioElement.src = state.playlist[state.currentTrack]
-                break
+                audioElement.play().catch(
+                    () => store.dispatch(actionCreators.stop())
+                )
+                break;
 
             case actionTypes.PAUSE:
                 audioElement.pause()

@@ -8,10 +8,13 @@ export default class AudioOutput extends Audio{
     }
 
     set src(track){
-        if(track !==  undefined || track !== ""){
-            this.track = track
+        if(track === undefined)
+            super.src = ""      
+        if(this.isCurrent(track))
+            return
+        else {
             super.src = track.source
-        }else super.src = ""
+        }
     }
 
     get src(){
