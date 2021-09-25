@@ -7,10 +7,10 @@ import Typography from '@material-ui/core/Typography'
 
 import secondsToString from '../utils/secondsToString.js'
 
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import actionCreators from '../redux/actionCreators.js';
+
 const useStyles = makeStyles(theme => ({
-    root:{
-        width: '100%',
-    },
     timeText: {
         margin: theme.spacing(1)
     },
@@ -19,15 +19,26 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ProgressBar(props){
+export default function ProgressBar(){
 
     const classes = useStyles();
 
     const {
         timeLeft,
-        currentTime,
-        onSeek
-    } = props
+        currentTime
+    } = useSelector(
+        ({
+            timeLeft,
+            currentTime
+        }) => ({
+            timeLeft,
+            currentTime
+        }),
+        shallowEqual
+    )
+
+    const dispatch = useDispatch()
+    const onSeek = (time) => dispatch(actionCreators.seek(time))
 
     const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
 
@@ -42,7 +53,6 @@ export default function ProgressBar(props){
         justify="center"
         alignItems="center"
         wrap='nowrap'
-        className={classes.root}
         >
             <Grid item>
                 <Typography className={classes.timeText}>
