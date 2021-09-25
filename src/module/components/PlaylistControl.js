@@ -1,5 +1,8 @@
 import React,{useState} from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import actionCreators from '../redux/actionCreators.js';
+
 import { makeStyles } from '@material-ui/core/styles';
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -11,10 +14,10 @@ import Paper from '@material-ui/core/Paper'
 import Popover from '@material-ui/core/Popover';
 
 import PlaylistItemTemplate from './PlaylistItemTemplate.js'
+import { shallowEqual } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '100%',
         position: isDesktop=> isDesktop? 'relative': null,
         bottom: isDesktop=> isDesktop? 0 : null
     },
@@ -34,18 +37,35 @@ const useStyles = makeStyles(theme => ({
 
 export default function PlaylistControl(props){
 
+    const isDesktop = props.isDesktop
+
     const {
-        list,
-        isShuffled,
-        currentTrackIndex,
-        isDesktop,
-        onReorder,
-        onShuffle,
-        onTrackSelect
-    } = props
+        playlist,
+        shuffled,
+        currentTrack
+    } = useSelector(
+        ({
+            playlist,
+            shuffled,
+            currentTrack
+        }) => ({
+            playlist,
+            shuffled,
+            currentTrack
+        }),
+        shallowEqual
+    )
+
+    const dispatch = useDispatch();
+    const onReorder = (newList, newIndex) =>{
+        dispatch(actionCreators.updatePlaylist(newList))
+        dispatch(actionCreators.changeTrack(newIndex))
+    }
+    const onShuffle = (bool) => dispatch(actionCreators.shuffle(bool))
+    const onTrackSelect = (index) => dispatch(actionCreators.changeTrack(index))
 
     const classes = useStyles(isDesktop);
-    const [values, setValues] = useState(isShuffled ? ['shuffle']: []);
+    const [values, setValues] = useState(shuffled ? ['shuffle']: []);
     const [expanded, expand] = useState(false);
     const [anchorEl, setAnchor] = useState(null)
 
@@ -71,32 +91,34 @@ export default function PlaylistControl(props){
     };
 
     const draggablelistContainerRef = React.createRef();
-    const reactDraggableList = (<Paper
-                                elevation='0'
-                                className={classes.draggablelistContainer}
-                                ref={draggablelistContainerRef}>
-                                    <ReactDraggableList 
-                                    list={list}
-                                    itemKey='ID'
-                                    template={PlaylistItemTemplate}
-                                    onMoveEnd={(newList)=> {
-                                        onReorder(
-                                            newList, 
-                                            newList.findIndex(
-                                                (track) => {
-                                                    return track.ID === list[currentTrackIndex].ID
-                                                }
-                                            )
-                                        )}
-                                    }
-                                    container={()=> draggablelistContainerRef.current }
-                                    commonProps={{
-                                        listOfID: list.map((element) => element.ID),
-                                        currentTrackID: list[currentTrackIndex].ID,
-                                        onTrackSelect: onTrackSelect
-                                    }}
-                                    />
-                                </Paper>)
+    const reactDraggableList = (
+        <Paper
+        elevation='0'
+        className={classes.draggablelistContainer}
+        ref={draggablelistContainerRef}>
+            <ReactDraggableList 
+            list={playlist}
+            itemKey='ID'
+            template={PlaylistItemTemplate}
+            onMoveEnd={(newList)=> {
+                onReorder(
+                    newList, 
+                    newList.findIndex(
+                        (track) => {
+                            return track.ID === playlist[currentTrack].ID
+                        }
+                    )
+                )}
+            }
+            container={()=> draggablelistContainerRef.current }
+            commonProps={{
+                listOfID: playlist.map((element) => element.ID),
+                currentTrackID: playlist[currentTrack].ID,
+                onTrackSelect: onTrackSelect
+            }}
+            />
+        </Paper>
+    )
                                 
     return (
         <div className={classes.root}>
