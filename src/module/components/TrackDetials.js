@@ -1,15 +1,23 @@
 import React from 'react'
-
+import { shallowEqual, useSelector } from 'react-redux';
 
 import ScrollingText from './ScrollingText.js'
 
-export default function TrackDetails(props){
-
+export default function TrackDetails(){
+    
     const {
         title,
         artist,
-        showArtist
-    } = props;
+    } = useSelector(
+        (state) => {
+            let currentTrack = state.playlist[state.currentTrack]
+            return {
+                title: currentTrack.title,
+                artist: currentTrack.artist
+            }
+        },
+        shallowEqual
+    );
 
     return (
         <div>
@@ -17,11 +25,9 @@ export default function TrackDetails(props){
                {title}
             </ScrollingText>
 
-            {showArtist ? 
             <ScrollingText >
                 {artist}
-            </ScrollingText> : null
-            }
+            </ScrollingText>
         </div>
     )
 }
