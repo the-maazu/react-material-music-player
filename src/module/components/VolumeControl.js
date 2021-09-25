@@ -9,23 +9,23 @@ import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 
 import withoutPropagation from '../utils/withoutPropagation';
 
+import { useDispatch, useSelector } from 'react-redux';
+import actionCreators from '../redux/actionCreators';
+
 const useStyles = makeStyles(theme => ({
-    root:{
-        width: '100%'
-    },
     slider: {
         width: '50%'
     }
   }));
 
-export default function VolumeControl(props){
+export default function VolumeControl(){
 
     const classes = useStyles();
 
-    const {
-        value,
-        onVolumeChange
-    } = props
+    const dispatch = useDispatch();
+    const onVolumeChange = (value) => dispatch(actionCreators.changeVolume(value))
+
+    const value = useSelector((state) => state.volume)
 
     const handleSliderChange = (event, newValue) => {
         onVolumeChange(newValue)
