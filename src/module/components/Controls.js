@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
+
 import IconButton from "@material-ui/core/IconButton";
 import SkipNextIcon from "@material-ui/icons/SkipNextRounded";
 import SkipPreviousIcon from "@material-ui/icons/SkipPreviousRounded";
@@ -7,18 +9,27 @@ import PlayIcon from "@material-ui/icons/PlayArrowRounded";
 import PauseIcon from "@material-ui/icons/PauseRounded";
 import { Grid } from '@material-ui/core';
 
+import actionCreators from '../redux/actionCreators';
 import withoutPropagation from '../utils/withoutPropagation';
+import { MediaStates } from '../redux/store';
 
 export default function Controls(props){
 
     const {
-        isPlaying,
-        onPlay,
-        onPause,
-        onSkipPrev,
-        onSkipNext,
-        disabled
-    } = props
+        mediaState,
+        currentTrack,
+    } = useSelector(
+        ({mediaState,currentTrack}) => ({mediaState,currentTrack}),
+        shallowEqual
+    )
+
+    const dispatch = useDispatch()
+    const onSkipNext = () => dispatch(actionCreators.changeTrack(currentTrack+1))
+    const onSkipPrev = () => dispatch(actionCreators.changeTrack(currentTrack-1))
+    const onPlay = () => dispatch(actionCreators.play())
+    const onPause = () => dispatch(actionCreators.pause())
+
+    const playing = mediaState === MediaStates.playing ? true : false
 
     return (
         <Grid
@@ -31,15 +42,16 @@ export default function Controls(props){
             <Grid item>
                 <IconButton 
                 onClick={withoutPropagation(onSkipPrev)}
-                disabled={disabled}>
+                >
                     <SkipPreviousIcon fontSize="large"/>
                 </IconButton>
             </Grid>
             <Grid item>
                 <IconButton 
-                onClick={ withoutPropagation(isPlaying? onPause : onPlay )}
-                disabled={disabled}>
-                    { isPlaying ? 
+                onClick={ 
+                    withoutPropagation(playing ? onPause : onPlay )
+                }>
+                    { playing ? 
                     <PauseIcon fontSize="large"/>
                     :
                     <PlayIcon fontSize="large"/>
@@ -49,7 +61,7 @@ export default function Controls(props){
             <Grid item>
                 <IconButton 
                 onClick={withoutPropagation(onSkipNext)}
-                disabled={disabled}>
+                >
                     <SkipNextIcon fontSize="large"/>
                 </IconButton>
             </Grid>
