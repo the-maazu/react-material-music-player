@@ -1,5 +1,4 @@
 import secondsToString from './secondsToString.js'
-import { ExpansionPanelActions } from '@material-ui/core'
 
 test('seconds to string', () =>{
 

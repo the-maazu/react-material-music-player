@@ -4,9 +4,13 @@ import './App.css';
 
 // To use the player this is what you need to import
 import Player, { TrackModel, PlayerInterface } from './module/index.js'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+
+const theme = createMuiTheme();
 
 function App() {
   return (
+    <ThemeProvider theme={theme}>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -35,6 +39,7 @@ function App() {
       <Player/>
       
     </div>
+    </ThemeProvider>
   );
 }
 

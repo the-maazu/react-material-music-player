@@ -2,18 +2,20 @@ import React from 'react';
 
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 
-import IconButton from "@material-ui/core/IconButton";
-import SkipNextIcon from "@material-ui/icons/SkipNextRounded";
-import SkipPreviousIcon from "@material-ui/icons/SkipPreviousRounded";
-import PlayIcon from "@material-ui/icons/PlayArrowRounded";
-import PauseIcon from "@material-ui/icons/PauseRounded";
-import { Grid } from '@material-ui/core';
+import IconButton from "@mui/material/IconButton";
+import SkipNextIcon from "@mui/icons-material/SkipNextRounded";
+import SkipPreviousIcon from "@mui/icons-material/SkipPreviousRounded";
+import PlayIcon from "@mui/icons-material/PlayArrowRounded";
+import PauseIcon from "@mui/icons-material/PauseRounded";
+import { Box } from '@mui/material';
 
 import actionCreators from '../redux/actionCreators';
 import withoutPropagation from '../utils/withoutPropagation';
 import { MediaStates } from '../redux/store';
 
 export default function Controls(props){
+
+    const sx = props.sx
 
     const {
         mediaState,
@@ -32,40 +34,27 @@ export default function Controls(props){
     const playing = mediaState === MediaStates.playing ? true : false
 
     return (
-        <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        wrap='nowrap'
-        >
-            <Grid item>
-                <IconButton 
-                onClick={withoutPropagation(onSkipPrev)}
-                >
-                    <SkipPreviousIcon fontSize="large"/>
-                </IconButton>
-            </Grid>
-            <Grid item>
-                <IconButton 
-                onClick={ 
-                    withoutPropagation(playing ? onPause : onPlay )
-                }>
-                    { playing ? 
-                    <PauseIcon fontSize="large"/>
-                    :
-                    <PlayIcon fontSize="large"/>
-                    }
-                </IconButton>
-            </Grid>
-            <Grid item>
-                <IconButton 
-                onClick={withoutPropagation(onSkipNext)}
-                >
-                    <SkipNextIcon fontSize="large"/>
-                </IconButton>
-            </Grid>
-        </Grid>
-    )
+        <Box
+        sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'nowrap',
+            ...sx
+        }}>
+            <IconButton onClick={withoutPropagation(onSkipPrev)} size="large">
+                <SkipPreviousIcon fontSize="large"/>
+            </IconButton>
+
+            <IconButton onClick={ withoutPropagation(playing ? onPause : onPlay )} size="large">
+                { playing ? <PauseIcon fontSize="large"/> : <PlayIcon fontSize="large"/> }
+            </IconButton>
+
+            <IconButton onClick={withoutPropagation(onSkipNext)} size="large">
+                <SkipNextIcon fontSize="large"/>
+            </IconButton>
+        </Box>
+    );
 }
 
