@@ -1,9 +1,10 @@
 import React from 'react'
+
 import { shallowEqual, useSelector } from 'react-redux';
 
-import ScrollingText from './ScrollingText.js'
+import Box from '@mui/material/Box'
 
-export default function TrackDetails(){
+export default function TrackDetails(props){
     
     const {
         title,
@@ -19,15 +20,12 @@ export default function TrackDetails(){
         shallowEqual
     );
 
-    return (
-        <div>
-            <ScrollingText>
-               {title}
-            </ScrollingText>
+    const sx = props.sx
 
-            <ScrollingText >
-                {artist}
-            </ScrollingText>
-        </div>
+    return (
+        <Box sx={sx}>
+            <Box sx={{ typography: 'subtitl3' }}>{title}</Box>
+            <Box sx={{ typography: 'subtitle2' }}>{artist}</Box>
+        </Box>
     )
 }
