@@ -4,9 +4,9 @@ import './App.css';
 
 // To use the player this is what you need to import
 import Player, { TrackModel, PlayerInterface } from './module/index.js'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 function App() {
   return (
