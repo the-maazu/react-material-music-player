@@ -1,62 +1,54 @@
-import React from 'react'
+import React from "react";
 
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import actionCreators from '../redux/actionCreators.js';
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import actionCreators from "../redux/actionCreators.js";
 
-import {Slider, Box} from '@mui/material';
-import Typography from '@mui/material/Typography'
+import { Slider, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
-import secondsToString from '../utils/secondsToString.js'
+import secondsToString from "../utils/secondsToString.js";
 
-export default function ProgressBar(props){
-    const sx = props.sx
-    const {
-        timeLeft,
-        currentTime
-    } = useSelector(
-        ({
-            timeLeft,
-            currentTime
-        }) => ({
-            timeLeft,
-            currentTime
-        }),
-        shallowEqual
-    )
-    const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
+export default function ProgressBar(props) {
+  const sx = props.sx;
+  const { timeLeft, currentTime } = useSelector(
+    ({ timeLeft, currentTime }) => ({
+      timeLeft,
+      currentTime,
+    }),
+    shallowEqual
+  );
+  const progress = (currentTime / (timeLeft + currentTime)) * 100;
 
-    const dispatch = useDispatch()
-    const onSeek = (time) => dispatch(actionCreators.seek(time))
+  const dispatch = useDispatch();
+  const onSeek = (time) => dispatch(actionCreators.seek(time));
 
-    const handleSliderChange = (event, newValue) => {
-        onSeek( (newValue/100) * (currentTime + timeLeft) )
-    };
+  const handleSliderChange = (event, newValue) => {
+    onSeek((newValue / 100) * (currentTime + timeLeft));
+  };
 
-    return (
-        <Box
-            sx={{
-                display:'flex',
-                flexDirection:'row',
-                wrap: 'nowrap',
-                alignItems: 'center',
-                "& > .children":{
-                    mx:1
-                },
-                ...sx
-            }}
-        >
-            <Typography className="children">
-                {secondsToString(currentTime)}
-            </Typography>
-            <Slider 
-                className="children"
-                aria-labelledby="continuous-slider" 
-                value={progress}
-                onChange={handleSliderChange}
-            />
-            <Typography className="children">
-                {secondsToString(timeLeft)}
-            </Typography>
-        </Box>
-    );
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        wrap: "nowrap",
+        alignItems: "center",
+        "& > .children": {
+          mx: 1,
+        },
+        ...sx,
+      }}
+    >
+      <Typography className="children">
+        {secondsToString(currentTime)}
+      </Typography>
+      <Slider
+        className="children"
+        aria-labelledby="continuous-slider"
+        value={progress}
+        onChange={handleSliderChange}
+      />
+      <Typography className="children">{secondsToString(timeLeft)}</Typography>
+    </Box>
+  );
 }

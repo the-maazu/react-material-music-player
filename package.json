@@ -27,6 +27,9 @@
     "@testing-library/user-event": "^7.1.2",
     "babel-plugin-react-css-modules": "^5.2.6",
     "gh-pages": "^3.2.3",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "2.4.1",
     "react-scripts": "^4.0.3"
   },
   "scripts": {
@@ -36,7 +39,8 @@
     "eject": "react-scripts eject",
     "prepublishOnly": "babel src/module --out-dir build_module/ --copy-files",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -71,5 +75,8 @@
   "bugs": {
     "url": "https://github.com/the-maazu/react-music-player/issues"
   },
-  "homepage": "https://the-maazu.github.io/react-material-music-player"
+  "homepage": "https://the-maazu.github.io/react-material-music-player",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
 }

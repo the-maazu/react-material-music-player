@@ -10,15 +10,15 @@ Example hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 To use the player
 
-1. npm install react-material-music-player
+1.  npm install react-material-music-player
 
-2. import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'
+2.  import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js), { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'
 
-3. render player preferably in root of your app (App.js):
+3.  render player preferably in root of your app (App.js):
 
         <Player/>
 
-4. create tracks:
+4.  create tracks:
 <pre><code>
     new TrackModel( 
         index: number, 
@@ -29,15 +29,15 @@ To use the player
     )
 </code></pre>
 
-5. sets a new playlist:  
+5.  sets a new playlist:
 
     <code> PlayerInterface.play([arrayOfTracks])</code>
 
-    appends to end of playlist:  
+    appends to end of playlist:
 
     <code> PlayerInterface.playLater([arrayOfTracks]) </code>
 
-    insert after current track:  
+    insert after current track:
 
     <code> PlayerInterface.playAfter([arrayOfTracks])</code>
 
@@ -47,7 +47,7 @@ example usage at [App.js](https://github.com/the-maazu/react-material-music-play
 
 ### Theming & Customisation
 
-This player is 100% made of react [material-ui](https://material-ui.com/) component and can be customised as described [here](https://material-ui.com/customization/theming/). 
+This player is 100% made of react [material-ui](https://material-ui.com/) component and can be customised as described [here](https://material-ui.com/customization/theming/).
 
 The player should inherit your themes and style overrides if your app is already using material-ui theming(ThemeProvider).
 
@@ -58,7 +58,7 @@ Report bugs [here](https://github.com/the-maazu/react-material-music-player/issu
 
 ## Dependencies
 
-* [material-ui](https://material-ui.com/)
-* [react](https://reactjs.org/)
-* [react-redux](https://react-redux.js.org/)
-* [react-draggable-list](https://www.npmjs.com/package/react-draggable-list)
+- [material-ui](https://material-ui.com/)
+- [react](https://reactjs.org/)
+- [react-redux](https://react-redux.js.org/)
+- [react-draggable-list](https://www.npmjs.com/package/react-draggable-list)
