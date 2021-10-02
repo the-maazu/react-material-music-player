@@ -6,10 +6,10 @@ import trackModel from './model/TrackModel.js'
 import playerInterface from './interface.js'
 import store from './redux/store.js'
 
-export default function main(){
+export default function main(props){
     return(
         <Provider store={store}>
-            <Player/>
+            <Player {...props}/>
         </Provider>
     )
 }
