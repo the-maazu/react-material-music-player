@@ -1,26 +1,15 @@
 import React from 'react'
-import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-
-import IconButton from "@material-ui/core/IconButton";
-import VolumeUpIcon from "@material-ui/icons/VolumeUp";
-import VolumeDownIcon from "@material-ui/icons/VolumeDown";
-
-import withoutPropagation from '../utils/withoutPropagation';
 
 import { useDispatch, useSelector } from 'react-redux';
 import actionCreators from '../redux/actionCreators';
 
-const useStyles = makeStyles(theme => ({
-    slider: {
-        width: '50%'
-    }
-  }));
+import { Slider, IconButton, Box } from '@mui/material';
+import { VolumeUp as VolumeUpIcon, VolumeDown as VolumeDownIcon } from "@mui/icons-material";
 
-export default function VolumeControl(){
+import withoutPropagation from '../utils/withoutPropagation';
 
-    const classes = useStyles();
+export default function VolumeControl(props){
+    const sx = props.sx
 
     const dispatch = useDispatch();
     const onVolumeChange = (value) => dispatch(actionCreators.changeVolume(value))
@@ -32,36 +21,42 @@ export default function VolumeControl(){
     };
 
     return (
-        <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        wrap='nowrap'
-        className={classes.root}
+        <Box
+            sx={{
+                display:'flex',
+                direction:'row',
+                wrap: 'nowrap',
+                alignItems: 'center',
+                "& > .children":{
+                    mx:1
+                },
+                ...sx
+            }}
         >
-            <Grid item>
-                <IconButton
+            <IconButton
+                className="children"
                 onClick={
                     withoutPropagation(onVolumeChange, value < 10? 0 : value-10)
-                }>
-                    <VolumeDownIcon/>
-                </IconButton>
-            </Grid>
-            <Grid item className={classes.slider}>
-                <Slider 
+                }
+                size="large"
+            >
+                <VolumeDownIcon/>
+            </IconButton>
+            <Slider 
+                className="children"
                 value={value}
                 aria-labelledby="continuous-slider" 
-                onChange={handleSliderChange}/>
-            </Grid>
-            <Grid item>
-                <IconButton
+                onChange={handleSliderChange}
+            />
+            <IconButton
+                className="children"
                 onClick={
                     withoutPropagation(onVolumeChange, value > 90 ? 100 : value+10)
-                }>
-                    <VolumeUpIcon/>
-                </IconButton>
-            </Grid>
-        </Grid>
-    )
+                }
+                size="large"
+            >
+                <VolumeUpIcon/>
+            </IconButton>
+        </Box>
+    );
 }
