@@ -10,8 +10,6 @@ const actionTypes = {
      SET_STOP_TIME: 'SET_STOP_TIME',
      SET_CURRENT_TIME: 'SET_CURRENT_TIME',
      SET_TIME_LEFT: 'SET_TIME_LEFT',
-     MAXIMISE: 'MAXIMISE',
-     MINIMISE: 'MINIMISE',
      SEEK: 'SEEK'
 }
 

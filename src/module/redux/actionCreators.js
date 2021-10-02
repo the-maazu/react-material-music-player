@@ -39,15 +39,7 @@ const actionCreators = {
         type: actionTypes.SHUFFLE,
         payload: {shuffle: bool}
     }),
-
-    maximise: () => ({
-        type: actionTypes.MAXIMISE
-    }),
-
-    minimise: ()=> ({
-        type: actionTypes.MINIMISE
-    }),
-
+    
     setCurrentTime: (currentTime) => ({
         type: actionTypes.SET_CURRENT_TIME,
         payload: {

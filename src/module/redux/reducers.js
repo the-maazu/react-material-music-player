@@ -37,17 +37,6 @@ function shuffled(state = false, action){
     return state
 }
 
-function maximised(state = false, action){
-    switch(action.type){
-        case actionTypes.MAXIMISE:
-            return true
-        case actionTypes.MINIMISE:
-            return false
-        default:
-            return state
-    }
-}
-
 function currentTime(state = 0, action){
     if(action.type === actionTypes.SET_CURRENT_TIME)
     return action.payload.currentTime;
@@ -69,4 +58,4 @@ function volume(state = 0, action){
     return state
 }
 
-export default combineReducers( {mediaState, playlist, currentTrack, shuffled, maximised, currentTime, timeLeft, volume});
+export default combineReducers( {mediaState, playlist, currentTrack, shuffled, currentTime, timeLeft, volume});

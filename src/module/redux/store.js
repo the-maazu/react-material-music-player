@@ -21,7 +21,6 @@ export default createStore(
     mediaState: MediaStates.stopped,
     currentTrack: 0,
     shuffled: false,
-    maximised: false,
     playlist: [],
     volume: 25
   }, 
