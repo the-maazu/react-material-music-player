@@ -3,7 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import actionCreators from "../redux/actionCreators.js";
+import actionCreators from "../../redux/actionCreators.js";
 
 import ReactDraggableList from "react-draggable-list";
 

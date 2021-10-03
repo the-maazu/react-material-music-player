@@ -8,8 +8,8 @@ import {
 } from "@mui/icons-material/";
 import Box from "@mui/material/Box";
 
-import CoverArt from "./CoverArt";
-import withoutPropagation from "../utils/withoutPropagation";
+import CoverArt from "../CoverArt";
+import withoutPropagation from "../../utils/withoutPropagation";
 
 class PlaylistItemTemplate extends React.Component {
   constructor(props) {
