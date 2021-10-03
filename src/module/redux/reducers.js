@@ -1,15 +1,16 @@
 import { combineReducers } from "redux";
 
 import actionTypes from "./actionTypes.js";
+import { RepeatModes, MediaStates } from "./StoreTypes";
 
-function mediaState(state = "stopped", action) {
+function mediaState(state = MediaStates.stopped, action) {
   switch (action.type) {
     case actionTypes.PLAY:
-      return "playing";
+      return MediaStates.playing;
     case actionTypes.PAUSE:
-      return "paused";
+      return MediaStates.paused;
     case actionTypes.STOP:
-      return "stopped";
+      return MediaStates.stopped;
     default:
       return state;
   }
@@ -47,6 +48,20 @@ function volume(state = 0, action) {
   else return state;
 }
 
+function repeatMode(state = RepeatModes.normal, action) {
+  if (action.type !== actionTypes.SET_REPEAT_MODE) return state;
+  switch (state) {
+    case RepeatModes.normal:
+      return RepeatModes.repeatAll;
+    case RepeatModes.repeatAll:
+      return RepeatModes.repeatOne;
+    case RepeatModes.repeatOne:
+      return RepeatModes.normal;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   mediaState,
   playlist,
@@ -55,4 +70,5 @@ export default combineReducers({
   currentTime,
   timeLeft,
   volume,
+  repeatMode,
 });

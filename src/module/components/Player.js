@@ -10,7 +10,7 @@ import TrackDetails from "./TrackDetials.js";
 import ProgressBar from "./ProgressBar.js";
 import Controls from "./Controls.js";
 import VolumeControl from "./VolumeControl.js";
-import PlaylistControl from "./PlaylistControl.js";
+import PlaylistControl from "./Playlist/PlaylistControl.js";
 
 const PREFIX = "Player";
 
@@ -157,7 +157,11 @@ export default function Player(props) {
       if (condition) {
         if (!isLarge) setLarge(true);
       } else {
-        if (isLarge) setLarge(false);
+        if (isLarge) {
+          setLarge(false);
+          // incase maximised before resize
+          if (maximised) setMaximised(false);
+        }
       }
     };
 

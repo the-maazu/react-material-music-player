@@ -1,55 +1,63 @@
 import actionTypes from "../actionTypes.js";
 import actionCreators from "../actionCreators.js";
-import { MediaStates } from "../store.js";
+import { MediaStates, RepeatModes } from "../StoreTypes";
 
 import AudioOutput from "../../model/AudioOutput.js";
 
-const audioElement = new AudioOutput();
+const audio = new AudioOutput();
 
 const audioOutput = (store) => {
-  audioElement.addEventListener("timeupdate", () => {
+  audio.addEventListener("timeupdate", () => {
     //set current time
     store.dispatch(
-      actionCreators.setCurrentTime(Math.floor(audioElement.currentTime))
+      actionCreators.setCurrentTime(Math.floor(audio.currentTime))
     );
 
     // set time left
     store.dispatch(
       actionCreators.setTimeLeft(
         Math.floor(
-          isNaN(audioElement.duration)
-            ? 0
-            : audioElement.duration - audioElement.currentTime
+          isNaN(audio.duration) ? 0 : audio.duration - audio.currentTime
         )
       )
     );
   });
 
   // set error listener
-  audioElement.addEventListener("error", () => {
+  audio.addEventListener("error", () => {
     store.dispatch(actionCreators.stop());
   });
 
   // set canplay listener
-  audioElement.addEventListener("canplay", () => {
+  audio.addEventListener("canplay", () => {
     let mediaState = store.getState().mediaState;
     if (mediaState === MediaStates.playing)
-      audioElement.play().catch(() => store.dispatch(actionCreators.stop()));
+      audio.play().catch(() => store.dispatch(actionCreators.stop()));
   });
 
-  // skip to next track after playback ends
-  audioElement.addEventListener("ended", () => {
-    let currentIndex = store.getState().currentTrack;
-    let mediaState = store.getState().mediaState;
+  // set "on playback ended" listener
+  audio.addEventListener("ended", () => {
+    let state = store.getState();
+    let currentTrack = state.currentTrack;
+    let isLastTrack = currentTrack === state.playlist.length - 1;
 
-    if (store.getState().currentTrack === store.getState().playlist.length - 1)
-      store.dispatch(actionCreators.stop());
-    else if (mediaState === MediaStates.playing)
-      store.dispatch(actionCreators.changeTrack(++currentIndex));
+    switch (state.repeatMode) {
+      case RepeatModes.repeatAll:
+        if (isLastTrack) store.dispatch(actionCreators.changeTrack(0));
+        else store.dispatch(actionCreators.changeTrack(++currentTrack));
+        break;
+      case RepeatModes.repeatOne:
+        audio.play(); // play again
+        break;
+      case RepeatModes.normal:
+      default:
+        if (isLastTrack) store.dispatch(actionCreators.stop());
+        else store.dispatch(actionCreators.changeTrack(++currentTrack));
+    }
   });
 
   // set default volume level
-  audioElement.volume = store.getState().volume / 100;
+  audio.volume = store.getState().volume / 100;
 
   return (next) => (action) => {
     let state = store.getState();
@@ -57,28 +65,28 @@ const audioOutput = (store) => {
     switch (action.type) {
       case actionTypes.CHANGE_TRACK:
         let nexTrack = state.playlist[action.payload.index];
-        audioElement.setSrc(nexTrack);
+        audio.setSrc(nexTrack);
         break;
 
       case actionTypes.PLAY:
-        audioElement.setSrc(state.playlist[state.currentTrack]);
-        audioElement.play().catch(() => store.dispatch(actionCreators.stop()));
+        audio.setSrc(state.playlist[state.currentTrack]);
+        audio.play().catch(() => store.dispatch(actionCreators.stop()));
         break;
 
       case actionTypes.PAUSE:
-        audioElement.pause();
+        audio.pause();
         break;
 
       case actionTypes.STOP:
-        audioElement.clear();
+        audio.clear();
         break;
 
       case actionTypes.SEEK:
-        audioElement.currentTime = action.payload.time;
+        audio.currentTime = action.payload.time;
         break;
 
       case actionTypes.CHANGE_VOLUME:
-        audioElement.volume = action.payload.volume / 100;
+        audio.volume = action.payload.volume / 100;
         break;
 
       default:

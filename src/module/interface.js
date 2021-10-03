@@ -1,17 +1,23 @@
-import EventTypes from "./constants/EventTypes.js";
+import { CustomNativeEventTypes } from "./redux/StoreTypes";
 
 function play(playlist) {
-  const event = new CustomEvent(EventTypes.PLAY, { detail: playlist });
+  const event = new CustomEvent(CustomNativeEventTypes.PLAY, {
+    detail: playlist,
+  });
   window.dispatchEvent(event);
 }
 
 function playNext(playlist) {
-  const event = new CustomEvent(EventTypes.PLAYNEXT, { detail: playlist });
+  const event = new CustomEvent(CustomNativeEventTypes.PLAYNEXT, {
+    detail: playlist,
+  });
   window.dispatchEvent(event);
 }
 
 function playLater(playlist) {
-  const event = new CustomEvent(EventTypes.PLAYLATER, { detail: playlist });
+  const event = new CustomEvent(CustomNativeEventTypes.PLAYLATER, {
+    detail: playlist,
+  });
   window.dispatchEvent(event);
 }
 

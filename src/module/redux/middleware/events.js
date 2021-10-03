@@ -1,8 +1,8 @@
 import actionCreators from "../actionCreators.js";
-import EventTypes from "../../constants/EventTypes.js";
+import { CustomNativeEventTypes } from "../StoreTypes";
 
 export default function eventHandler(store) {
-  window.addEventListener(EventTypes.PLAY, function (e) {
+  window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
     store.dispatch(actionCreators.stop());
     store.dispatch(actionCreators.changeTrack(0));
     store.dispatch(actionCreators.updatePlaylist(e.detail));
@@ -15,7 +15,7 @@ export default function eventHandler(store) {
 
     let newPlaylist = [];
 
-    if (e.type === EventTypes.PLAYNEXT)
+    if (e.type === CustomNativeEventTypes.PLAYNEXT)
       newPlaylist = currentPlaylist.reduce(
         (accumulator, currentValue, index) => {
           if (index === currentTrack)
@@ -24,16 +24,22 @@ export default function eventHandler(store) {
         },
         []
       );
-    else if (e.type === EventTypes.PLAYLATER) {
+    else if (e.type === CustomNativeEventTypes.PLAYLATER) {
       newPlaylist = currentPlaylist.concat(e.detail);
     }
 
     store.dispatch(actionCreators.updatePlaylist(newPlaylist));
   };
 
-  window.addEventListener(EventTypes.PLAYNEXT, playNextAfterHandler);
+  window.addEventListener(
+    CustomNativeEventTypes.PLAYNEXT,
+    playNextAfterHandler
+  );
 
-  window.addEventListener(EventTypes.PLAYLATER, playNextAfterHandler);
+  window.addEventListener(
+    CustomNativeEventTypes.PLAYLATER,
+    playNextAfterHandler
+  );
 
   return (next) => (action) => {
     return next(action);

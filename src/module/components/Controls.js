@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 
 import actionCreators from "../redux/actionCreators";
 import withoutPropagation from "../utils/withoutPropagation";
-import { MediaStates } from "../redux/store";
+import { MediaStates } from "../redux/StoreTypes";
 
 export default function Controls(props) {
   const sx = props.sx;

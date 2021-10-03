@@ -66,6 +66,10 @@ const actionCreators = {
       volume: value,
     },
   }),
+
+  setRepeatMode: () => ({
+    type: actionTypes.SET_REPEAT_MODE,
+  }),
 };
 
 export default actionCreators;
