@@ -180,8 +180,8 @@ export default function Player(props) {
     <RootBox
       ref={rootRef}
       sx={{
-        width: docked ? "100vw" : "100%",
-        height: docked ? "auto" : "100%",
+        width: docked ? "100vw" : "auto",
+        height: docked ? "auto" : "auto",
         // positioning
         position: docked ? "absolute" : "static",
         bottom: docked ? 0 : null,
