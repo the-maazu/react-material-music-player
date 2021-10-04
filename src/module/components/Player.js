@@ -62,9 +62,19 @@ const ColumnBox = styled(Box)(() => ({
   height: "100%",
   // flexbox
   display: "flex",
-  flexDirection: "column-reverse",
-  justifyContent: "space-between",
+  flexDirection: "column",
+  justifyContent: "end",
   alignItems: "stretch",
+  flexWrap: "nowrap",
+}));
+
+// box center child
+const CenterChildBox = styled(Box)(() => ({
+  // flexbox
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   flexWrap: "nowrap",
 }));
 
@@ -127,25 +137,27 @@ export default function Player(props) {
 
   const columnView = () => (
     <ColumnBox>
-      <PlaylistControl playlistViewMode="expand" />
-      <VolumeControl />
-      <Controls />
-      <ProgressBar />
+      {/* grow and center cover art */}
+      <CenterChildBox sx={{ flexGrow: 1 }}>
+        <CoverArt
+          className="children"
+          src={playlist[currentTrack].coverArt}
+          sx={{
+            height: "300px",
+            width: "300px",
+          }}
+        />
+      </CenterChildBox>
       <TrackDetails
         sx={{
           mt: 1,
           textAlign: "center",
         }}
       />
-      <CoverArt
-        className="children"
-        src={playlist[currentTrack].coverArt}
-        sx={{
-          height: "300px",
-          width: "300px",
-          alignSelf: "center",
-        }}
-      />
+      <ProgressBar />
+      <Controls />
+      <VolumeControl />
+      <PlaylistControl playlistViewMode="expand" />
     </ColumnBox>
   );
 
