@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { useTheme, styled } from "@mui/material/styles";
-import { Box, SwipeableDrawer } from "@mui/material";
+import { Box, SwipeableDrawer, Paper } from "@mui/material";
 
 import CoverArt from "./CoverArt.js";
 import TrackDetails from "./TrackDetials.js";
@@ -14,14 +14,14 @@ import PlaylistControl from "./Playlist/PlaylistControl.js";
 
 const PREFIX = "Player";
 
-const RootBox = styled(Box)(({ theme }) => ({
+const RootPaper = styled(Paper)(({ theme }) => ({
   // prevent screen size overflow by making padding part of dimensions
   boxSizing: "border-box",
   // only pad left and right; top padding too much
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
-  // background
-  backgroundColor: theme.palette.background.paper,
+  // incase of overflow in undocked mode
+  overflow: "hidden",
 }));
 
 const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
@@ -29,10 +29,8 @@ const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
   // width including padding
   // boxSizing: "border-box",
   height: "90vh",
+  marginTop: theme.spacing(3),
   padding: theme.spacing(1),
-  paddingTop: 0, // remove top padding in favor of top border
-  // add border and make opaque
-  borderTop: `${theme.spacing(3)} solid ${theme.palette.background.paper}`,
   overflow: "hidden",
 
   // puller to be positioned middle of the parent's border
@@ -113,7 +111,6 @@ export default function Player(props) {
   const rowView = () => (
     <RowBox onClick={openSwipeableDrawer}>
       <CoverArt
-        className="children"
         src={playlist[currentTrack].coverArt}
         sx={{
           height: "48px",
@@ -124,7 +121,7 @@ export default function Player(props) {
       <TrackDetails
         sx={{
           // fixed size to stop resize on content change
-          width: "192px",
+          width: "120px",
           // grow if screen is small to cover extra space
           flexGrow: isLarge ? 0 : 1,
           textAlign: "left",
@@ -155,13 +152,13 @@ export default function Player(props) {
             width: "300px",
           }}
         />
+        <TrackDetails
+          sx={{
+            mt: 1,
+            textAlign: "center",
+          }}
+        />
       </CenterChildBox>
-      <TrackDetails
-        sx={{
-          mt: 1,
-          textAlign: "center",
-        }}
-      />
       <ProgressBar />
       <Controls />
       <VolumeControl />
@@ -201,13 +198,14 @@ export default function Player(props) {
 
   return (
     // sx from props can be used to override default styles in rowView
-    <RootBox
+    <RootPaper
       ref={rootRef}
       sx={{
         width: docked ? "100vw" : "auto",
         // positioning
         position: docked ? "absolute" : "static",
         bottom: docked ? 0 : null,
+        bgcolor: "background.paper",
         ...sx,
       }}
     >
@@ -215,6 +213,7 @@ export default function Player(props) {
       {maximised ? null : rowView()}
 
       <SwipeableDrawer
+        elevation={1}
         open={maximised}
         anchor="bottom"
         onClose={closeSwipeableDrawer}
@@ -228,6 +227,6 @@ export default function Player(props) {
           {columnView()}
         </SwipeableDrawerRoot>
       </SwipeableDrawer>
-    </RootBox>
+    </RootPaper>
   );
 }

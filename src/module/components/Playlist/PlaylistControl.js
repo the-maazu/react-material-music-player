@@ -87,13 +87,10 @@ export default function PlaylistControl(props) {
     setAnchor(null);
   };
 
-  const buttonsContainerRef = React.useRef();
-
   return (
     <RootBox sx={{ ...sx }}>
-      <BouttonContainer ref={buttonsContainerRef}>
+      <BouttonContainer>
         <RepeatButton
-          color="primary"
           value={repeatMode}
           className={classes.button}
           onClick={() => {
@@ -101,7 +98,6 @@ export default function PlaylistControl(props) {
           }}
         />
         <ShuffleButton
-          color="primary"
           value={shuffled}
           className={classes.button}
           onClick={() => {
@@ -109,12 +105,13 @@ export default function PlaylistControl(props) {
           }}
         />
         <ToggleButton
-          color="primary"
           className={classes.button}
           value="show playlist"
           selected={playlistVisible}
-          onChange={() => {
-            setAnchor(buttonsContainerRef.current);
+          onChange={(e) => {
+            setAnchor(
+              e.target.parentElement.parentElement.parentElement.parentElement
+            );
             showPlaylist(!playlistVisible);
           }}
         >
@@ -124,6 +121,7 @@ export default function PlaylistControl(props) {
 
       {playlistViewMode === "popover" ? (
         <Popover
+          elevation={1}
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
           onClose={handlePopoverClose}
@@ -138,7 +136,7 @@ export default function PlaylistControl(props) {
         >
           <Playlist
             sx={{
-              width: "30vw",
+              width: "400px",
               height: "60vh",
             }}
           />

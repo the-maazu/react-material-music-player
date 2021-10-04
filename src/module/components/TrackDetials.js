@@ -17,8 +17,24 @@ export default function TrackDetails(props) {
 
   return (
     <Box sx={sx}>
-      <Box sx={{ typography: "subtitl3" }}>{title}</Box>
-      <Box sx={{ typography: "subtitle2" }}>{artist}</Box>
+      <Box
+        sx={{
+          typography: "subtitl3",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+        }}
+      >
+        {title}
+      </Box>
+      <Box
+        sx={{
+          typography: "subtitle2",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+        }}
+      >
+        {artist}
+      </Box>
     </Box>
   );
 }

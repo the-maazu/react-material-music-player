@@ -18,7 +18,7 @@ class PlaylistItemTemplate extends React.Component {
   }
 
   render() {
-    const { item, dragHandleProps, commonProps } = this.props;
+    const { item, dragHandleProps, commonProps, itemSelected } = this.props;
 
     return (
       <Box
@@ -36,9 +36,9 @@ class PlaylistItemTemplate extends React.Component {
           borderRadius: 1,
           // paddding
           boxSizing: "border-box",
-          padding: 1,
-          // bgColor
-          bgcolor: "background.paper",
+          padding: 0.5,
+          // elvate when selected
+          boxShadow: itemSelected > 0 ? 16 : 0,
         }}
         onClick={withoutPropagation(
           commonProps.onTrackSelect,
