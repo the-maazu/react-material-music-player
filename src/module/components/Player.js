@@ -83,8 +83,9 @@ export default function Player(props) {
   const docked = props.docked === undefined ? true : props.docked;
 
   const theme = useTheme();
+
   const [maximised, setMaximised] = useState(false);
-  const [isLarge, setLarge] = useState(true);
+  const [isLarge, setLarge] = useState(false);
 
   const { currentTrack, playlist } = useSelector(
     ({ currentTrack, maximised, playlist }) => ({
@@ -95,15 +96,22 @@ export default function Player(props) {
     shallowEqual
   );
 
+  const openSwipeableDrawer = () => {
+    // only maximise if docked and not large
+    if (docked && !isLarge) {
+      setMaximised(true);
+    }
+  };
+
+  const closeSwipeableDrawer = () => {
+    // only close if its maximised
+    if (maximised) {
+      setMaximised(false);
+    }
+  };
+
   const rowView = () => (
-    <RowBox
-      onClick={() => {
-        // only maximise if docked and not large
-        if (docked && !isLarge) {
-          setMaximised(true);
-        }
-      }}
-    >
+    <RowBox onClick={openSwipeableDrawer}>
       <CoverArt
         className="children"
         src={playlist[currentTrack].coverArt}
@@ -161,8 +169,8 @@ export default function Player(props) {
     </ColumnBox>
   );
 
-  // set large according to player size
   const rootRef = React.useRef();
+  // set resize listeners
   useEffect(() => {
     const rootElement = rootRef.current;
     const setLargeOnCondition = (condition) => {
@@ -197,7 +205,6 @@ export default function Player(props) {
       ref={rootRef}
       sx={{
         width: docked ? "100vw" : "auto",
-        height: docked ? "auto" : "auto",
         // positioning
         position: docked ? "absolute" : "static",
         bottom: docked ? 0 : null,
@@ -210,16 +217,13 @@ export default function Player(props) {
       <SwipeableDrawer
         open={maximised}
         anchor="bottom"
-        onClose={() => {
-          setMaximised(false);
-        }}
+        onClose={closeSwipeableDrawer}
+        onOpen={openSwipeableDrawer}
       >
         <SwipeableDrawerRoot>
           <Box
             className={`${PREFIX}-swipeable-puller`}
-            onClick={() => {
-              setMaximised(false);
-            }}
+            onClick={closeSwipeableDrawer}
           />
           {columnView()}
         </SwipeableDrawerRoot>
