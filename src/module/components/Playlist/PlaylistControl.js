@@ -39,7 +39,6 @@ const BouttonContainer = styled(Box)(({ theme }) => ({
     // space buttons horizontally
     margin: `auto ${theme.spacing(1)}`,
     flexGrow: 1, // buttons should grow
-    border: 0, // remove toggle button borders
   },
 }));
 
@@ -121,10 +120,10 @@ export default function PlaylistControl(props) {
 
       {playlistViewMode === "popover" ? (
         <Popover
-          elevation={1}
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
           onClose={handlePopoverClose}
+          sx={{ boxShadow: 8 }}
           anchorOrigin={{
             vertical: "top",
             horizontal: "right",

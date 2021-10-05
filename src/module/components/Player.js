@@ -15,21 +15,27 @@ import PlaylistControl from "./Playlist/PlaylistControl.js";
 const PREFIX = "Player";
 
 const RootPaper = styled(Paper)(({ theme }) => ({
+  width: "100vw",
+  // positioning
+  position: "fixed",
+  bottom: 0,
   // prevent screen size overflow by making padding part of dimensions
   boxSizing: "border-box",
+  borderRadius: `${theme.shape.borderRadius} ${theme.shape.borderRadius} 0 0`,
   // only pad left and right; top padding too much
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
   // incase of overflow in undocked mode
   overflow: "hidden",
+  transition: theme.transitions.create(["all"]),
 }));
 
 const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
   // fixed size root for swipeable
   // width including padding
   // boxSizing: "border-box",
-  height: "90vh",
-  marginTop: theme.spacing(3),
+  height: "80vh",
+  marginTop: theme.spacing(6),
   padding: theme.spacing(1),
   overflow: "hidden",
 
@@ -37,11 +43,11 @@ const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
   [`& > .${PREFIX}-swipeable-puller`]: {
     width: 30,
     height: theme.spacing(1),
-    backgroundColor: theme.palette.action.active, // button color
+    backgroundColor: theme.palette.action.disabled, // button color
     borderRadius: 3,
     // position
     position: "absolute",
-    top: theme.spacing(1), // center in parent border
+    top: theme.spacing(3), // center in parent border
     left: "calc(50% - 15px)", // center horizontally
   },
 }));
@@ -76,14 +82,21 @@ const CenterChildBox = styled(Box)(() => ({
   flexWrap: "nowrap",
 }));
 
+//create your forceUpdate hook
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
+
 export default function Player(props) {
   const sx = props.sx;
-  const docked = props.docked === undefined ? true : props.docked;
+  const disableDrawer = props.disableDrawer;
 
   const theme = useTheme();
 
   const [maximised, setMaximised] = useState(false);
   const [isLarge, setLarge] = useState(false);
+  const forceUpdate = useForceUpdate();
 
   const { currentTrack, playlist } = useSelector(
     ({ currentTrack, maximised, playlist }) => ({
@@ -96,7 +109,7 @@ export default function Player(props) {
 
   const openSwipeableDrawer = () => {
     // only maximise if docked and not large
-    if (docked && !isLarge) {
+    if (!disableDrawer && !isLarge) {
       setMaximised(true);
     }
   };
@@ -150,6 +163,7 @@ export default function Player(props) {
           sx={{
             height: "300px",
             width: "300px",
+            boxShadow: 4,
           }}
         />
         <TrackDetails
@@ -166,67 +180,50 @@ export default function Player(props) {
     </ColumnBox>
   );
 
+  // set large depending on player width
   const rootRef = React.useRef();
-  // set resize listeners
   useEffect(() => {
     const rootElement = rootRef.current;
-    const setLargeOnCondition = (condition) => {
-      if (condition) {
-        if (!isLarge) setLarge(true);
-      } else {
-        if (isLarge) {
-          setLarge(false);
-          // incase maximised before resize
-          if (maximised) setMaximised(false);
-        }
+    if (rootElement.clientWidth > theme.breakpoints.values.md) {
+      if (!isLarge) setLarge(true);
+    } else {
+      if (isLarge) {
+        setLarge(false);
+        // incase maximised before resize
+        if (maximised) setMaximised(false);
       }
-    };
-
-    // set large if root size is medium or bigger
-    setLargeOnCondition(rootElement.clientWidth > theme.breakpoints.values.md);
-
-    if (docked) {
-      // manually perform media query
-      window.addEventListener("resize", () => {
-        setLargeOnCondition(window.innerWidth > theme.breakpoints.values.md);
-      });
-      return () => {
-        window.addEventListener("resize", null);
-      };
     }
   });
 
+  // also set window resize listener
+  useEffect(() => {
+    window.onresize = () => {
+      forceUpdate();
+    };
+  }, []);
+
   return (
     // sx from props can be used to override default styles in rowView
-    <RootPaper
-      ref={rootRef}
-      sx={{
-        width: docked ? "100vw" : "auto",
-        // positioning
-        position: docked ? "absolute" : "static",
-        bottom: docked ? 0 : null,
-        bgcolor: "background.paper",
-        ...sx,
-      }}
-    >
+    <RootPaper ref={rootRef} sx={sx} elevation={4}>
       {/* render row view only when not maximised*/}
       {maximised ? null : rowView()}
 
-      <SwipeableDrawer
-        elevation={1}
-        open={maximised}
-        anchor="bottom"
-        onClose={closeSwipeableDrawer}
-        onOpen={openSwipeableDrawer}
-      >
-        <SwipeableDrawerRoot>
-          <Box
-            className={`${PREFIX}-swipeable-puller`}
-            onClick={closeSwipeableDrawer}
-          />
-          {columnView()}
-        </SwipeableDrawerRoot>
-      </SwipeableDrawer>
+      {!disableDrawer && !isLarge && (
+        <SwipeableDrawer
+          open={maximised}
+          anchor="bottom"
+          onClose={closeSwipeableDrawer}
+          onOpen={openSwipeableDrawer}
+        >
+          <SwipeableDrawerRoot>
+            <Box
+              className={`${PREFIX}-swipeable-puller`}
+              onClick={closeSwipeableDrawer}
+            />
+            {columnView()}
+          </SwipeableDrawerRoot>
+        </SwipeableDrawer>
+      )}
     </RootPaper>
   );
 }

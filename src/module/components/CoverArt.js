@@ -12,7 +12,15 @@ export default function CoverArt(props) {
   const { src, sx } = props;
 
   return (
-    <Box sx={sx}>
+    <Box
+      sx={{
+        border: 1,
+        borderColor: "divider",
+        borderRadius: 2,
+        overflow: "hidden",
+        ...sx,
+      }}
+    >
       <StyledImg src={src} alt={"cover art"} />
     </Box>
   );
