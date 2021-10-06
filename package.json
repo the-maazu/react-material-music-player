@@ -1,7 +1,7 @@
 {
   "name": "react-material-music-player",
   "version": "1.1.0",
-  "description": "This is a highly customisable music player based on mui, has mobile mod,has support for media session controls, reorderable playlist",
+  "description": "This is a highly customisable music player based on mui, mobile mode, support for media session controls, reorderable playlist",
   "main": "build_module/index.js",
   "files": [
     "build_module"
