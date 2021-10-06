@@ -1,102 +1,100 @@
-import actionTypes from '../actionTypes.js'
-import actionCreators from '../actionCreators.js'
-import { MediaStates } from '../store.js';
+import actionTypes from "../actionTypes.js";
+import actionCreators from "../actionCreators.js";
+import { MediaStates, RepeatModes } from "../StoreTypes";
 
-import AudioOutput from '../../model/AudioOutput.js';
+import AudioOutput from "../../model/AudioOutput.js";
 
-const audioElement = new AudioOutput()
+const audio = new AudioOutput();
 
 const audioOutput = (store) => {
+  audio.addEventListener("timeupdate", () => {
+    //set current time
+    store.dispatch(
+      actionCreators.setCurrentTime(Math.floor(audio.currentTime))
+    );
 
-    audioElement.addEventListener('timeupdate', () => {
-
-        //set current time
-        store.dispatch(
-            actionCreators.setCurrentTime(
-                Math.floor(audioElement.currentTime)
-            )
+    // set time left
+    store.dispatch(
+      actionCreators.setTimeLeft(
+        Math.floor(
+          isNaN(audio.duration) ? 0 : audio.duration - audio.currentTime
         )
+      )
+    );
+  });
 
-        // set time left
-        store.dispatch(
-            actionCreators.setTimeLeft(
-                Math.floor(
-                    isNaN(audioElement.duration)? 
-                    0 : audioElement.duration - audioElement.currentTime
-                )
-            )
-        )
-    })
+  // set error listener
+  audio.addEventListener("error", () => {
+    store.dispatch(actionCreators.stop());
+  });
 
-    // set error listener
-    audioElement.addEventListener('error', ()=>{
-        store.dispatch(actionCreators.stop())
-    })
+  // set canplay listener
+  audio.addEventListener("canplay", () => {
+    let mediaState = store.getState().mediaState;
+    if (mediaState === MediaStates.playing)
+      audio.play().catch(() => store.dispatch(actionCreators.stop()));
+  });
 
-    // set canplay listener
-    audioElement.addEventListener('canplay', ()=>{
-        let mediaState = store.getState().mediaState
-        if(mediaState === MediaStates.playing)
-        audioElement.play().catch(
-            () => store.dispatch(actionCreators.stop())
-        )
-    })
+  // set "on playback ended" listener
+  audio.addEventListener("ended", () => {
+    let state = store.getState();
+    let currentTrack = state.currentTrack;
+    let isLastTrack = currentTrack === state.playlist.length - 1;
 
-    // skip to next track after playback ends
-    audioElement.addEventListener('ended', ()=>{
+    switch (state.repeatMode) {
+      case RepeatModes.repeatAll:
+        if (isLastTrack) store.dispatch(actionCreators.changeTrack(0));
+        else store.dispatch(actionCreators.changeTrack(++currentTrack));
+        break;
+      case RepeatModes.repeatOne:
+        audio.play(); // play again
+        break;
+      case RepeatModes.normal:
+      default:
+        if (isLastTrack) store.dispatch(actionCreators.stop());
+        else store.dispatch(actionCreators.changeTrack(++currentTrack));
+    }
+  });
 
-        let currentIndex = store.getState().currentTrack
-        let mediaState = store.getState().mediaState
+  // set default volume level
+  audio.volume = store.getState().volume / 100;
 
-        if(store.getState().currentTrack === store.getState().playlist.length-1)
-            store.dispatch(actionCreators.stop())
-        else if(mediaState === MediaStates.playing)
-            store.dispatch(actionCreators.changeTrack(++currentIndex))
-    })
+  return (next) => (action) => {
+    let state = store.getState();
 
-    // set default volume level
-    audioElement.volume = store.getState().volume/100
+    switch (action.type) {
+      case actionTypes.CHANGE_TRACK:
+        let nexTrack = state.playlist[action.payload.index];
+        audio.setSrc(nexTrack);
+        break;
 
-    return (next) => (action) => {
+      case actionTypes.PLAY:
+        audio.setSrc(state.playlist[state.currentTrack]);
+        audio.play().catch(() => store.dispatch(actionCreators.stop()));
+        break;
 
-        let state = store.getState();
+      case actionTypes.PAUSE:
+        audio.pause();
+        break;
 
-        switch(action.type){
-            case actionTypes.CHANGE_TRACK:
-                 let nexTrack = state.playlist[action.payload.index]
-                audioElement.setSrc(nexTrack)
-                break
+      case actionTypes.STOP:
+        audio.clear();
+        break;
 
-            case actionTypes.PLAY:
-                audioElement.setSrc(state.playlist[state.currentTrack]) 
-                audioElement.play().catch(
-                    () => store.dispatch(actionCreators.stop())
-                )
-                break;
+      case actionTypes.SEEK:
+        audio.currentTime = action.payload.time;
+        break;
 
-            case actionTypes.PAUSE:
-                audioElement.pause()
-                break
+      case actionTypes.CHANGE_VOLUME:
+        audio.volume = action.payload.volume / 100;
+        break;
 
-            case actionTypes.STOP:
-                audioElement.clear()
-                break
-
-            case actionTypes.SEEK:
-                audioElement.currentTime = action.payload.time;
-                break
-
-            case actionTypes.CHANGE_VOLUME:
-                audioElement.volume = action.payload.volume/100;
-                break
-
-            default:
-                break
-        }
-    
-        return next(action);
+      default:
+        break;
     }
 
-}
+    return next(action);
+  };
+};
 
-export default audioOutput
+export default audioOutput;

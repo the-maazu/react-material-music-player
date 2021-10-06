@@ -1,233 +1,229 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 
-import Collapse from '@material-ui/core/Collapse'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
-import { ArrowForwardIos } from '@material-ui/icons';
+import { useSelector, shallowEqual } from "react-redux";
 
-import CoverArt from './CoverArt.js';
-import TrackDetails from './TrackDetials.js'
-import ProgressBar from './ProgressBar.js'
-import Controls from './Controls.js';
-import VolumeControl from './VolumeControl.js'
-import PlaylistControl from './PlaylistControl.js'
-import withoutPropagation from '../utils/withoutPropagation.js';
+import { useTheme, styled } from "@mui/material/styles";
+import { Box, SwipeableDrawer, Paper } from "@mui/material";
 
-import { connect } from 'react-redux'
-import actionCreators from '../redux/actionCreators.js'
+import CoverArt from "./CoverArt.js";
+import TrackDetails from "./TrackDetials.js";
+import ProgressBar from "./ProgressBar.js";
+import Controls from "./Controls.js";
+import VolumeControl from "./VolumeControl.js";
+import PlaylistControl from "./Playlist/PlaylistControl.js";
 
-import '../css/keyframes.css'
+const PREFIX = "Player";
 
-const MAXHEIGHT = '90vh'
-const MINHEIGHT = '10vh'
+const RootPaper = styled(Paper)(({ theme }) => ({
+  width: "100vw",
+  // positioning
+  position: "fixed",
+  bottom: 0,
+  // prevent screen size overflow by making padding part of dimensions
+  boxSizing: "border-box",
+  borderRadius: `${theme.shape.borderRadius} ${theme.shape.borderRadius} 0 0`,
+  // only pad left and right; top padding too much
+  paddingRight: theme.spacing(1),
+  paddingLeft: theme.spacing(1),
+  // incase of overflow in undocked mode
+  overflow: "hidden",
+  transition: theme.transitions.create(["all"]),
+}));
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        position: "fixed",
-        bottom: 0,
-        overflow: isDesktop => isDesktop? 'visible': 'hidden',
-    },
-    paper: {
-        width:'100vw',
-        height: MAXHEIGHT,
-    },
-    container: {
-        '& > div': {
-            margin: isDesktop => isDesktop? theme.spacing(): null
-        }
-    },
-    dropDownButton: {
-        width: '100%',
-        order: 7,
-        '& > *':{
-            transform: 'rotate(90deg)',
-        }
-    },
-    coverArt: {
-        order: 6
-    },
-    trackDetails: {
-        width: isDesktop=> isDesktop? '10%': '20%',
-        order: 5
-    },
-    progressBar: {
-        width: isDesktop => isDesktop? '60%' : '80%',
-        order: isDesktop => isDesktop ? 3 : 4
-    },
-    control: {
-        width: isDesktop => isDesktop? '10%' : '60%',
-        order: isDesktop => isDesktop ? 4 : 3,
-    },
-    volumeControl: {
-        width: isDesktop => isDesktop? '10%': '100%' ,
-        order: 2
-    },
-    playlistControl: {
-        width: isDesktop=> isDesktop? '10%':'100%',
-        order: 1,
-    } 
-  }));
+const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
+  // fixed size root for swipeable
+  // width including padding
+  // boxSizing: "border-box",
+  height: "80vh",
+  marginTop: theme.spacing(6),
+  padding: theme.spacing(1),
+  overflow: "hidden",
 
-function Player(props){
+  // puller to be positioned middle of the parent's border
+  [`& > .${PREFIX}-swipeable-puller`]: {
+    width: 30,
+    height: theme.spacing(1),
+    backgroundColor: theme.palette.action.disabled, // button color
+    borderRadius: 3,
+    // position
+    position: "absolute",
+    top: theme.spacing(3), // center in parent border
+    left: "calc(50% - 15px)", // center horizontally
+  },
+}));
 
-    const theme = useTheme();
-    const isDesktop = useMediaQuery('(min-width:768px)');
-    const classes = useStyles(isDesktop);
+const RowBox = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  flexWrap: "nowrap",
+}));
 
-    const {
-        mediaState,
-        currentTrack,
-        shuffled,
-        maximised,
-        playlist,
-        onPlay,
-        onPause,
-        onChangeTrack,
-        onReorder,
-        onShuffle,
-        onMaximise,
-        onMinimise,
-        currentTime,
-        timeLeft,
-        onSeek,
-        onVolumeChange,
-        volume
-    } = props
+const ColumnBox = styled(Box)(() => ({
+  // fill swipeable drawer root
+  width: "100%",
+  height: "100%",
+  // flexbox
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "end",
+  alignItems: "stretch",
+  flexWrap: "nowrap",
+}));
 
-    // if no songs are loaded do not load player
-    if(playlist.length === 0)
-    return null;
+// box center child
+const CenterChildBox = styled(Box)(() => ({
+  // flexbox
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  flexWrap: "nowrap",
+}));
 
-    const maximise = () => {
-        if(isDesktop || maximised)
-        return
+//create your forceUpdate hook
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
 
-        onMaximise()
+export default function Player(props) {
+  const sx = props.sx;
+  const disableDrawer = props.disableDrawer;
+
+  const theme = useTheme();
+
+  const [maximised, setMaximised] = useState(false);
+  const [isLarge, setLarge] = useState(false);
+  const forceUpdate = useForceUpdate();
+
+  const { currentTrack, playlist } = useSelector(
+    ({ currentTrack, maximised, playlist }) => ({
+      currentTrack,
+      maximised,
+      playlist,
+    }),
+    shallowEqual
+  );
+
+  const openSwipeableDrawer = () => {
+    // only maximise if docked and not large
+    if (!disableDrawer && !isLarge) {
+      setMaximised(true);
     }
+  };
 
-    const minimise = () => {
-        if(!maximised)
-        return
-
-        onMinimise()
+  const closeSwipeableDrawer = () => {
+    // only close if its maximised
+    if (maximised) {
+      setMaximised(false);
     }
+  };
 
-    return (
-        <Collapse
-        className={classes.root}
-        collapsedHeight={MINHEIGHT}
-        in={maximised}
+  const rowView = () => (
+    <RowBox onClick={openSwipeableDrawer}>
+      <CoverArt
+        src={playlist[currentTrack].coverArt}
+        sx={{
+          height: "48px",
+          width: "48px",
+          flexShrink: 0,
+        }}
+      />
+      <TrackDetails
+        sx={{
+          // fixed size to stop resize on content change
+          width: "120px",
+          // grow if screen is small to cover extra space
+          flexGrow: isLarge ? 0 : 1,
+          textAlign: "left",
+          margin: 1,
+          flexShrink: 0,
+        }}
+      />
+      <Controls size={isLarge ? "large" : "small"} />
+      {isLarge ? (
+        <>
+          <ProgressBar sx={{ flexGrow: 6 }} />
+          <VolumeControl sx={{ flexGrow: 2 }} />
+          <PlaylistControl playlistViewMode="popover" />
+        </>
+      ) : null}
+    </RowBox>
+  );
+
+  const columnView = () => (
+    <ColumnBox>
+      {/* grow and center cover art */}
+      <CenterChildBox sx={{ flexGrow: 1 }}>
+        <CoverArt
+          className="children"
+          src={playlist[currentTrack].coverArt}
+          sx={{
+            height: "300px",
+            width: "300px",
+            boxShadow: 4,
+          }}
+        />
+        <TrackDetails
+          sx={{
+            mt: 1,
+            textAlign: "center",
+          }}
+        />
+      </CenterChildBox>
+      <ProgressBar />
+      <Controls />
+      <VolumeControl />
+      <PlaylistControl playlistViewMode="expand" />
+    </ColumnBox>
+  );
+
+  // set large depending on player width
+  const rootRef = React.useRef();
+  useEffect(() => {
+    const rootElement = rootRef.current;
+    if (rootElement.clientWidth > theme.breakpoints.values.md) {
+      if (!isLarge) setLarge(true);
+    } else {
+      if (isLarge) {
+        setLarge(false);
+        // incase maximised before resize
+        if (maximised) setMaximised(false);
+      }
+    }
+  });
+
+  // also set window resize listener
+  useEffect(() => {
+    window.onresize = () => {
+      forceUpdate();
+    };
+  }, []);
+
+  return (
+    // sx from props can be used to override default styles in rowView
+    <RootPaper ref={rootRef} sx={sx} elevation={4}>
+      {/* render row view only when not maximised*/}
+      {maximised ? null : rowView()}
+
+      {!disableDrawer && !isLarge && (
+        <SwipeableDrawer
+          open={maximised}
+          anchor="bottom"
+          onClose={closeSwipeableDrawer}
+          onOpen={openSwipeableDrawer}
         >
-            <Paper 
-            className={classes.paper}
-            onClick={withoutPropagation(maximise)}>
-                <Grid
-                container
-                direction={maximised ? 'column-reverse' : 'row-reverse'}
-                justify='space-between'
-                alignItems='center'
-                wrap='nowrap'
-                className={classes.container}
-                style = {{
-                    height: maximised ? MAXHEIGHT : MINHEIGHT,
-                    padding: maximised? theme.spacing(4): theme.spacing(),
-                    paddingTop: '0px' // push drop down button up
-                }}
-                >
-                    {maximised ?
-                    <IconButton
-                    className={classes.dropDownButton}
-                    onClick={withoutPropagation(minimise)}
-                    >
-                        <ArrowForwardIos fontSize="small"/>
-                    </IconButton>: null}
-
-                    <Grid item className={classes.coverArt}>
-                        <CoverArt 
-                        src={playlist[currentTrack].coverArt} 
-                        size={maximised? '40vh': '6vh'}/>
-                    </Grid>
-
-                    <Grid 
-                    item
-                    className={classes.trackDetails}
-                    style={{width: maximised? '80%' : null}}>
-                        <TrackDetails 
-                        title={playlist[currentTrack].title}
-                        artist={playlist[currentTrack].artist}
-                        showArtist={maximised}/>
-                    </Grid>
-
-                    {maximised || isDesktop ? 
-                    <Grid item className={classes.progressBar}>
-                        <ProgressBar 
-                        currentTime={currentTime} 
-                        timeLeft={timeLeft}
-                        onSeek={onSeek}/>
-                    </Grid> : null}
-
-                    <Grid
-                    item
-                    className={classes.control}>
-                        <Controls
-                        disabled = {playlist.length === 0}
-                        isPlaying={mediaState === 'playing' ? true: false}
-                        onPlay={onPlay}
-                        onPause={onPause}
-                        onSkipNext={() => onChangeTrack(currentTrack+1)}
-                        onSkipPrev={() => onChangeTrack(currentTrack-1)}
-                        />
-                    </Grid>
-
-                    {maximised || isDesktop ?
-                    <Grid item className={classes.volumeControl}>
-                        <VolumeControl 
-                        value = {volume}
-                        onVolumeChange={onVolumeChange}/>
-                    </Grid> : null}
-
-                    {maximised || isDesktop?
-                    <Grid item className={classes.playlistControl}>
-                        <PlaylistControl 
-                        list={playlist}
-                        isShuffled={shuffled}
-                        currentTrackIndex={currentTrack}
-                        isDesktop={isDesktop}
-                        onReorder={onReorder}
-                        onShuffle={onShuffle}
-                        onTrackSelect={onChangeTrack}
-                        />
-                    </Grid> : null}
-                    
-                </Grid>
-            </Paper>
-        </Collapse>
-    );
+          <SwipeableDrawerRoot>
+            <Box
+              className={`${PREFIX}-swipeable-puller`}
+              onClick={closeSwipeableDrawer}
+            />
+            {columnView()}
+          </SwipeableDrawerRoot>
+        </SwipeableDrawer>
+      )}
+    </RootPaper>
+  );
 }
-
-function mapStateToProps(state){
-    return {...state};
-}
-
-function mapDispatchToProps(dispatch){
-    return {
-        onPlay: () => dispatch(actionCreators.play()),
-        onPause: () => dispatch(actionCreators.pause()),
-        onChangeTrack: (index) => dispatch(actionCreators.changeTrack(index)),
-        onReorder: (playlist, currentTrack) =>{
-            dispatch(actionCreators.updatePlaylist(playlist))
-            dispatch(actionCreators.changeTrack(currentTrack))
-        },
-        onShuffle: (bool) => dispatch(actionCreators.shuffle(bool)),
-        onMaximise: () => dispatch(actionCreators.maximise()),
-        onMinimise: () => dispatch(actionCreators.minimise()),
-        onSeek: (time) => dispatch(actionCreators.seek(time)),
-        onVolumeChange: (value) => dispatch(actionCreators.changeVolume(value))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Player)

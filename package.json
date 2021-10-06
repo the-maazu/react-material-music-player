@@ -1,14 +1,16 @@
 {
   "name": "react-material-music-player",
-  "version": "1.0.3",
+  "version": "1.1.0",
+  "description": "This is a highly customisable music player based on mui, has mobile mod,has support for media session controls, reorderable playlist",
   "main": "build_module/index.js",
   "files": [
     "build_module"
   ],
   "dependencies": {
-    "@material-ui/core": "^4.10.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.54",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.1",
+    "@mui/material": "^5.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-draggable-list": "^4.0.3",
@@ -24,6 +26,9 @@
     "@testing-library/user-event": "^7.1.2",
     "babel-plugin-react-css-modules": "^5.2.6",
     "gh-pages": "^3.2.3",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "2.4.1",
     "react-scripts": "^4.0.3"
   },
   "scripts": {
@@ -33,7 +38,8 @@
     "eject": "react-scripts eject",
     "prepublishOnly": "babel src/module --out-dir build_module/ --copy-files",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,7 +56,6 @@
       "last 1 safari version"
     ]
   },
-  "description": "react music player",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/the-maazu/react-material-music-player.git"
@@ -68,5 +73,8 @@
   "bugs": {
     "url": "https://github.com/the-maazu/react-music-player/issues"
   },
-  "homepage": "https://the-maazu.github.io/react-material-music-player"
+  "homepage": "https://the-maazu.github.io/react-material-music-player",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
 }

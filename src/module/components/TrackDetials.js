@@ -1,27 +1,40 @@
-import React from 'react'
+import React from "react";
 
+import { shallowEqual, useSelector } from "react-redux";
 
-import ScrollingText from './ScrollingText.js'
+import Box from "@mui/material/Box";
 
-export default function TrackDetails(props){
+export default function TrackDetails(props) {
+  const { title, artist } = useSelector((state) => {
+    let currentTrack = state.playlist[state.currentTrack];
+    return {
+      title: currentTrack.title,
+      artist: currentTrack.artist,
+    };
+  }, shallowEqual);
 
-    const {
-        title,
-        artist,
-        showArtist
-    } = props;
+  const sx = props.sx;
 
-    return (
-        <div>
-            <ScrollingText>
-               {title}
-            </ScrollingText>
-
-            {showArtist ? 
-            <ScrollingText >
-                {artist}
-            </ScrollingText> : null
-            }
-        </div>
-    )
+  return (
+    <Box sx={sx}>
+      <Box
+        sx={{
+          typography: "subtitl3",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+        }}
+      >
+        {title}
+      </Box>
+      <Box
+        sx={{
+          typography: "subtitle2",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+        }}
+      >
+        {artist}
+      </Box>
+    </Box>
+  );
 }

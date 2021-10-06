@@ -1,67 +1,68 @@
-import React from 'react'
-import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import React from "react";
 
-import IconButton from "@material-ui/core/IconButton";
-import VolumeUpIcon from "@material-ui/icons/VolumeUp";
-import VolumeDownIcon from "@material-ui/icons/VolumeDown";
+import { useDispatch, useSelector } from "react-redux";
+import actionCreators from "../redux/actionCreators";
 
-import withoutPropagation from '../utils/withoutPropagation';
+import { Slider, IconButton, Box } from "@mui/material";
+import {
+  VolumeUp as VolumeUpIcon,
+  VolumeDown as VolumeDownIcon,
+} from "@mui/icons-material";
 
-const useStyles = makeStyles(theme => ({
-    root:{
-        width: '100%'
-    },
-    slider: {
-        width: '50%'
-    }
-  }));
+import withoutPropagation from "../utils/withoutPropagation";
 
-export default function VolumeControl(props){
+export default function VolumeControl(props) {
+  const sx = props.sx;
 
-    const classes = useStyles();
+  const dispatch = useDispatch();
+  const onVolumeChange = (value) =>
+    dispatch(actionCreators.changeVolume(value));
 
-    const {
-        value,
-        onVolumeChange
-    } = props
+  const value = useSelector((state) => state.volume);
 
-    const handleSliderChange = (event, newValue) => {
-        onVolumeChange(newValue)
-    };
+  const handleSliderChange = (event, newValue) => {
+    onVolumeChange(newValue);
+  };
 
-    return (
-        <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        wrap='nowrap'
-        className={classes.root}
-        >
-            <Grid item>
-                <IconButton
-                onClick={
-                    withoutPropagation(onVolumeChange, value < 10? 0 : value-10)
-                }>
-                    <VolumeDownIcon/>
-                </IconButton>
-            </Grid>
-            <Grid item className={classes.slider}>
-                <Slider 
-                value={value}
-                aria-labelledby="continuous-slider" 
-                onChange={handleSliderChange}/>
-            </Grid>
-            <Grid item>
-                <IconButton
-                onClick={
-                    withoutPropagation(onVolumeChange, value > 90 ? 100 : value+10)
-                }>
-                    <VolumeUpIcon/>
-                </IconButton>
-            </Grid>
-        </Grid>
-    )
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        direction: "row",
+        wrap: "nowrap",
+        alignItems: "center",
+        "& > .children": {
+          mx: 1,
+        },
+        ...sx,
+      }}
+    >
+      <IconButton
+        className="children"
+        onClick={withoutPropagation(
+          onVolumeChange,
+          value < 10 ? 0 : value - 10
+        )}
+        size="large"
+      >
+        <VolumeDownIcon />
+      </IconButton>
+      <Slider
+        className="children"
+        value={value}
+        aria-labelledby="continuous-slider"
+        onChange={handleSliderChange}
+      />
+      <IconButton
+        className="children"
+        onClick={withoutPropagation(
+          onVolumeChange,
+          value > 90 ? 100 : value + 10
+        )}
+        size="large"
+      >
+        <VolumeUpIcon />
+      </IconButton>
+    </Box>
+  );
 }

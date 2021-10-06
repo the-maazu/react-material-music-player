@@ -1,65 +1,54 @@
-import React from 'react'
+import React from "react";
 
-import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography'
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import actionCreators from "../redux/actionCreators.js";
 
-import secondsToString from '../utils/secondsToString.js'
+import { Slider, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
-const useStyles = makeStyles(theme => ({
-    root:{
-        width: '100%',
-    },
-    timeText: {
-        margin: theme.spacing(1)
-    },
-    slider: {
-        width: '95%'
-    }
-  }));
+import secondsToString from "../utils/secondsToString.js";
 
-export default function ProgressBar(props){
+export default function ProgressBar(props) {
+  const sx = props.sx;
+  const { timeLeft, currentTime } = useSelector(
+    ({ timeLeft, currentTime }) => ({
+      timeLeft,
+      currentTime,
+    }),
+    shallowEqual
+  );
+  const progress = (currentTime / (timeLeft + currentTime)) * 100;
 
-    const classes = useStyles();
+  const dispatch = useDispatch();
+  const onSeek = (time) => dispatch(actionCreators.seek(time));
 
-    const {
-        timeLeft,
-        currentTime,
-        onSeek
-    } = props
+  const handleSliderChange = (event, newValue) => {
+    onSeek((newValue / 100) * (currentTime + timeLeft));
+  };
 
-    const  progress= (currentTime/ (timeLeft + currentTime) ) * 100
-
-    const handleSliderChange = (event, newValue) => {
-        onSeek( (newValue/100) * (currentTime + timeLeft) )
-    };
-
-    return (
-        <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        wrap='nowrap'
-        className={classes.root}
-        >
-            <Grid item>
-                <Typography className={classes.timeText}>
-                    {secondsToString(currentTime)}
-                </Typography>
-            </Grid>
-            <Grid item className={classes.slider}>
-                <Slider 
-                aria-labelledby="continuous-slider" 
-                value={progress}
-                onChange={handleSliderChange}/>
-            </Grid>
-            <Grid item>
-                <Typography className={classes.timeText}>
-                    {secondsToString(timeLeft)}
-                </Typography>
-            </Grid>
-        </Grid>
-    )
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        wrap: "nowrap",
+        alignItems: "center",
+        "& > .children": {
+          mx: 1,
+        },
+        ...sx,
+      }}
+    >
+      <Typography className="children">
+        {secondsToString(currentTime)}
+      </Typography>
+      <Slider
+        className="children"
+        aria-labelledby="continuous-slider"
+        value={progress}
+        onChange={handleSliderChange}
+      />
+      <Typography className="children">{secondsToString(timeLeft)}</Typography>
+    </Box>
+  );
 }

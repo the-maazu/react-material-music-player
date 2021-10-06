@@ -1,36 +1,35 @@
-import actionTypes from '../actionTypes.js'
-import actionCreators from '../actionCreators.js'
+import actionTypes from "../actionTypes.js";
+import actionCreators from "../actionCreators.js";
 
-import shuffle from '../../utils/shuffle.js'
+import shuffle from "../../utils/shuffle.js";
 
 const shuffler = (store) => (next) => (action) => {
-    
-    let state = store.getState();
+  let state = store.getState();
 
-    if(action.type === actionTypes.SHUFFLE
-        && state.shuffled !== action.payload.shuffle){
-        
-        let playlist = state.playlist;
-        let currentIndex = state.currentTrack
-        let currentTrack = playlist[state.currentTrack] // current track 
-        let upper = playlist.slice(0, currentIndex)
-        let lower = playlist.slice(currentIndex+1, playlist.lenth)
-        
-        let withoutCurrent = upper.concat(lower)
+  if (
+    action.type === actionTypes.SHUFFLE &&
+    state.shuffled !== action.payload.shuffle
+  ) {
+    let playlist = state.playlist;
+    let currentIndex = state.currentTrack;
+    let currentTrack = playlist[state.currentTrack]; // current track
+    let upper = playlist.slice(0, currentIndex);
+    let lower = playlist.slice(currentIndex + 1, playlist.lenth);
 
-        withoutCurrent = action.payload.shuffle ? 
-            shuffle(withoutCurrent) :  withoutCurrent.sort(
-                (first, second) => first.ID < second.ID
-            )
+    let withoutCurrent = upper.concat(lower);
 
-        // update playlist with current track on top
-        store.dispatch(
-            actionCreators.updatePlaylist([currentTrack, ...withoutCurrent])
-        )
-        store.dispatch(actionCreators.changeTrack(0))
-    }
+    withoutCurrent = action.payload.shuffle
+      ? shuffle(withoutCurrent)
+      : withoutCurrent.sort((first, second) => first.ID < second.ID);
 
-    return next(action)
-}
+    // update playlist with current track on top
+    store.dispatch(
+      actionCreators.updatePlaylist([currentTrack, ...withoutCurrent])
+    );
+    store.dispatch(actionCreators.changeTrack(0));
+  }
 
-export default shuffler
+  return next(action);
+};
+
+export default shuffler;
