@@ -1,9 +1,11 @@
-name: push
+name: version bump
 
 on:
   push:
     branches:
       - main
+    paths:
+      - "src/module/**"
 
 jobs:
   build:
@@ -19,3 +21,4 @@ jobs:
           tag-prefix: "v"
           minor-wording: "minor"
           major-wording: "major"
+          skip-tag: "true"
