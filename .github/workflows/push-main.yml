@@ -9,13 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: 'actions/checkout@v2'
-      - name: 'Automated Version Bump'
-        uses: 'phips28/gh-action-bump-version@master'
+      - uses: "actions/checkout@v2"
+      - name: "Automated Version Bump"
+        uses: "phips28/gh-action-bump-version@master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          target-branch: 'main'
-          tag-prefix:  'v'
-          minor-wording: 'minor'
-          major-wording: 'major'
+          target-branch: "main"
+          tag-prefix: "v"
+          minor-wording: "minor"
+          major-wording: "major"

@@ -1,80 +1,75 @@
-import actionTypes from './actionTypes.js'
+import actionTypes from "./actionTypes.js";
 
 const actionCreators = {
-    
-    changeTrack: (index) => ({
-        type: actionTypes.CHANGE_TRACK,
-        payload: {
-            index: index
-        }
-    }),
+  changeTrack: (index) => ({
+    type: actionTypes.CHANGE_TRACK,
+    payload: {
+      index: index,
+    },
+  }),
 
-    play: () => ({
-        type: actionTypes.PLAY,
-    }),
+  play: () => ({
+    type: actionTypes.PLAY,
+  }),
 
-    pause: () => ({
-        type: actionTypes.PAUSE
-    }),
+  pause: () => ({
+    type: actionTypes.PAUSE,
+  }),
 
-    stop: () => ({
-        type: actionTypes.STOP
-    }),
+  stop: () => ({
+    type: actionTypes.STOP,
+  }),
 
-    updatePlaylist: (playlist) => ({
-        type: actionTypes.UPDATE_PLAYLIST,
-        payload: {
-            playlist: playlist
-        }
-    }),
+  updatePlaylist: (playlist) => ({
+    type: actionTypes.UPDATE_PLAYLIST,
+    payload: {
+      playlist: playlist,
+    },
+  }),
 
-    volumeChange: (level) => ({
-        type: actionTypes.VOLUME_CHANGE,
-        payload: {
-            level: level
-        }
-    }),
+  volumeChange: (level) => ({
+    type: actionTypes.VOLUME_CHANGE,
+    payload: {
+      level: level,
+    },
+  }),
 
-    shuffle: (bool) => ({
-        type: actionTypes.SHUFFLE,
-        payload: {shuffle: bool}
-    }),
+  shuffle: (bool) => ({
+    type: actionTypes.SHUFFLE,
+    payload: { shuffle: bool },
+  }),
 
-    maximise: () => ({
-        type: actionTypes.MAXIMISE
-    }),
+  setCurrentTime: (currentTime) => ({
+    type: actionTypes.SET_CURRENT_TIME,
+    payload: {
+      currentTime: currentTime,
+    },
+  }),
 
-    minimise: ()=> ({
-        type: actionTypes.MINIMISE
-    }),
+  setTimeLeft: (timeLeft) => ({
+    type: actionTypes.SET_TIME_LEFT,
+    payload: {
+      timeLeft: timeLeft,
+    },
+  }),
 
-    setCurrentTime: (currentTime) => ({
-        type: actionTypes.SET_CURRENT_TIME,
-        payload: {
-            currentTime: currentTime
-        }
-    }),
+  seek: (time) => ({
+    type: actionTypes.SEEK,
+    payload: {
+      time: time,
+    },
+  }),
 
-    setTimeLeft: (timeLeft) => ({
-        type: actionTypes.SET_TIME_LEFT,
-        payload : {
-            timeLeft: timeLeft
-        }
-    }),
+  changeVolume: (value) => ({
+    type: actionTypes.CHANGE_VOLUME,
+    payload: {
+      volume: value,
+    },
+  }),
 
-    seek: (time) => ({
-        type: actionTypes.SEEK,
-        payload: {
-            time: time
-        }
-    }),
+  setRepeatMode: () => ({
+    type: actionTypes.SET_REPEAT_MODE,
+  }),
+};
 
-    changeVolume: (value) => ({
-        type: actionTypes.CHANGE_VOLUME,
-        payload: {
-            volume: value
-        }
-    })
-}
-
-export default actionCreators 
+export default actionCreators;

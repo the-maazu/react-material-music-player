@@ -1,10 +1,8 @@
-import secondsToString from './secondsToString.js'
-import { ExpansionPanelActions } from '@material-ui/core'
+import secondsToString from "./secondsToString.js";
 
-test('seconds to string', () =>{
+test("seconds to string", () => {
+  let seconds = 600;
+  let string = secondsToString(seconds);
 
-    let seconds = 600
-    let string = secondsToString(seconds);
-
-    expect(string).toEqual('10:00')
-})
+  expect(string).toEqual("10:00");
+});

@@ -1,32 +1,27 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles(() => ({
-    root:{
-        height: args => args.size,
-        width: args => args.size,
-        overflow: 'hidden',
+const StyledImg = styled("img")(() => ({
+  height: "100%",
+  width: "100%",
+}));
 
-        '& > img': {
-            height: '100%',
-            width: '100%'
-        }
-    }
-}))
+export default function CoverArt(props) {
+  const { src, sx } = props;
 
-export default function CoverArt(props){
-
-    const {
-        src,
-        size
-    } = props;
-
-    const classes = useStyles({size})
-
-    return (
-        <div className={classes.root}>
-            <img src={src} alt={"cover art"}/>
-        </div>
-    )
+  return (
+    <Box
+      sx={{
+        border: 1,
+        borderColor: "divider",
+        borderRadius: 2,
+        overflow: "hidden",
+        ...sx,
+      }}
+    >
+      <StyledImg src={src} alt={"cover art"} />
+    </Box>
+  );
 }
