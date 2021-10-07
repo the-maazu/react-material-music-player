@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 
 import actionTypes from "./actionTypes.js";
 
-import { RepeatModes, MediaStates } from "./StoreTypes";
+import { RepeatModes, MediaStates } from "./types";
 import TrackModel from "../model/TrackModel";
 
 function mediaState(state = MediaStates.stopped, action) {

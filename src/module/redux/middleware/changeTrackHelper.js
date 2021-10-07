@@ -1,5 +1,5 @@
 import actionTypes from "../actionTypes.js";
-import { RepeatModes } from "../StoreTypes.js";
+import { RepeatModes } from "../types.js";
 
 const changeTrackHelper = (store) => {
   return (next) => (action) => {

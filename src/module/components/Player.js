@@ -99,9 +99,9 @@ export default function Player(props) {
   const forceUpdate = useForceUpdate();
 
   const { currentTrack, playlist } = useSelector(
-    ({ currentTrack, maximised, playlist }) => ({
+    /** @type {import("../redux/types.js").useSelectCb} */
+    ({ currentTrack, playlist }) => ({
       currentTrack,
-      maximised,
       playlist,
     }),
     shallowEqual
@@ -184,6 +184,10 @@ export default function Player(props) {
   const rootRef = React.useRef();
   // eslint-disable-next-line
   useEffect(() => {
+    /**
+     * Root of the player
+     * @type {Element}
+     * */
     const rootElement = rootRef.current;
     if (rootElement.clientWidth > theme.breakpoints.values.md) {
       if (!isLarge) setLarge(true);

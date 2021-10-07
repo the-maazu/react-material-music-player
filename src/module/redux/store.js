@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
 
 import audioOutput from "./middleware/audioOutput.js";
@@ -8,13 +8,20 @@ import changeTrackHelper from "./middleware/changeTrackHelper";
 import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
 
-import { MediaStates, RepeatModes } from "./StoreTypes";
+import { MediaStates, RepeatModes } from "./types";
 import TrackModel from "../model/TrackModel";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export default createStore(
-  rootReducer,
-  {
+export default configureStore({
+  reducer: rootReducer,
+  middleware: [
+    eventHandler,
+    shuffler,
+    updatePlaylistHelper,
+    changeTrackHelper,
+    mediaSessionActions,
+    audioOutput,
+  ],
+  preloadedState: {
     mediaState: MediaStates.stopped,
     currentTrack: 0,
     shuffled: false,
@@ -22,14 +29,4 @@ export default createStore(
     volume: 25,
     repeatMode: RepeatModes.normal,
   },
-  composeEnhancers(
-    applyMiddleware(
-      eventHandler,
-      shuffler,
-      updatePlaylistHelper,
-      changeTrackHelper,
-      mediaSessionActions,
-      audioOutput
-    )
-  )
-);
+});

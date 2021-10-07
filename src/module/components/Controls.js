@@ -11,12 +11,13 @@ import { Box } from "@mui/material";
 
 import actionCreators from "../redux/actionCreators";
 import withoutPropagation from "../utils/withoutPropagation";
-import { MediaStates } from "../redux/StoreTypes";
+import { MediaStates } from "../redux/types";
 
 export default function Controls(props) {
   const sx = props.sx;
 
   const { mediaState, currentTrack } = useSelector(
+    /** @type {import("../redux/types").useSelectCb} */
     ({ mediaState, currentTrack }) => ({ mediaState, currentTrack }),
     shallowEqual
   );

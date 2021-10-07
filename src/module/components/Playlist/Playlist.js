@@ -13,6 +13,7 @@ export default function Playlist(props) {
   const sx = props.sx;
 
   const { playlist, currentTrack } = useSelector(
+    /** @type {import("../../redux/types.js").useSelectCb} */
     ({ playlist, currentTrack }) => ({
       playlist,
       currentTrack,

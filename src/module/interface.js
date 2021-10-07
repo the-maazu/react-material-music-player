@@ -1,4 +1,4 @@
-import { CustomNativeEventTypes } from "./redux/StoreTypes";
+import { CustomNativeEventTypes } from "./redux/types";
 
 function play(playlist) {
   const event = new CustomEvent(CustomNativeEventTypes.PLAY, {

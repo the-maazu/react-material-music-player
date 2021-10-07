@@ -1,6 +1,6 @@
 import actionTypes from "../actionTypes.js";
 import actionCreators from "../actionCreators.js";
-import { MediaStates, RepeatModes } from "../StoreTypes";
+import { MediaStates, RepeatModes } from "../types";
 
 import AudioOutput from "../../model/AudioOutput.js";
 

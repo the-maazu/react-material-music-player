@@ -9,13 +9,13 @@ export default class AudioOutput extends Audio {
   setSrc(track) {
     if (track === undefined) return;
     if (!this.isCurrent(track)) {
-      super.src = track.source;
+      this.src = track.source;
       this.track = track;
     }
   }
 
   clear() {
-    if (super.src === "") return;
+    if (this.src === "") return;
     this.setSrc(new TrackModel("", "", "", "", ""));
   }
   isCurrent(track) {

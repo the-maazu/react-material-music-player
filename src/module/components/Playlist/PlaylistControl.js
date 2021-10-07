@@ -16,7 +16,7 @@ import styled from "@mui/material/styles/styled";
 
 import Playlist from "./Playlist.js";
 
-import { RepeatModes } from "../../redux/StoreTypes";
+import { RepeatModes } from "../../redux/types";
 
 const PREFIX = "PlaylistControl";
 
@@ -72,8 +72,14 @@ export default function PlaylistControl(props) {
   const sx = props.sx;
   const playlistViewMode = props.playlistViewMode;
 
-  const shuffled = useSelector((state) => state.shuffled);
-  const repeatMode = useSelector((state) => state.repeatMode);
+  const shuffled = useSelector(
+    /** @type {import("../../redux/types").useSelectCb} */
+    (state) => state.shuffled
+  );
+  const repeatMode = useSelector(
+    /** @type {import("../../redux/types").useSelectCb} */
+    (state) => state.repeatMode
+  );
   const [playlistVisible, showPlaylist] = useState(false);
   const [anchorEl, setAnchor] = useState(null);
 
@@ -109,7 +115,8 @@ export default function PlaylistControl(props) {
           selected={playlistVisible}
           onChange={(e) => {
             setAnchor(
-              e.target.parentElement.parentElement.parentElement.parentElement
+              /** @type {Node} */ (e.target).parentElement.parentElement
+                .parentElement.parentElement
             );
             showPlaylist(!playlistVisible);
           }}

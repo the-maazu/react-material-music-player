@@ -1,12 +1,12 @@
-import Track from "../../model/TrackModel.js";
+import TrackModel from "../../model/TrackModel.js";
 import actionCreators from "../actionCreators.js";
-import { CustomNativeEventTypes } from "../StoreTypes";
+import { CustomNativeEventTypes } from "../types";
 
 export default function eventHandler(store) {
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
-    let playlist = e.detail;
+    let playlist = /**@type {CustomEvent}*/ (e).detail;
 
-    if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
+    if (playlist.length < 1) playlist.push(new TrackModel("", "", "", "", ""));
 
     // eplicitly stop and insert new playlist
     store.dispatch(actionCreators.stop());

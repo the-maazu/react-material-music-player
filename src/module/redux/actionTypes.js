@@ -1,3 +1,7 @@
+/**
+ * Store action types
+ * @enum {string}
+ */
 const actionTypes = {
   CHANGE_TRACK: "CHANGE_TRACK",
   PLAY: "PLAY",

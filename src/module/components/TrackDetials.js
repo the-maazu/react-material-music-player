@@ -5,13 +5,17 @@ import { shallowEqual, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 
 export default function TrackDetails(props) {
-  const { title, artist } = useSelector((state) => {
-    let currentTrack = state.playlist[state.currentTrack];
-    return {
-      title: currentTrack.title,
-      artist: currentTrack.artist,
-    };
-  }, shallowEqual);
+  const { title, artist } = useSelector(
+    /**@type {import("../redux/types").useSelectCb} */
+    (state) => {
+      let currentTrack = state.playlist[state.currentTrack];
+      return {
+        title: currentTrack.title,
+        artist: currentTrack.artist,
+      };
+    },
+    shallowEqual
+  );
 
   const sx = props.sx;
 
