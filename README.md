@@ -34,7 +34,7 @@ Demo hosted [here](https://the-maazu.github.io/react-material-music-player/)
 1.  create tracks:
 <pre><code>
 new TrackModel( 
-    index: string, 
+    ID: string, 
     coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>,
     title: string,
     artist: string, 
@@ -49,7 +49,7 @@ new TrackModel(
     PlayerInterface.playAfter(tracks: []) // insert after current track:
 </code></pre>
 
-<strong style="color:red">NOTE: index should be unique to every track including ones being appended and inserted. Sorting and shuffling is dependent on the index value.</strong>
+<strong style="color:red">NOTE: ID should be unique to every track including ones being appended and inserted. Sorting and shuffling is dependent on the index value.</strong>
 
 ## theming & customisation
 

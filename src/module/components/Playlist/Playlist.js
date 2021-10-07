@@ -21,10 +21,8 @@ export default function Playlist(props) {
   );
 
   const dispatch = useDispatch();
-  const onReorder = (newList, newIndex) => {
+  const onReorder = (newList) =>
     dispatch(actionCreators.updatePlaylist(newList));
-    dispatch(actionCreators.changeTrack(newIndex));
-  };
   const onTrackSelect = (index) => dispatch(actionCreators.changeTrack(index));
 
   const draggablelistContainerRef = React.createRef();
@@ -43,14 +41,7 @@ export default function Playlist(props) {
         list={playlist}
         itemKey="ID"
         template={PlaylistItemTemplate}
-        onMoveEnd={(newList) => {
-          onReorder(
-            newList,
-            newList.findIndex((track) => {
-              return track.ID === playlist[currentTrack].ID;
-            })
-          );
-        }}
+        onMoveEnd={onReorder}
         container={() => draggablelistContainerRef.current}
         commonProps={{
           listOfID: playlist.map((element) => element.ID),

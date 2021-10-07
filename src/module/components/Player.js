@@ -84,7 +84,7 @@ const CenterChildBox = styled(Box)(() => ({
 
 //create your forceUpdate hook
 function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
+  const [, setValue] = useState(0); // integer state
   return () => setValue((value) => value + 1); // update the state to force render
 }
 
@@ -182,6 +182,7 @@ export default function Player(props) {
 
   // set large depending on player width
   const rootRef = React.useRef();
+  // eslint-disable-next-line
   useEffect(() => {
     const rootElement = rootRef.current;
     if (rootElement.clientWidth > theme.breakpoints.values.md) {
@@ -200,6 +201,7 @@ export default function Player(props) {
     window.onresize = () => {
       forceUpdate();
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

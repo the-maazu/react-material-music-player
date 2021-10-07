@@ -9,6 +9,7 @@ import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
 
 import { MediaStates, RepeatModes } from "./StoreTypes";
+import TrackModel from "../model/TrackModel";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default createStore(
@@ -17,7 +18,7 @@ export default createStore(
     mediaState: MediaStates.stopped,
     currentTrack: 0,
     shuffled: false,
-    playlist: [],
+    playlist: [new TrackModel("", "", "", "", "")], // single default empty track
     volume: 25,
     repeatMode: RepeatModes.normal,
   },

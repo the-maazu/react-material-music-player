@@ -3,7 +3,7 @@ import TrackModel from "./TrackModel";
 export default class AudioOutput extends Audio {
   constructor() {
     super();
-    this.track = new TrackModel(-1, "", "", "", ""); // default track
+    this.track = new TrackModel("", "", "", "", ""); // default track
   }
 
   setSrc(track) {
@@ -16,7 +16,7 @@ export default class AudioOutput extends Audio {
 
   clear() {
     if (super.src === "") return;
-    this.setSrc(new TrackModel(-1, "", "", "", ""));
+    this.setSrc(new TrackModel("", "", "", "", ""));
   }
   isCurrent(track) {
     return this.track.ID === track.ID;

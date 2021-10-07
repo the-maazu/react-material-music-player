@@ -1,11 +1,17 @@
+import Track from "../../model/TrackModel.js";
 import actionCreators from "../actionCreators.js";
 import { CustomNativeEventTypes } from "../StoreTypes";
 
 export default function eventHandler(store) {
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
+    let playlist = e.detail;
+
+    if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
+
+    // eplicitly stop and insert new playlist
     store.dispatch(actionCreators.stop());
     store.dispatch(actionCreators.changeTrack(0));
-    store.dispatch(actionCreators.updatePlaylist(e.detail));
+    store.dispatch(actionCreators.updatePlaylist(playlist));
     store.dispatch(actionCreators.play());
   });
 

@@ -17,6 +17,12 @@ class PlaylistItemTemplate extends React.Component {
     this.props = props;
   }
 
+  handleSelect() {
+    const commonProps = this.props.commonProps;
+    const item = this.props.item;
+    commonProps.onTrackSelect(commonProps.listOfID.indexOf(item.ID));
+  }
+
   render() {
     const { item, dragHandleProps, commonProps, itemSelected } = this.props;
 
@@ -27,7 +33,6 @@ class PlaylistItemTemplate extends React.Component {
           // flex box
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
           alignItems: "center",
           flexWrap: "nowrap",
           // border
@@ -40,33 +45,32 @@ class PlaylistItemTemplate extends React.Component {
           // elvate when selected
           boxShadow: itemSelected > 0 ? 16 : 0,
         }}
-        onClick={withoutPropagation(
-          commonProps.onTrackSelect,
-          commonProps.listOfID.findIndex((ID) => ID === item.ID)
-        )}
       >
-        {/*render now playing icon or empty box matching icon size */}
-        {commonProps.currentTrackID === item.ID ? (
-          <PlayIcon />
-        ) : (
-          <Box sx={{ width: "24px", height: "24px" }} />
-        )}
+        <Box
+          sx={{ display: "flex", flexGrow: 1, alignItems: "center" }}
+          onClick={withoutPropagation(this.handleSelect.bind(this))}
+        >
+          {/*render now playing icon or empty box matching icon size */}
+          {commonProps.currentTrackID === item.ID ? (
+            <PlayIcon />
+          ) : (
+            <Box sx={{ width: "24px", height: "24px" }} />
+          )}
+          <CoverArt
+            src={item.coverArt}
+            sx={{
+              height: "48px",
+              width: "48px",
+            }}
+          />
 
-        <CoverArt
-          src={item.coverArt}
-          sx={{
-            height: "48px",
-            width: "48px",
-          }}
-        />
-
-        <Box sx={{ flexGrow: 1, mx: 1 }}>
-          <Box sx={{ typography: "subtitl3" }}>{item.title}</Box>
-          <Box sx={{ typography: "subtitle2" }}>{item.artist}</Box>
+          <Box sx={{ flexGrow: 1, mx: 1 }}>
+            <Box sx={{ typography: "subtitl3" }}>{item.title}</Box>
+            <Box sx={{ typography: "subtitle2" }}>{item.artist}</Box>
+          </Box>
         </Box>
-
         <ReorderIcon
-          item
+          sx={{ mx: 1 }}
           {...dragHandleProps}
           onClick={(e) => {
             e.stopPropagation();

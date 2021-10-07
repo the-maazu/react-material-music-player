@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
 import actionTypes from "./actionTypes.js";
+
 import { RepeatModes, MediaStates } from "./StoreTypes";
+import TrackModel from "../model/TrackModel";
 
 function mediaState(state = MediaStates.stopped, action) {
   switch (action.type) {
@@ -16,7 +18,7 @@ function mediaState(state = MediaStates.stopped, action) {
   }
 }
 
-function playlist(state = [], action) {
+function playlist(state = [new TrackModel("", "", "", "", "")], action) {
   if (action.type === actionTypes.UPDATE_PLAYLIST)
     return action.payload.playlist;
   else return state;
