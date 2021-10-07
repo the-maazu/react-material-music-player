@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-material-music-player/static/css/main.002c75b1.chunk.css",
-    "main.js": "/react-material-music-player/static/js/main.8728d4c7.chunk.js",
-    "main.js.map": "/react-material-music-player/static/js/main.8728d4c7.chunk.js.map",
+    "main.js": "/react-material-music-player/static/js/main.e956f660.chunk.js",
+    "main.js.map": "/react-material-music-player/static/js/main.e956f660.chunk.js.map",
     "runtime-main.js": "/react-material-music-player/static/js/runtime-main.086f9829.js",
     "runtime-main.js.map": "/react-material-music-player/static/js/runtime-main.086f9829.js.map",
     "static/js/2.fee914f5.chunk.js": "/react-material-music-player/static/js/2.fee914f5.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.086f9829.js",
     "static/js/2.fee914f5.chunk.js",
     "static/css/main.002c75b1.chunk.css",
-    "static/js/main.8728d4c7.chunk.js"
+    "static/js/main.e956f660.chunk.js"
   ]
 }
