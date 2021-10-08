@@ -1,4 +1,4 @@
-import actionTypes from "../actionTypes.js";
+import { ActionTypes } from "../types";
 import actionCreators from "../actionCreators.js";
 
 import shuffle from "../../utils/shuffle.js";
@@ -7,7 +7,7 @@ const shuffler = (store) => (next) => (action) => {
   let state = store.getState();
 
   if (
-    action.type === actionTypes.SHUFFLE &&
+    action.type === ActionTypes.SHUFFLE &&
     state.shuffled !== action.payload.shuffle
   ) {
     let playlist = state.playlist;

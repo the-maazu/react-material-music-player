@@ -1,69 +1,59 @@
 /**
  * This contains all data needed for a song
  * @constructor
- * @param {!string} trackID
- * @param {!string} coverArt
+ * @param {!string} trackID - Unique identifier used in sorting after shuffle
+ * @param {!string} coverArt -  URL to cover art image
  * @param {!string} title
  * @param {!string} artist
- * @param {!string} source
+ * @param {!string} source - URL to music file
  */
-export function TrackModel(trackID, coverArt, title, artist, source) {
-  /**
-   * Unique identifier used in sorting after shuffle
-   * @readonly
-   * */
+export function Track(trackID, coverArt, title, artist, source) {
+  /** @readonly*/
   this.ID = trackID;
-  /**
-   * URL to cover art image
-   * @readonly
-   * */
+  /** @readonly*/
   this.coverArt = coverArt;
   /**@readonly */
   this.title = title;
   /**@readonly */
   this.artist = artist;
-  /**
-   * URL to music file
-   * @readonly
-   * */
+  /** @readonly*/
   this.source = source;
 
   this.getSource = function () {
     return source;
   };
 }
-/**@typedef {TrackModel} Track */
 
 /**
- * @typedef {object} state - State object
- * @prop {MediaStates} mediaState - Media state
+ * @typedef {object} State - State object
+ * @prop {MediaState} mediaState - Media state
  * @prop {number} currentTrack - Current time in seconds
  * @prop {boolean} shuffled - Boolean representation of whether playlist is shuffled or not
- * @prop {Array<TrackModel>} playlist - Array of tracks supplied to player
+ * @prop {Array<Track>} playlist - Array of tracks supplied to player
  * @prop {number} currentTime - Current progress in seconds
  * @prop {number}  timeLeft - Time left to end play in seconds
  * @prop {number} volume - Volme level
- * @prop {RepeatModes} repeatMode - Repeat mode
+ * @prop {RepeatMode} repeatMode - Repeat mode
  */
 
 /**
  * Media states
  * @enum {string}
  */
-export const MediaStates = {
-  stopped: "stopped",
-  playing: "playing",
-  paused: "paused",
+export const MediaState = {
+  STOPPED: "STOPPED",
+  PLAYING: "PLAYING",
+  PAUSED: "PAUSED",
 };
 
 /**
  * Repeat modes
  * @enum {string}
  */
-export const RepeatModes = {
-  normal: "normal",
-  repeatAll: "repeatAll",
-  repeatOne: "repeatOne",
+export const RepeatMode = {
+  NORMAL: "NORMAL",
+  REPEAT_ALL: "REPEAT_ALL",
+  REPEAT_ONE: "REPEAT_ONE",
 };
 
 /**
@@ -72,13 +62,13 @@ export const RepeatModes = {
  */
 export const CustomNativeEventTypes = {
   PLAY: "PLAY",
-  PLAYLATER: "PLAY LATER",
-  PLAYNEXT: "PLAY NEXT",
+  PLAY_LATER: "PLAY_LATER",
+  PLAY_NEXT: "PLAY_NEXT",
 };
 
 /** Call back for useSelect hook
  * @callback useSelectCb
- * @param {state} state
+ * @param {State} state
  */
 
 /**
@@ -86,11 +76,11 @@ export const CustomNativeEventTypes = {
  * @class
  * @extends {Audio}
  */
-export default class AudioOutput extends Audio {
+export class AudioOutput extends Audio {
   constructor() {
     super();
     /**@private */
-    this.track = new TrackModel("", "", "", "", ""); // default track
+    this.track = new Track("", "", "", "", ""); // default track
   }
 
   /**
@@ -110,7 +100,7 @@ export default class AudioOutput extends Audio {
    */
   clear() {
     if (this.src === "") return;
-    this.setSrc(new TrackModel("", "", "", "", ""));
+    this.setSrc(new Track("", "", "", "", ""));
   }
 
   /**
@@ -122,3 +112,23 @@ export default class AudioOutput extends Audio {
     return this.track.ID === track.ID;
   }
 }
+
+/**
+ * Store action types
+ * @enum {string}
+ */
+export const ActionTypes = {
+  CHANGE_TRACK: "CHANGE_TRACK",
+  PLAY: "PLAY",
+  PAUSE: "PAUSE",
+  STOP: "STOP",
+  SHUFFLE: "SHUFFLE",
+  UPDATE_PLAYLIST: "UPDATE_PLAYLIST",
+  CHANGE_VOLUME: "CHANGE_VOLUME",
+  SET_START_TIME: "SET_START_TIME",
+  SET_STOP_TIME: "SET_STOP_TIME",
+  SET_CURRENT_TIME: "SET_CURRENT_TIME",
+  SET_TIME_LEFT: "SET_TIME_LEFT",
+  SEEK: "SEEK",
+  SET_REPEAT_MODE: "SET_REPEAT_MODE",
+};

@@ -8,8 +8,8 @@ import changeTrackHelper from "./middleware/changeTrackHelper";
 import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
 
-import { MediaStates, RepeatModes } from "./types";
-import TrackModel from "../model/TrackModel";
+import { MediaState, RepeatMode } from "./types";
+import { Track } from "./types";
 
 export default configureStore({
   reducer: rootReducer,
@@ -22,11 +22,11 @@ export default configureStore({
     audioOutput,
   ],
   preloadedState: {
-    mediaState: MediaStates.stopped,
+    mediaState: MediaState.STOPPED,
     currentTrack: 0,
     shuffled: false,
-    playlist: [new TrackModel("", "", "", "", "")], // single default empty track
+    playlist: [new Track("", "", "", "", "")], // single default empty track
     volume: 25,
-    repeatMode: RepeatModes.normal,
+    repeatMode: RepeatMode.NORMAL,
   },
 });

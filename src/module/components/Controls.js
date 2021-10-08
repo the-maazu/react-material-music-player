@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 
 import actionCreators from "../redux/actionCreators";
 import withoutPropagation from "../utils/withoutPropagation";
-import { MediaStates } from "../redux/types";
+import { MediaState } from "../redux/types";
 
 export default function Controls(props) {
   const sx = props.sx;
@@ -30,7 +30,7 @@ export default function Controls(props) {
   const onPlay = () => dispatch(actionCreators.play());
   const onPause = () => dispatch(actionCreators.pause());
 
-  const playing = mediaState === MediaStates.playing ? true : false;
+  const playing = mediaState === MediaState.PLAYING ? true : false;
 
   return (
     <Box

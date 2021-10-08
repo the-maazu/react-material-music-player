@@ -1,64 +1,62 @@
 import { combineReducers } from "redux";
 
-import actionTypes from "./actionTypes.js";
+import { RepeatMode, MediaState } from "./types";
+import { Track, ActionTypes } from "./types";
 
-import { RepeatModes, MediaStates } from "./types";
-import TrackModel from "../model/TrackModel";
-
-function mediaState(state = MediaStates.stopped, action) {
+function mediaState(state = MediaState.STOPPED, action) {
   switch (action.type) {
-    case actionTypes.PLAY:
-      return MediaStates.playing;
-    case actionTypes.PAUSE:
-      return MediaStates.paused;
-    case actionTypes.STOP:
-      return MediaStates.stopped;
+    case ActionTypes.PLAY:
+      return MediaState.PLAYING;
+    case ActionTypes.PAUSE:
+      return MediaState.PAUSED;
+    case ActionTypes.STOP:
+      return MediaState.STOPPED;
     default:
       return state;
   }
 }
 
-function playlist(state = [new TrackModel("", "", "", "", "")], action) {
-  if (action.type === actionTypes.UPDATE_PLAYLIST)
+function playlist(state = [new Track("", "", "", "", "")], action) {
+  if (action.type === ActionTypes.UPDATE_PLAYLIST)
     return action.payload.playlist;
   else return state;
 }
 
 function currentTrack(state = 0, action) {
-  if (action.type === actionTypes.CHANGE_TRACK) return action.payload.index;
+  if (action.type === ActionTypes.CHANGE_TRACK) return action.payload.index;
   else return state;
 }
 
 function shuffled(state = false, action) {
-  if (action.type === actionTypes.SHUFFLE) return action.payload.shuffle;
+  if (action.type === ActionTypes.SHUFFLE) return action.payload.shuffle;
   else return state;
 }
 
 function currentTime(state = 0, action) {
-  if (action.type === actionTypes.SET_CURRENT_TIME)
+  if (action.type === ActionTypes.SET_CURRENT_TIME)
     return action.payload.currentTime;
   else return state;
 }
 
 function timeLeft(state = 0, action) {
-  if (action.type === actionTypes.SET_TIME_LEFT) return action.payload.timeLeft;
+  if (action.type === ActionTypes.SET_TIME_LEFT) return action.payload.timeLeft;
   else return state;
 }
 
 function volume(state = 0, action) {
-  if (action.type === actionTypes.CHANGE_VOLUME) return action.payload.volume;
+  if (action.type === ActionTypes.CHANGE_VOLUME) return action.payload.volume;
   else return state;
 }
 
-function repeatMode(state = RepeatModes.normal, action) {
-  if (action.type !== actionTypes.SET_REPEAT_MODE) return state;
+function repeatMode(state = RepeatMode.NORMAL, action) {
+  if (action.type !== ActionTypes.SET_REPEAT_MODE) return state;
   switch (state) {
-    case RepeatModes.normal:
-      return RepeatModes.repeatAll;
-    case RepeatModes.repeatAll:
-      return RepeatModes.repeatOne;
-    case RepeatModes.repeatOne:
-      return RepeatModes.normal;
+    case RepeatMode.NORMAL:
+      return RepeatMode.REPEAT_ALL;
+    case RepeatMode.REPEAT_ALL:
+      return RepeatMode.REPEAT_ONE;
+    case RepeatMode.REPEAT_ONE:
+      return RepeatMode.NORMAL;
     default:
       return state;
   }

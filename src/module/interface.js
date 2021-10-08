@@ -8,14 +8,14 @@ function play(playlist) {
 }
 
 function playNext(playlist) {
-  const event = new CustomEvent(CustomNativeEventTypes.PLAYNEXT, {
+  const event = new CustomEvent(CustomNativeEventTypes.PLAY_NEXT, {
     detail: playlist,
   });
   window.dispatchEvent(event);
 }
 
 function playLater(playlist) {
-  const event = new CustomEvent(CustomNativeEventTypes.PLAYLATER, {
+  const event = new CustomEvent(CustomNativeEventTypes.PLAY_LATER, {
     detail: playlist,
   });
   window.dispatchEvent(event);

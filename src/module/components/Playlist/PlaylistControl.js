@@ -16,7 +16,7 @@ import styled from "@mui/material/styles/styled";
 
 import Playlist from "./Playlist.js";
 
-import { RepeatModes } from "../../redux/types";
+import { RepeatMode } from "../../redux/types";
 
 const PREFIX = "PlaylistControl";
 
@@ -46,10 +46,10 @@ function RepeatButton(props) {
   const { value, ...other } = props;
 
   return (
-    <ToggleButton selected={value !== RepeatModes.normal} {...other}>
-      {value === RepeatModes.normal ? (
+    <ToggleButton selected={value !== RepeatMode.NORMAL} {...other}>
+      {value === RepeatMode.NORMAL ? (
         <RepeatRounded />
-      ) : value === RepeatModes.repeatAll ? (
+      ) : value === RepeatMode.REPEAT_ALL ? (
         <RepeatOnRounded />
       ) : (
         <RepeatOneOnRounded />
