@@ -25,4 +25,7 @@ yarn-error.log*
 .vscode
 
 # module
-/build_module
+/dist
+
+# typecheck log
+tsc.log

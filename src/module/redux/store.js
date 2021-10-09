@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
 
 import audioOutput from "./middleware/audioOutput.js";
@@ -7,29 +7,28 @@ import eventHandler from "./middleware/events.js";
 import changeTrackHelper from "./middleware/changeTrackHelper";
 import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
+import skipHelper from "./middleware/skipHelper";
 
-import { MediaStates, RepeatModes } from "./StoreTypes";
-import TrackModel from "../model/TrackModel";
+import { MediaState, RepeatMode } from "./types";
+import { Track } from "./types";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export default createStore(
-  rootReducer,
-  {
-    mediaState: MediaStates.stopped,
+export default configureStore({
+  reducer: rootReducer,
+  middleware: [
+    eventHandler,
+    shuffler,
+    updatePlaylistHelper,
+    mediaSessionActions,
+    changeTrackHelper,
+    audioOutput, // audio output might drop skip action
+    skipHelper, // skip helper must come after audioOutput
+  ],
+  preloadedState: {
+    mediaState: MediaState.STOPPED,
     currentTrack: 0,
     shuffled: false,
-    playlist: [new TrackModel("", "", "", "", "")], // single default empty track
+    playlist: [new Track("", "", "", "", "")], // single default empty track
     volume: 25,
-    repeatMode: RepeatModes.normal,
+    repeatMode: RepeatMode.NORMAL,
   },
-  composeEnhancers(
-    applyMiddleware(
-      eventHandler,
-      shuffler,
-      updatePlaylistHelper,
-      changeTrackHelper,
-      mediaSessionActions,
-      audioOutput
-    )
-  )
-);
+});

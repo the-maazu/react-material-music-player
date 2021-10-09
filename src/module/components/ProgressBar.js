@@ -11,6 +11,7 @@ import secondsToString from "../utils/secondsToString.js";
 export default function ProgressBar(props) {
   const sx = props.sx;
   const { timeLeft, currentTime } = useSelector(
+    /**@type {import("../redux/types.js").useSelectCb} */
     ({ timeLeft, currentTime }) => ({
       timeLeft,
       currentTime,

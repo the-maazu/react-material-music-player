@@ -10,11 +10,11 @@ const mediaSessionActions = (store) => {
   );
 
   navigator.mediaSession.setActionHandler("nexttrack", () =>
-    store.dispatch(actionCreator.changeTrack(store.getState().currentTrack + 1))
+    store.dispatch(actionCreator.skipNext())
   );
 
   navigator.mediaSession.setActionHandler("previoustrack", () =>
-    store.dispatch(actionCreator.changeTrack(store.getState().currentTrack - 1))
+    store.dispatch(actionCreator.skipPrev())
   );
 
   return (next) => (action) => next(action);

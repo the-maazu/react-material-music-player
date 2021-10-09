@@ -18,7 +18,10 @@ export default function VolumeControl(props) {
   const onVolumeChange = (value) =>
     dispatch(actionCreators.changeVolume(value));
 
-  const value = useSelector((state) => state.volume);
+  const value = useSelector(
+    /**@type {import("../redux/types").useSelectCb} */
+    (state) => state.volume
+  );
 
   const handleSliderChange = (event, newValue) => {
     onVolumeChange(newValue);

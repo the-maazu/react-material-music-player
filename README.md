@@ -1,15 +1,17 @@
 ## The Player
 
-This is a highly customisable music player based on [mui](https://mui.com).
+This is a highly customisable music player powered by [mui-v5](https://mui.com).
+
+Live [demo here](https://the-maazu.github.io/react-material-music-player/)
 
 ## features
 
 - Highly customisable.
 - Reorderable playlist.
-- Mobile mode.
-- Support for media session controls.
+- Media session action & metadata.
+- Mobile mode drawer.
 
-Demo hosted [here](https://the-maazu.github.io/react-material-music-player/)
+[Release notes](https://github.com/the-maazu/react-material-music-player/releases)
 
 ## installation
 
@@ -17,7 +19,7 @@ Demo hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 2.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
 
-3.  <code>import { [TrackModel](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/model), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
+3.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
 
 ## usage
 
@@ -25,7 +27,7 @@ Demo hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 <code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={tue|false}/&gt;</code>
 
-- <code>sx(object)</code>: This is a superset of CSS introduced with muiv5. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
+- <code>sx(object)</code>: This is a superset of CSS introduced with mui-v5. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
 
 - <code>disableDrawer(bool)</code>: Mobile drawer is activated when player is too small to contain all the controls. It is likely you would want this feature disabled if you render the Player in the normal document flow or want to use Player as widget in your app.
 
@@ -33,23 +35,21 @@ Demo hosted [here](https://the-maazu.github.io/react-material-music-player/)
 
 1.  create tracks:
 <pre><code>
-new TrackModel( 
-    ID: string, 
+new Track( 
+    ID: string, // unique ID used in shuffling and sorting
     coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>,
     title: string,
     artist: string, 
-    source: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/src">string</a>
+    source: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/src">string</a> // url to music file
 )
 </code></pre>
 
 2.  set, append or insert playlist:
 <pre><code>
-    PlayerInterface.play(tracks: []) // sets a new playlist and starts playing
-    PlayerInterface.playLater(tracks: []) // appends to end of playlist
-    PlayerInterface.playAfter(tracks: []) // insert after current track:
+    PlayerInterface.play( Track[] ) // sets a new playlist and starts playing
+    PlayerInterface.playLater( Track[] ) // appends to end of playlist
+    PlayerInterface.playAfter( Track[] ) // insert after current track:
 </code></pre>
-
-<strong style="color:red">NOTE: ID should be unique to every track including ones being appended and inserted. Sorting and shuffling is dependent on the index value.</strong>
 
 ## theming & customisation
 
@@ -95,7 +95,7 @@ const theme = createTheme({
 Notice the convenience [color objects](https://mui.com/customization/color/) provided at @mui/material/colors.
 Its also possible to assign the full object without being too specific: <code>primary:green</code>
 
-For the theme to take effect Player must be a decendent of the ThemeProvider component
+For the theme to take effect Player must be a descendent of the ThemeProvider component
 
 <pre><code>
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
@@ -120,7 +120,7 @@ const theme = createTheme({
 });
 </code></pre>
 
-You can also create two seperate palettes and programmatically create theme based on user or system preference. [makeTheme.js()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic for the [Demo](https://the-maazu.github.io/react-material-music-player/).
+You can also create two seperate palettes and programmatically create theme based on user or system preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic for the [Demo](https://the-maazu.github.io/react-material-music-player/).
 
 ### targeting components
 

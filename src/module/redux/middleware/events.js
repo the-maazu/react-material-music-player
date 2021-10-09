@@ -1,10 +1,10 @@
-import Track from "../../model/TrackModel.js";
+import { Track } from "../types";
 import actionCreators from "../actionCreators.js";
-import { CustomNativeEventTypes } from "../StoreTypes";
+import { CustomNativeEventTypes } from "../types";
 
 export default function eventHandler(store) {
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
-    let playlist = e.detail;
+    let playlist = /**@type {CustomEvent}*/ (e).detail;
 
     if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
 
@@ -21,7 +21,7 @@ export default function eventHandler(store) {
 
     let newPlaylist = [];
 
-    if (e.type === CustomNativeEventTypes.PLAYNEXT)
+    if (e.type === CustomNativeEventTypes.PLAY_NEXT)
       newPlaylist = currentPlaylist.reduce(
         (accumulator, currentValue, index) => {
           if (index === currentTrack)
@@ -30,7 +30,7 @@ export default function eventHandler(store) {
         },
         []
       );
-    else if (e.type === CustomNativeEventTypes.PLAYLATER) {
+    else if (e.type === CustomNativeEventTypes.PLAY_LATER) {
       newPlaylist = currentPlaylist.concat(e.detail);
     }
 
@@ -38,12 +38,12 @@ export default function eventHandler(store) {
   };
 
   window.addEventListener(
-    CustomNativeEventTypes.PLAYNEXT,
+    CustomNativeEventTypes.PLAY_NEXT,
     playNextAfterHandler
   );
 
   window.addEventListener(
-    CustomNativeEventTypes.PLAYLATER,
+    CustomNativeEventTypes.PLAY_LATER,
     playNextAfterHandler
   );
 

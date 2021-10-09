@@ -1,75 +1,83 @@
-import actionTypes from "./actionTypes.js";
+import { ActionTypes } from "./types";
 
-const actionCreators = {
+const ActionCreators = {
   changeTrack: (index) => ({
-    type: actionTypes.CHANGE_TRACK,
+    type: ActionTypes.CHANGE_TRACK,
     payload: {
       index: index,
     },
   }),
 
   play: () => ({
-    type: actionTypes.PLAY,
+    type: ActionTypes.PLAY,
   }),
 
   pause: () => ({
-    type: actionTypes.PAUSE,
+    type: ActionTypes.PAUSE,
   }),
 
   stop: () => ({
-    type: actionTypes.STOP,
+    type: ActionTypes.STOP,
   }),
 
   updatePlaylist: (playlist) => ({
-    type: actionTypes.UPDATE_PLAYLIST,
+    type: ActionTypes.UPDATE_PLAYLIST,
     payload: {
       playlist: playlist,
     },
   }),
 
-  volumeChange: (level) => ({
-    type: actionTypes.VOLUME_CHANGE,
+  volumeChange: (volume) => ({
+    type: ActionTypes.CHANGE_VOLUME,
     payload: {
-      level: level,
+      volume: volume,
     },
   }),
 
   shuffle: (bool) => ({
-    type: actionTypes.SHUFFLE,
+    type: ActionTypes.SHUFFLE,
     payload: { shuffle: bool },
   }),
 
   setCurrentTime: (currentTime) => ({
-    type: actionTypes.SET_CURRENT_TIME,
+    type: ActionTypes.SET_CURRENT_TIME,
     payload: {
       currentTime: currentTime,
     },
   }),
 
   setTimeLeft: (timeLeft) => ({
-    type: actionTypes.SET_TIME_LEFT,
+    type: ActionTypes.SET_TIME_LEFT,
     payload: {
       timeLeft: timeLeft,
     },
   }),
 
   seek: (time) => ({
-    type: actionTypes.SEEK,
+    type: ActionTypes.SEEK,
     payload: {
       time: time,
     },
   }),
 
-  changeVolume: (value) => ({
-    type: actionTypes.CHANGE_VOLUME,
+  changeVolume: (volume) => ({
+    type: ActionTypes.CHANGE_VOLUME,
     payload: {
-      volume: value,
+      volume: volume,
     },
   }),
 
   setRepeatMode: () => ({
-    type: actionTypes.SET_REPEAT_MODE,
+    type: ActionTypes.SET_REPEAT_MODE,
+  }),
+
+  skipNext: () => ({
+    type: ActionTypes.SKIP_NEXT,
+  }),
+
+  skipPrev: () => ({
+    type: ActionTypes.SKIP_PREV,
   }),
 };
 
-export default actionCreators;
+export default ActionCreators;

@@ -1,8 +1,7 @@
-import actionTypes from "../actionTypes.js";
 import actionCreators from "../actionCreators.js";
-import { MediaStates, RepeatModes } from "../StoreTypes";
+import { MediaState, RepeatMode } from "../types";
 
-import AudioOutput from "../../model/AudioOutput.js";
+import { AudioOutput, ActionTypes } from "../types";
 
 const audio = new AudioOutput();
 
@@ -31,7 +30,7 @@ const audioOutput = (store) => {
   // set canplay listener
   audio.addEventListener("canplay", () => {
     let mediaState = store.getState().mediaState;
-    if (mediaState === MediaStates.playing)
+    if (mediaState === MediaState.PLAYING)
       audio.play().catch(() => store.dispatch(actionCreators.stop()));
   });
 
@@ -42,14 +41,14 @@ const audioOutput = (store) => {
     let isLastTrack = currentTrack === state.playlist.length - 1;
 
     switch (state.repeatMode) {
-      case RepeatModes.repeatAll:
+      case RepeatMode.REPEAT_ALL:
         if (isLastTrack) store.dispatch(actionCreators.changeTrack(0));
         else store.dispatch(actionCreators.changeTrack(++currentTrack));
         break;
-      case RepeatModes.repeatOne:
+      case RepeatMode.REPEAT_ONE:
         audio.play(); // play again
         break;
-      case RepeatModes.normal:
+      case RepeatMode.NORMAL:
       default:
         if (isLastTrack) store.dispatch(actionCreators.stop());
         else store.dispatch(actionCreators.changeTrack(++currentTrack));
@@ -63,32 +62,38 @@ const audioOutput = (store) => {
     let state = store.getState();
 
     switch (action.type) {
-      case actionTypes.CHANGE_TRACK:
+      case ActionTypes.CHANGE_TRACK:
         let nexTrack = state.playlist[action.payload.index];
         audio.setSrc(nexTrack);
         break;
 
-      case actionTypes.PLAY:
+      case ActionTypes.PLAY:
         audio.setSrc(state.playlist[state.currentTrack]);
         audio.play().catch(() => store.dispatch(actionCreators.stop()));
         break;
 
-      case actionTypes.PAUSE:
+      case ActionTypes.PAUSE:
         audio.pause();
         break;
 
-      case actionTypes.STOP:
+      case ActionTypes.STOP:
         audio.clear();
         break;
 
-      case actionTypes.SEEK:
+      case ActionTypes.SEEK:
         audio.currentTime = action.payload.time;
         break;
 
-      case actionTypes.CHANGE_VOLUME:
+      case ActionTypes.CHANGE_VOLUME:
         audio.volume = action.payload.volume / 100;
         break;
 
+      case ActionTypes.SKIP_PREV:
+        if (audio.currentTime > 3) {
+          store.dispatch(actionCreators.seek(0));
+          return; // drop the action
+        }
+        break;
       default:
         break;
     }

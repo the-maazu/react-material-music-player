@@ -1,9 +1,9 @@
 import actionCreators from "../actionCreators.js";
-import actionTypes from "../actionTypes.js";
+import { ActionTypes } from "../types";
 
 const updatePlaylistHelper = (store) => {
   return (next) => (action) => {
-    if (action.type !== actionTypes.UPDATE_PLAYLIST) return next(action);
+    if (action.type !== ActionTypes.UPDATE_PLAYLIST) return next(action);
 
     // store prev playlist and new playlist
     const { playlist, currentTrack } = store.getState();

@@ -3,7 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import actionCreators from "../../redux/actionCreators.js";
+import ActionCreators from "../../redux/actionCreators.js";
 
 import ReactDraggableList from "react-draggable-list";
 
@@ -13,6 +13,7 @@ export default function Playlist(props) {
   const sx = props.sx;
 
   const { playlist, currentTrack } = useSelector(
+    /** @type {import("../../redux/types.js").useSelectCb} */
     ({ playlist, currentTrack }) => ({
       playlist,
       currentTrack,
@@ -22,8 +23,12 @@ export default function Playlist(props) {
 
   const dispatch = useDispatch();
   const onReorder = (newList) =>
-    dispatch(actionCreators.updatePlaylist(newList));
-  const onTrackSelect = (index) => dispatch(actionCreators.changeTrack(index));
+    dispatch(ActionCreators.updatePlaylist(newList));
+  const onTrackSelect = (index) => {
+    // change and play track immediately
+    dispatch(ActionCreators.changeTrack(index));
+    dispatch(ActionCreators.play());
+  };
 
   const draggablelistContainerRef = React.createRef();
   return (
