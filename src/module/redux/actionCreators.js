@@ -70,6 +70,14 @@ const ActionCreators = {
   setRepeatMode: () => ({
     type: ActionTypes.SET_REPEAT_MODE,
   }),
+
+  skipNext: () => ({
+    type: ActionTypes.SKIP_NEXT,
+  }),
+
+  skipPrev: () => ({
+    type: ActionTypes.SKIP_PREV,
+  }),
 };
 
 export default ActionCreators;

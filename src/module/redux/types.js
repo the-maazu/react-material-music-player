@@ -131,6 +131,8 @@ const ActionTypes = {
   SET_TIME_LEFT: "SET_TIME_LEFT",
   SEEK: "SEEK",
   SET_REPEAT_MODE: "SET_REPEAT_MODE",
+  SKIP_NEXT: "SKIP_NEXT",
+  SKIP_PREV: "SKIP_PREV",
 };
 
 export {

@@ -7,6 +7,7 @@ import eventHandler from "./middleware/events.js";
 import changeTrackHelper from "./middleware/changeTrackHelper";
 import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
+import skipHelper from "./middleware/skipHelper";
 
 import { MediaState, RepeatMode } from "./types";
 import { Track } from "./types";
@@ -17,9 +18,10 @@ export default configureStore({
     eventHandler,
     shuffler,
     updatePlaylistHelper,
-    changeTrackHelper,
     mediaSessionActions,
-    audioOutput,
+    changeTrackHelper,
+    audioOutput, // audio output might drop skip action
+    skipHelper, // skip helper must come after audioOutput
   ],
   preloadedState: {
     mediaState: MediaState.STOPPED,

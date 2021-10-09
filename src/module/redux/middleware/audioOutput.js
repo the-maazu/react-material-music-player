@@ -88,6 +88,12 @@ const audioOutput = (store) => {
         audio.volume = action.payload.volume / 100;
         break;
 
+      case ActionTypes.SKIP_PREV:
+        if (audio.currentTime > 3) {
+          store.dispatch(actionCreators.seek(0));
+          return; // drop the action
+        }
+        break;
       default:
         break;
     }
