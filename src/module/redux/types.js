@@ -7,7 +7,7 @@
  * @param {!string} artist
  * @param {!string} source - URL to music file
  */
-export function Track(trackID, coverArt, title, artist, source) {
+function Track(trackID, coverArt, title, artist, source) {
   /** @readonly*/
   this.ID = trackID;
   /** @readonly*/
@@ -40,7 +40,7 @@ export function Track(trackID, coverArt, title, artist, source) {
  * Media states
  * @enum {string}
  */
-export const MediaState = {
+const MediaState = {
   STOPPED: "STOPPED",
   PLAYING: "PLAYING",
   PAUSED: "PAUSED",
@@ -50,7 +50,7 @@ export const MediaState = {
  * Repeat modes
  * @enum {string}
  */
-export const RepeatMode = {
+const RepeatMode = {
   NORMAL: "NORMAL",
   REPEAT_ALL: "REPEAT_ALL",
   REPEAT_ONE: "REPEAT_ONE",
@@ -60,7 +60,7 @@ export const RepeatMode = {
  * Custom native events for interface
  * @enum {string}
  */
-export const CustomNativeEventTypes = {
+const CustomNativeEventTypes = {
   PLAY: "PLAY",
   PLAY_LATER: "PLAY_LATER",
   PLAY_NEXT: "PLAY_NEXT",
@@ -76,7 +76,7 @@ export const CustomNativeEventTypes = {
  * @class
  * @extends {Audio}
  */
-export class AudioOutput extends Audio {
+class AudioOutput extends Audio {
   constructor() {
     super();
     /**@private */
@@ -117,7 +117,7 @@ export class AudioOutput extends Audio {
  * Store action types
  * @enum {string}
  */
-export const ActionTypes = {
+const ActionTypes = {
   CHANGE_TRACK: "CHANGE_TRACK",
   PLAY: "PLAY",
   PAUSE: "PAUSE",
@@ -131,4 +131,13 @@ export const ActionTypes = {
   SET_TIME_LEFT: "SET_TIME_LEFT",
   SEEK: "SEEK",
   SET_REPEAT_MODE: "SET_REPEAT_MODE",
+};
+
+export {
+  ActionTypes,
+  AudioOutput,
+  CustomNativeEventTypes,
+  MediaState,
+  RepeatMode,
+  Track,
 };

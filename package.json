@@ -1,7 +1,7 @@
 {
   "name": "react-material-music-player",
   "version": "1.1.1",
-  "description": "This is a highly customisable music player based on mui, mobile mode, support for media session controls, reorderable playlist",
+  "description": "This is a highly customisable music player based on mui, has support for typescript, mobile mode, media session controls, reorderable playlist",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -46,7 +46,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepublishOnly": "yarn compile && yarn emit",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "prepare": "husky install"
   },
