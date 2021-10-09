@@ -92,6 +92,20 @@ class AudioOutput extends Audio {
     if (!this.isCurrent(track)) {
       this.src = track.source;
       this.track = track;
+      this.setMediaMetadata(track);
+    }
+  }
+
+  setMediaMetadata(track) {
+    if ("mediaSession" in navigator) {
+      if (!track) navigator.mediaSession.metadata = null;
+      else
+        navigator.mediaSession.metadata = new window.MediaMetadata({
+          title: track.title,
+          artist: track.artist,
+          album: "",
+          artwork: [{ src: track.coverArt }],
+        });
     }
   }
 
@@ -101,6 +115,7 @@ class AudioOutput extends Audio {
   clear() {
     if (this.src === "") return;
     this.setSrc(new Track("", "", "", "", ""));
+    this.setMediaMetadata(null);
   }
 
   /**
