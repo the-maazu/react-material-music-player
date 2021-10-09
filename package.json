@@ -1,7 +1,7 @@
 {
   "name": "react-material-music-player",
   "version": "1.1.1",
-  "description": "This is a highly customisable music player based on mui, has support for typescript, mobile mode, media session controls, reorderable playlist",
+  "description": "This is a highly customisable music player powered by mui-v5, typescript, mobile mode, media session action & metadata, reorderable playlist",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -75,7 +75,8 @@
     "player",
     "material",
     "ui",
-    "audio"
+    "audio",
+    "typescript"
   ],
   "author": "hassanmaazu@gmail.com",
   "license": "MIT",
