@@ -18,7 +18,9 @@ export default function ProgressBar(props) {
     }),
     shallowEqual
   );
-  const progress = (currentTime / (timeLeft + currentTime)) * 100;
+
+  // NaN on division by zero
+  const progress = (currentTime / (timeLeft + currentTime)) * 100 || 0;
 
   const dispatch = useDispatch();
   const onSeek = (time) => dispatch(actionCreators.seek(time));
