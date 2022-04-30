@@ -46,7 +46,11 @@ function RepeatButton(props) {
   const { value, ...other } = props;
 
   return (
-    <ToggleButton selected={value !== RepeatMode.NORMAL} {...other}>
+    <ToggleButton
+      value="repeat"
+      selected={value !== RepeatMode.NORMAL}
+      {...other}
+    >
       {value === RepeatMode.NORMAL ? (
         <RepeatRounded />
       ) : value === RepeatMode.REPEAT_ALL ? (
@@ -62,7 +66,7 @@ function ShuffleButton(props) {
   const { value, ...other } = props;
 
   return (
-    <ToggleButton selected={value} {...other}>
+    <ToggleButton value="shuffle" selected={value} {...other}>
       {value ? <ShuffleOnRounded /> : <ShuffleRounded />}
     </ToggleButton>
   );
