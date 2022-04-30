@@ -21,4 +21,3 @@ jobs:
           tag-prefix: "v"
           minor-wording: "minor"
           major-wording: "major"
-          skip-tag: "true"
