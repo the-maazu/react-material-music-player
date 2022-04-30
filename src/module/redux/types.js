@@ -57,13 +57,24 @@ const RepeatMode = {
 };
 
 /**
- * Custom native events for interface
+ * Custom native events for module level interface
  * @enum {string}
  */
 const CustomNativeEventTypes = {
   PLAY: "PLAY",
+  PAUSE: "PAUSE",
+  STOP: "STOP",
+  SET_VOLUME: "SET_VOLUME",
+  SKIP_NEXT: "SKIP_NEXT",
+  SKIP_PREV: "SKIP_PREV",
+  SHUFFLE: "SHUFFLE",
+  SEEK: "SEEK",
+  SET_REPEAT_MODE: "SET_REPEAT_MODE",
+  CHANGE_TRACK: "CHANGE_TRACK",
   PLAY_LATER: "PLAY_LATER",
   PLAY_NEXT: "PLAY_NEXT",
+  SET_PLAYLIST: "SET_PLAYLIST",
+  CLEAR_PLAYLIST: "CLEAR_PLAYLIST",
 };
 
 /** Call back for useSelect hook
