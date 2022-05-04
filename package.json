@@ -87,5 +87,10 @@
   "homepage": "https://the-maazu.github.io/react-material-music-player",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+
+  "funding": {
+    "type": "liberapay",
+    "url": "https://liberapay.com/the-maazu/donate"
   }
 }
