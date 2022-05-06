@@ -15,8 +15,7 @@ export default function VolumeControl(props) {
   const sx = props.sx;
 
   const dispatch = useDispatch();
-  const onVolumeChange = (value) =>
-    dispatch(actionCreators.changeVolume(value));
+  const onVolumeChange = (value) => dispatch(actionCreators.setVolume(value));
 
   const value = useSelector(
     /**@type {import("../redux/types").useSelectCb} */

@@ -6,7 +6,8 @@ export default function eventHandler(store) {
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
     let playlist = /**@type {CustomEvent}*/ (e).detail;
 
-    if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
+    if (!playlist) store.dispatch(actionCreators.play());
+    else if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
 
     // eplicitly stop and insert new playlist
     store.dispatch(actionCreators.stop());
@@ -15,7 +16,34 @@ export default function eventHandler(store) {
     store.dispatch(actionCreators.play());
   });
 
-  let playNextAfterHandler = (e) => {
+  window.addEventListener(CustomNativeEventTypes.PAUSE, function (e) {
+    store.dispatch(actionCreators.pause());
+  });
+
+  window.addEventListener(CustomNativeEventTypes.STOP, function (e) {
+    store.dispatch(actionCreators.stop());
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SET_VOLUME, function (e) {
+    let level = /** @type {CustomEvent} */ (e).detail; //typescript cast Event to CustomEvent
+    if (level >= 0 || level <= 100)
+      store.dispatch(actionCreators.setVolume(level));
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SKIP_NEXT, function (e) {
+    store.dispatch(actionCreators.skipNext());
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SKIP_PREV, function (e) {
+    store.dispatch(actionCreators.skipPrev());
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SHUFFLE, function (e) {
+    let bool = /** @type {CustomEvent} */ (e).detail; //typescript cast Event to CustomEvent
+    store.dispatch(actionCreators.shuffle(bool));
+  });
+
+  let playNextOrLaterHandler = (e) => {
     let currentPlaylist = store.getState().playlist;
     let currentTrack = store.getState().currentTrack;
 
@@ -39,12 +67,12 @@ export default function eventHandler(store) {
 
   window.addEventListener(
     CustomNativeEventTypes.PLAY_NEXT,
-    playNextAfterHandler
+    playNextOrLaterHandler
   );
 
   window.addEventListener(
     CustomNativeEventTypes.PLAY_LATER,
-    playNextAfterHandler
+    playNextOrLaterHandler
   );
 
   return (next) => (action) => {

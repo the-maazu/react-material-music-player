@@ -66,28 +66,30 @@ function shuffle(bool) {
   window.dispatchEvent(event);
 }
 
-/**
- * This seeks through current track
- * @param {number} progress - Number 0 to 100 as percentage of total track time
- */
-function seek(progress) {
-  const event = new CustomEvent(CustomNativeEventTypes.SEEK, {
-    detail: progress,
-  });
-  window.dispatchEvent(event);
-}
+// TODO: seek interface call
+// /**
+//  * This seeks through current track
+//  * @param {number} progress - Number 0 to 100 as percentage of total track time
+//  */
+// function seek(progress) {
+//   const event = new CustomEvent(CustomNativeEventTypes.SEEK, {
+//     detail: progress,
+//   });
+//   window.dispatchEvent(event);
+// }
 
-/**  @typedef {import("./redux/types").RepeatMode} RepeatMode */
-/**
- * This sets repeat mode
- * @param {RepeatMode} mode - One of three strings "NORMAL"|"REPEAT_ALL"|"REPEAT_ONE".
- */
-function setRepeatMode(mode) {
-  const event = new CustomEvent(CustomNativeEventTypes.SET_REPEAT_MODE, {
-    detail: mode,
-  });
-  window.dispatchEvent(event);
-}
+//TODO: interface repeat mode
+// /**  @typedef {import("./redux/types").RepeatMode} RepeatMode */
+// /**
+//  * This sets repeat mode
+//  * @param {RepeatMode} mode - One of three strings "NORMAL"|"REPEAT_ALL"|"REPEAT_ONE".
+//  */
+// function setRepeatMode(mode) {
+//   const event = new CustomEvent(CustomNativeEventTypes.SET_REPEAT_MODE, {
+//     detail: mode,
+//   });
+//   window.dispatchEvent(event);
+// }
 
 /**
  * This changes track to specified index
@@ -106,17 +108,6 @@ function changeTrack(index) {
  */
 function playNext(playlist) {
   const event = new CustomEvent(CustomNativeEventTypes.PLAY_NEXT, {
-    detail: playlist,
-  });
-  window.dispatchEvent(event);
-}
-
-/**
- * This appends playlist to the end of current playlist
- * @param {Track[]} playlist - Array of Tracks to append
- */
-function playLater(playlist) {
-  const event = new CustomEvent(CustomNativeEventTypes.PLAY_LATER, {
     detail: playlist,
   });
   window.dispatchEvent(event);
@@ -160,8 +151,8 @@ const interfaceObject = {
   skipNext: skipNext,
   skipPrev: skipPrev,
   shuffle: shuffle,
-  seek: seek,
-  setRepeatMode: setRepeatMode,
+  // seek: seek,
+  // setRepeatMode: setRepeatMode,
   changeTrack: changeTrack,
   playNext: playNext,
   playLater: playLater,

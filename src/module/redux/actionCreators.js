@@ -27,13 +27,6 @@ const ActionCreators = {
     },
   }),
 
-  volumeChange: (volume) => ({
-    type: ActionTypes.CHANGE_VOLUME,
-    payload: {
-      volume: volume,
-    },
-  }),
-
   shuffle: (bool) => ({
     type: ActionTypes.SHUFFLE,
     payload: { shuffle: bool },
@@ -60,7 +53,7 @@ const ActionCreators = {
     },
   }),
 
-  changeVolume: (volume) => ({
+  setVolume: (volume) => ({
     type: ActionTypes.CHANGE_VOLUME,
     payload: {
       volume: volume,
