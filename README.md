@@ -48,7 +48,7 @@ new Track(
 <pre><code>
     PlayerInterface.play( Track[] ) // sets a new playlist and starts playing
     PlayerInterface.playLater( Track[] ) // appends to end of playlist
-    PlayerInterface.playAfter( Track[] ) // insert after current track:
+    PlayerInterface.playNext( Track[] ) // insert after current track:
 </code></pre>
 
 ## theming & customisation
