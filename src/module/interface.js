@@ -145,8 +145,8 @@ function clearPlaylist() {
 
 const interfaceObject = {
   play: play,
-  paus: pause,
-  stope: stop,
+  pause: pause,
+  stop: stop,
   setVolume: setVolume,
   skipNext: skipNext,
   skipPrev: skipPrev,
