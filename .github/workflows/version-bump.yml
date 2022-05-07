@@ -22,3 +22,4 @@ jobs:
           minor-wording: "minor"
           major-wording: "major"
           skip-tag: "true"
+          bump-policy: "last-commit"
