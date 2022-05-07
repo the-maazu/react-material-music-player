@@ -3,17 +3,26 @@ import actionCreators from "../actionCreators.js";
 import { CustomNativeEventTypes } from "../types";
 
 export default function eventHandler(store) {
+
+  let clearPlaylist = () => {
+    store.dispatch(actionCreators.stop());
+    // make sure not referencing empty index after playlist update
+    store.dispatch(actionCreators.changeTrack(0));
+    store.dispatch(actionCreators.updatePlaylist([new Track("", "", "", "", "")]));
+  }
+
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
     let playlist = /**@type {CustomEvent}*/ (e).detail;
 
-    if (!playlist) store.dispatch(actionCreators.play());
-    else if (playlist.length < 1) playlist.push(new Track("", "", "", "", ""));
-
-    // eplicitly stop and insert new playlist
-    store.dispatch(actionCreators.stop());
-    store.dispatch(actionCreators.changeTrack(0));
-    store.dispatch(actionCreators.updatePlaylist(playlist));
-    store.dispatch(actionCreators.play());
+    if (!playlist) {
+      store.dispatch(actionCreators.play());
+      return
+    }
+    else if (playlist.length >= 1){
+      clearPlaylist();
+      store.dispatch(actionCreators.updatePlaylist(playlist));
+      store.dispatch(actionCreators.play());
+    }
   });
 
   window.addEventListener(CustomNativeEventTypes.PAUSE, function (e) {
@@ -41,6 +50,23 @@ export default function eventHandler(store) {
   window.addEventListener(CustomNativeEventTypes.SHUFFLE, function (e) {
     let bool = /** @type {CustomEvent} */ (e).detail; //typescript cast Event to CustomEvent
     store.dispatch(actionCreators.shuffle(bool));
+  });
+
+  window.addEventListener(CustomNativeEventTypes.CHANGE_TRACK, function (e) {
+    let index = /**@type {CustomEvent}*/ (e).detail;
+    store.dispatch(actionCreators.changeTrack(index));
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SET_PLAYLIST, function (e) {
+    let playlist = /**@type {CustomEvent}*/ (e).detail;
+    if(playlist < 1)
+      clearPlaylist()
+    else
+      store.dispatch(actionCreators.updatePlaylist(playlist));
+  });
+
+  window.addEventListener(CustomNativeEventTypes.CLEAR_PLAYLIST, function (e) {
+    clearPlaylist()
   });
 
   let playNextOrLaterHandler = (e) => {
