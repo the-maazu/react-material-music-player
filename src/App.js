@@ -104,6 +104,14 @@ function App() {
           >
             github
           </Link>
+          <br />
+          <Link
+            href="https://liberapay.com/the-maazu/donate"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            donate
+          </Link>
         </div>
 
         <Box sx={{ typography: "body3", margin: 2 }}>
