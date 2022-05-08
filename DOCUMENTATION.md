@@ -1,5 +1,13 @@
 # Documentation
 
+## import
+
+1.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
+
+2.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
+
+<b>Hint:</b> the Player and the PlayerInterface aren't required to be imported in the same file or context.
+
 ## the component
 
 <code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={tue|false}/&gt;</code>

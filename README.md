@@ -7,22 +7,15 @@ Live [demo here](https://the-maazu.github.io/react-material-music-player/)
 ## features
 
 - Highly customisable.
+- Decoupled API and UI.
 - Reorderable playlist.
 - Media session action & metadata.
 - Mobile mode drawer.
 
 [Release notes](https://github.com/the-maazu/react-material-music-player/releases)
 
-## installation
-
-1.  npm install react-material-music-player
-
-2.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
-
-3.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
-
 ## Usage
-[Documentatioin](https://github.com/the-maazu/react-material-music-player/blob/main/DOCUMENTATION.md)
+[Documentation](https://github.com/the-maazu/react-material-music-player/blob/main/DOCUMENTATION.md)
 
 ## Dependencies
 
