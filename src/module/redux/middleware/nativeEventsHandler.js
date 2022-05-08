@@ -53,7 +53,7 @@ export default function eventHandler(store) {
   });
 
   window.addEventListener(CustomNativeEventTypes.CHANGE_TRACK, function (e) {
-    let index = e.detail;
+    let index = /**@type {CustomEvent}*/ (e).detail;
     store.dispatch(actionCreators.changeTrack(index));
   });
 
