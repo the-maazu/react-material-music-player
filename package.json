@@ -1,6 +1,6 @@
 {
   "name": "react-material-music-player",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0-beta.2",
   "description": "This is a highly customisable music player powered by mui-v5, typescript, mobile mode, media session action & metadata, reorderable playlist",
   "main": "dist/index.js",
   "files": [
