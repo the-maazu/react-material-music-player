@@ -2,9 +2,9 @@
 
 ## import
 
-1.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
+1.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/beta/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
 
-2.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
+2.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/beta/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/beta/src/module/interface.js) } from 'react-material-music-player'</code>
 
 <b>Hint:</b> the Player and the PlayerInterface aren't required to be imported in the same file or context.
 
@@ -121,7 +121,7 @@ const theme = createTheme({
 });
 </code></pre>
 
-You can also create two seperate palettes and programmatically create theme based on user or system preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic for the [Demo](https://the-maazu.github.io/react-material-music-player/).
+You can also create two seperate palettes and programmatically create theme based on user or system preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/blob/beta/src/makeTheme.js) holds similar logic for the [Demo](https://the-maazu.github.io/react-material-music-player/).
 
 ### targeting components
 
@@ -174,7 +174,7 @@ theme = createTheme(theme, {
 
 In the example above we are targting the [MuiSliders](https://mui.com/api/slider/), specifically the thumb and also changing default props for [MuiToggleButtons](https://mui.com/api/toggle-button/)(Repeat, Shuffle & Playlist Buttons). We can target alot more, [MuiPaper](https://mui.com/api/paper/)(Default Player background), [MuiIconButton](https://mui.com/api/icon-button/#main-content)(Control Buttons) and [MuiPopover](https://mui.com/api/popover/)(Playlist Popover background). All CSS, including nesting is valid here.
 
-Have a look at the implementation of the [Demo](https://the-maazu.github.io/react-material-music-player/) at [App.js](https://github.com/the-maazu/react-material-music-player/blob/main/src/App.js) and [makeTheme.js](https://github.com/the-maazu/react-material-music-player/tree/main/src). Feel free to copy and modify theme to your liking.
+Have a look at the implementation of the [Demo](https://the-maazu.github.io/react-material-music-player/) at [App.js](https://github.com/the-maazu/react-material-music-player/blob/beta/src/App.js) and [makeTheme.js](https://github.com/the-maazu/react-material-music-player/tree/beta/src). Feel free to copy and modify theme to your liking.
 
 Also feel free to make suggestion or feature requests [here](https://github.com/the-maazu/react-material-music-player/discussions/new), kindly set category to "idea".
 Report bugs [here](https://github.com/the-maazu/react-material-music-player/issues). And if you want to contribute just make a pull request.

@@ -15,7 +15,7 @@ Live [demo here](https://the-maazu.github.io/react-material-music-player/)
 [Release notes](https://github.com/the-maazu/react-material-music-player/releases)
 
 ## Usage
-[Documentation](https://github.com/the-maazu/react-material-music-player/blob/main/DOCUMENTATION.md)
+[Documentation](https://github.com/the-maazu/react-material-music-player/blob/beta/DOCUMENTATION.md)
 
 ## Dependencies
 
