@@ -1,14 +1,14 @@
-name: version bump
+name: version-beta
 
 on:
   push:
     branches:
-      - main
+      - beta
     paths:
       - "src/module/**"
 
 jobs:
-  build:
+  version-bump:
     runs-on: ubuntu-latest
     steps:
       - uses: "actions/checkout@v2"
@@ -17,9 +17,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          target-branch: "main"
+          target-branch: "beta"
+          default: prerelease
+          preid: "beta"
           tag-prefix: "v"
           minor-wording: "minor"
           major-wording: "major"
-          skip-tag: "true"
+          patch-wording: "patch"
           bump-policy: "last-commit"

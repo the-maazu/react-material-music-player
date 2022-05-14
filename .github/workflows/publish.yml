@@ -1,4 +1,4 @@
-name: publish and deploy
+name: publish
 
 on:
   release:
@@ -14,18 +14,7 @@ jobs:
           node-version: 14
       - run: yarn install --frozen-lockfile
       - run: yarn test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - run: yarn install --frozen-lockfile
-      - run: yarn deploy
-
+      
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
@@ -36,6 +25,13 @@ jobs:
           node-version: 14
           registry-url: https://registry.npmjs.org/
       - run: yarn install --frozen-lockfile
-      - run: yarn publish
+      - name: publish-stable
+        if: ${{!contains(github.ref, "beta")}}
+        run: echo "stable"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+      - name: publish-beta
+        if: ${{contains(github.ref, "beta")}}
+        run: echo "beta"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
