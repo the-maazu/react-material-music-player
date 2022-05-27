@@ -60,8 +60,11 @@ const ActionCreators = {
     },
   }),
 
-  setRepeatMode: () => ({
+  setRepeatMode: (mode) => ({
     type: ActionTypes.SET_REPEAT_MODE,
+    payload: {
+      mode: mode,
+    },
   }),
 
   skipNext: () => ({

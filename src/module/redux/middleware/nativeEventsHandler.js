@@ -68,7 +68,15 @@ export default function eventHandler(store) {
   });
 
   window.addEventListener(CustomNativeEventTypes.SEEK, function (e) {
-    store.dispatch(actionCreators.seek(/**@type {CustomEvent}*/ (e).detail));
+    let progress = /**@type {CustomEvent}*/ (e).detail;
+    if (progress > 100 || progress < 0) return;
+    store.dispatch(actionCreators.seek(progress));
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SET_REPEAT_MODE, function (e) {
+    store.dispatch(
+      actionCreators.setRepeatMode(/**@type {CustomEvent}*/ (e).detail)
+    );
   });
 
   let playNextOrLaterHandler = (e) => {

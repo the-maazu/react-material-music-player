@@ -43,11 +43,14 @@ new Track(
     PlayerInterface.skipPrev() // skip to previous track when play time is less than 3 seconds else restart current track
     PlayerInterface.changeTrack(index: int) // switch to track at index, out of bund index ignored.
 
-    PlayerInterface.changeTrack(progress: int) // integer from 0 to 100 as percentage of audio duration.
+    PlayerInterface.changeTrack(progress: int) // integer from 0 to 100 as percentage of audio duration, out of bound inputs ignored.
 
     PlayerInterface.setVolume(volme: int) // integer from 0 to 100, out of bound inputs ignored.
 
     PlayerInterface.shuffle(bool) // true or false to turn on/off shuffle
+
+    import {RepeatModes} from 'react-material-music-player'
+    PlayerInterface.setRepeatMode(mode: "NORMAL" || "REPEAT_ALL" || "REPEAT_ONE") // predefined strings with enum above, example: RepeatModes.NORMAL
 
     PlayerInterface.playLater( Track[] ) // appends to end of playlist
     PlayerInterface.playNext( Track[] ) // insert after current track:

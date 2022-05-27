@@ -77,18 +77,17 @@ function seek(progress) {
   window.dispatchEvent(event);
 }
 
-//TODO: interface repeat mode
-// /**  @typedef {import("./redux/types").RepeatMode} RepeatMode */
-// /**
-//  * This sets repeat mode
-//  * @param {RepeatMode} mode - One of three strings "NORMAL"|"REPEAT_ALL"|"REPEAT_ONE".
-//  */
-// function setRepeatMode(mode) {
-//   const event = new CustomEvent(CustomNativeEventTypes.SET_REPEAT_MODE, {
-//     detail: mode,
-//   });
-//   window.dispatchEvent(event);
-// }
+/**  @typedef {import("./redux/types").RepeatMode} RepeatMode */
+/**
+ * This sets repeat mode
+ * @param {RepeatMode} mode - One of three strings "NORMAL"|"REPEAT_ALL"|"REPEAT_ONE".
+ */
+function setRepeatMode(mode) {
+  const event = new CustomEvent(CustomNativeEventTypes.SET_REPEAT_MODE, {
+    detail: mode,
+  });
+  window.dispatchEvent(event);
+}
 
 /**
  * This changes track to specified index
@@ -151,7 +150,7 @@ const interfaceObject = {
   skipPrev: skipPrev,
   shuffle: shuffle,
   seek: seek,
-  // setRepeatMode: setRepeatMode,
+  setRepeatMode: setRepeatMode,
   changeTrack: changeTrack,
   playNext: playNext,
   playLater: playLater,

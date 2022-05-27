@@ -18,7 +18,11 @@ import {
 } from "@mui/icons-material";
 
 // To use the player this is what you need to import
-import Player, { TrackModel, PlayerInterface } from "./module/index.js";
+import Player, {
+  TrackModel,
+  PlayerInterface,
+  RepeatModes,
+} from "./module/index.js";
 
 import makeTheme from "./makeTheme";
 
@@ -297,79 +301,92 @@ window.setTimeout(
 window.setTimeout(
   () =>
     // add music after current track
-    PlayerInterface.pause(),
-  12000 // 7 seconds
-);
-
-
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.stop(),
-  15000
+    PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ONE),
+  12000 // 8 seconds
 );
 
 window.setTimeout(
   () =>
     // add music after current track
-    PlayerInterface.setVolume(100),
-  18000
+    PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ALL),
+  15000 // 8 seconds
 );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.skipNext(),
-  21000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.pause(),
+//   12000 // 7 seconds
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.skipPrev(),
-  24000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.stop(),
+//   15000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.shuffle(true),
-  27000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.setVolume(100),
+//   18000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.shuffle(false),
-  30000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.skipNext(),
+//   21000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.changeTrack(2),
-  33000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.skipPrev(),
+//   24000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.play(),
-  36000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.shuffle(true),
+//   27000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.seek(50),
-  39000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.shuffle(false),
+//   30000
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.clearPlaylist(),
-  42000
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.changeTrack(2),
+//   33000
+// );
+
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.play(),
+//   36000
+// );
+
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.seek(50),
+//   39000
+// );
+
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.clearPlaylist(),
+//   42000
+// );
 
 export default App;
