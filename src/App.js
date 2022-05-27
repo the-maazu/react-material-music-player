@@ -354,8 +354,22 @@ window.setTimeout(
 window.setTimeout(
   () =>
     // add music after current track
-    PlayerInterface.clearPlaylist(),
+    PlayerInterface.play(),
   36000
+);
+
+window.setTimeout(
+  () =>
+    // add music after current track
+    PlayerInterface.seek(50),
+  39000
+);
+
+window.setTimeout(
+  () =>
+    // add music after current track
+    PlayerInterface.clearPlaylist(),
+  42000
 );
 
 export default App;

@@ -3,22 +3,22 @@ import actionCreators from "../actionCreators.js";
 import { CustomNativeEventTypes } from "../types";
 
 export default function eventHandler(store) {
-
   let clearPlaylist = () => {
     store.dispatch(actionCreators.stop());
     // make sure not referencing empty index after playlist update
     store.dispatch(actionCreators.changeTrack(0));
-    store.dispatch(actionCreators.updatePlaylist([new Track("", "", "", "", "")]));
-  }
+    store.dispatch(
+      actionCreators.updatePlaylist([new Track("", "", "", "", "")])
+    );
+  };
 
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {
     let playlist = /**@type {CustomEvent}*/ (e).detail;
 
     if (!playlist) {
       store.dispatch(actionCreators.play());
-      return
-    }
-    else if (playlist.length >= 1){
+      return;
+    } else if (playlist.length >= 1) {
       clearPlaylist();
       store.dispatch(actionCreators.updatePlaylist(playlist));
       store.dispatch(actionCreators.play());
@@ -59,14 +59,16 @@ export default function eventHandler(store) {
 
   window.addEventListener(CustomNativeEventTypes.SET_PLAYLIST, function (e) {
     let playlist = /**@type {CustomEvent}*/ (e).detail;
-    if(playlist < 1)
-      clearPlaylist()
-    else
-      store.dispatch(actionCreators.updatePlaylist(playlist));
+    if (playlist < 1) clearPlaylist();
+    else store.dispatch(actionCreators.updatePlaylist(playlist));
   });
 
   window.addEventListener(CustomNativeEventTypes.CLEAR_PLAYLIST, function (e) {
-    clearPlaylist()
+    clearPlaylist();
+  });
+
+  window.addEventListener(CustomNativeEventTypes.SEEK, function (e) {
+    store.dispatch(actionCreators.seek(/**@type {CustomEvent}*/ (e).detail));
   });
 
   let playNextOrLaterHandler = (e) => {

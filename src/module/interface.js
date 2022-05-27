@@ -66,17 +66,16 @@ function shuffle(bool) {
   window.dispatchEvent(event);
 }
 
-// TODO: seek interface call
-// /**
-//  * This seeks through current track
-//  * @param {number} progress - Number 0 to 100 as percentage of total track time
-//  */
-// function seek(progress) {
-//   const event = new CustomEvent(CustomNativeEventTypes.SEEK, {
-//     detail: progress,
-//   });
-//   window.dispatchEvent(event);
-// }
+/**
+ * This seeks through current track
+ * @param {number} progress - Number 0 to 100 as percentage of total track time
+ */
+function seek(progress) {
+  const event = new CustomEvent(CustomNativeEventTypes.SEEK, {
+    detail: progress,
+  });
+  window.dispatchEvent(event);
+}
 
 //TODO: interface repeat mode
 // /**  @typedef {import("./redux/types").RepeatMode} RepeatMode */
@@ -151,7 +150,7 @@ const interfaceObject = {
   skipNext: skipNext,
   skipPrev: skipPrev,
   shuffle: shuffle,
-  // seek: seek,
+  seek: seek,
   // setRepeatMode: setRepeatMode,
   changeTrack: changeTrack,
   playNext: playNext,

@@ -43,13 +43,15 @@ new Track(
     PlayerInterface.skipPrev() // skip to previous track when play time is less than 3 seconds else restart current track
     PlayerInterface.changeTrack(index: int) // switch to track at index, out of bund index ignored.
 
+    PlayerInterface.changeTrack(progress: int) // integer from 0 to 100 as percentage of audio duration.
+
     PlayerInterface.setVolume(volme: int) // integer from 0 to 100, out of bound inputs ignored.
 
     PlayerInterface.shuffle(bool) // true or false to turn on/off shuffle
 
     PlayerInterface.playLater( Track[] ) // appends to end of playlist
     PlayerInterface.playNext( Track[] ) // insert after current track:
-    
+
 </code></pre>
 
 ## theming & customisation

@@ -46,10 +46,10 @@ const ActionCreators = {
     },
   }),
 
-  seek: (time) => ({
+  seek: (progress) => ({
     type: ActionTypes.SEEK,
     payload: {
-      time: time,
+      progress: progress,
     },
   }),
 

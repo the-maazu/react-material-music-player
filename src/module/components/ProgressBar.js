@@ -23,10 +23,10 @@ export default function ProgressBar(props) {
   const progress = (currentTime / (timeLeft + currentTime)) * 100 || 0;
 
   const dispatch = useDispatch();
-  const onSeek = (time) => dispatch(actionCreators.seek(time));
+  const onSeek = (progress) => dispatch(actionCreators.seek(progress));
 
   const handleSliderChange = (event, newValue) => {
-    onSeek((newValue / 100) * (currentTime + timeLeft));
+    onSeek(newValue);
   };
 
   return (
