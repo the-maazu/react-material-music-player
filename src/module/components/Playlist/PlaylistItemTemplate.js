@@ -64,9 +64,27 @@ class PlaylistItemTemplate extends React.Component {
             }}
           />
 
-          <Box sx={{ flexGrow: 1, mx: 1 }}>
-            <Box sx={{ typography: "subtitl3" }}>{item.title}</Box>
-            <Box sx={{ typography: "subtitle2" }}>{item.artist}</Box>
+          <Box sx={{ width: "50px", flexGrow: 1, flexShrink: 1, mx: 1 }}>
+            <Box
+              sx={{
+                width: "100%",
+                typography: "subtitl3",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              {item.title}
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                typography: "subtitle2",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              {item.artist}
+            </Box>
           </Box>
         </Box>
         <ReorderIcon
