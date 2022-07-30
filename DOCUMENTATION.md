@@ -15,7 +15,7 @@
     PlayerInterface.skipPrev() // skip to previous track when play time is less than 3 seconds else restart current track
     PlayerInterface.changeTrack(index: int) // switch to track at index, out of bund index ignored.
 
-    PlayerInterface.changeTrack(progress: int) // integer from 0 to 100 as percentage of audio duration, out of bound inputs ignored.
+    PlayerInterface.seek(progress: int) // integer from 0 to 100 as percentage of audio duration, out of bound inputs ignored.
 
     PlayerInterface.setVolume(volme: int) // integer from 0 to 100, out of bound inputs ignored.
 
