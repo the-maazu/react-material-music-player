@@ -20,7 +20,7 @@ Live [demo here](https://the-maazu.github.io/react-material-music-player/)
 
 ### beta
 
-<code>npm install react-material-music-player@beta</code>
+<code>&gt; npm install react-material-music-player@beta</code>
 
 [Documentation (beta)](https://github.com/the-maazu/react-material-music-player/blob/beta/DOCUMENTATION.md)
 
