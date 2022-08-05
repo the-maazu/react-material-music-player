@@ -65,6 +65,8 @@ const audioOutput = (store) => {
       case ActionTypes.CHANGE_TRACK:
         let nexTrack = state.playlist[action.payload.index];
         audio.setSrc(nexTrack);
+        if (state.mediaState === MediaState.PLAYING)
+          audio.play().catch(() => store.dispatch(actionCreators.stop()));
         break;
 
       case ActionTypes.PLAY:
