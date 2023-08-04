@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 
 import PlayerRoot from "./components/Player.js";
-import { Track } from "./redux/types.js";
+import { Track, RepeatMode as RepeatModes } from "./redux/types.js";
 import PlayerInterface from "./interface.js";
 import store from "./redux/store.js";
 
@@ -29,4 +29,4 @@ export default Player;
 
 /**@deprecated use "Track"" instead*/
 const TrackModel = Track;
-export { Track, TrackModel, PlayerInterface };
+export { Track, TrackModel, PlayerInterface, RepeatModes };

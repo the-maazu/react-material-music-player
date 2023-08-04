@@ -89,7 +89,7 @@ export default function PlaylistControl(props) {
 
   const dispatch = useDispatch();
   const onShuffle = (bool) => dispatch(actionCreators.shuffle(bool));
-  const onRepeat = () => dispatch(actionCreators.setRepeatMode());
+  const onRepeat = (mode) => dispatch(actionCreators.setRepeatMode(mode));
 
   const handlePopoverClose = () => {
     showPlaylist(false);
@@ -103,7 +103,16 @@ export default function PlaylistControl(props) {
           value={repeatMode}
           className={classes.button}
           onClick={() => {
-            onRepeat();
+            switch (repeatMode) {
+              case RepeatMode.NORMAL:
+                return onRepeat(RepeatMode.REPEAT_ALL);
+              case RepeatMode.REPEAT_ALL:
+                return onRepeat(RepeatMode.REPEAT_ONE);
+              case RepeatMode.REPEAT_ONE:
+                return onRepeat(RepeatMode.NORMAL);
+              default:
+                return repeatMode;
+            }
           }}
         />
         <ShuffleButton

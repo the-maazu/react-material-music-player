@@ -49,17 +49,8 @@ function volume(state = 0, action) {
 }
 
 function repeatMode(state = RepeatMode.NORMAL, action) {
-  if (action.type !== ActionTypes.SET_REPEAT_MODE) return state;
-  switch (state) {
-    case RepeatMode.NORMAL:
-      return RepeatMode.REPEAT_ALL;
-    case RepeatMode.REPEAT_ALL:
-      return RepeatMode.REPEAT_ONE;
-    case RepeatMode.REPEAT_ONE:
-      return RepeatMode.NORMAL;
-    default:
-      return state;
-  }
+  if (action.type === ActionTypes.SET_REPEAT_MODE) return action.payload.mode;
+  else return state;
 }
 
 export default combineReducers({

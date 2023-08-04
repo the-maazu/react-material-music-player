@@ -83,7 +83,8 @@ const audioOutput = (store) => {
         break;
 
       case ActionTypes.SEEK:
-        audio.currentTime = action.payload.time;
+        if (!isNaN(audio.duration) && isFinite(audio.duration))
+          audio.currentTime = (action.payload.progress / 100) * audio.duration;
         break;
 
       case ActionTypes.CHANGE_VOLUME:

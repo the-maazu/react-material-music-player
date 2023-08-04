@@ -3,7 +3,7 @@ import rootReducer from "./reducers";
 
 import audioOutput from "./middleware/audioOutput.js";
 import shuffler from "./middleware/shuffler.js";
-import eventHandler from "./middleware/events.js";
+import nativeEventHandler from "./middleware/nativeEventsHandler.js";
 import changeTrackHelper from "./middleware/changeTrackHelper";
 import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import mediaSessionActions from "./middleware/mediaSessionActions";
@@ -15,7 +15,7 @@ import { Track } from "./types";
 export default configureStore({
   reducer: rootReducer,
   middleware: [
-    eventHandler,
+    nativeEventHandler,
     shuffler,
     updatePlaylistHelper,
     mediaSessionActions,

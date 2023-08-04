@@ -27,13 +27,6 @@ const ActionCreators = {
     },
   }),
 
-  volumeChange: (volume) => ({
-    type: ActionTypes.CHANGE_VOLUME,
-    payload: {
-      volume: volume,
-    },
-  }),
-
   shuffle: (bool) => ({
     type: ActionTypes.SHUFFLE,
     payload: { shuffle: bool },
@@ -53,22 +46,25 @@ const ActionCreators = {
     },
   }),
 
-  seek: (time) => ({
+  seek: (progress) => ({
     type: ActionTypes.SEEK,
     payload: {
-      time: time,
+      progress: progress,
     },
   }),
 
-  changeVolume: (volume) => ({
+  setVolume: (volume) => ({
     type: ActionTypes.CHANGE_VOLUME,
     payload: {
       volume: volume,
     },
   }),
 
-  setRepeatMode: () => ({
+  setRepeatMode: (mode) => ({
     type: ActionTypes.SET_REPEAT_MODE,
+    payload: {
+      mode: mode,
+    },
   }),
 
   skipNext: () => ({
