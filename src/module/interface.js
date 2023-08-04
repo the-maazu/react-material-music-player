@@ -144,6 +144,7 @@ function clearPlaylist() {
 
 /**
  * Returns the full state of player
+ * @returns {import("./redux/types").State}
  */
 function getState() {
   return store.getState();
@@ -152,7 +153,6 @@ function getState() {
 /**
  * Listens for changes
  * @param {Function} func - function
- * @returns {import("./redux/types").State}
  */
 function subscribe(func) {
   store.subscribe(() => func(getState()));
