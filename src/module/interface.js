@@ -1,3 +1,4 @@
+import store from "./redux/store";
 import { CustomNativeEventTypes } from "./redux/types";
 
 /**  @typedef {import("./redux/types").Track} Track */
@@ -141,6 +142,22 @@ function clearPlaylist() {
   window.dispatchEvent(event);
 }
 
+/**
+ * Returns the full state of player
+ */
+function getState() {
+  return store.getState();
+}
+
+/**
+ * Listens for changes
+ * @param {Function} func - function
+ * @returns {import("./redux/types").State}
+ */
+function subscribe(func) {
+  store.subscribe(() => func(getState()));
+}
+
 const interfaceObject = {
   play: play,
   pause: pause,
@@ -156,6 +173,8 @@ const interfaceObject = {
   playLater: playLater,
   setPlaylist: setPlaylist,
   clearPlaylist: clearPlaylist,
+  getState: getState,
+  subscribe: subscribe,
 };
 
 export default interfaceObject;

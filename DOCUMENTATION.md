@@ -26,4 +26,17 @@
 
     PlayerInterface.playLater( Track[] ) // appends to end of playlist
     PlayerInterface.playNext( Track[] ) // insert after current track:
+
+    PlayerInterface.getState() // returns state object
+    PlayerInterface.subscribe((state) => {...}) // listen for change
+    State: {
+        mediaState: "STOPPED" || "PLAYING" || "PAUSED",
+        playlist: Track[],
+        currentTrack: number, // index
+        shuffled: boolean,
+        currentTime: number, // seconds
+        timeLeft: number, // seconds
+        volume: number, // min:0 max:100
+        repeatMode: "NORMAL" || "REPEAT_ALL" || "REPEAT_ONE",
+    }
 </code></pre>

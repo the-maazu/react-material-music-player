@@ -21,7 +21,7 @@ import {
 import Player, {
   TrackModel,
   PlayerInterface,
-  RepeatModes,
+  // RepeatModes,
 } from "./module/index.js";
 
 import makeTheme from "./makeTheme";
@@ -291,26 +291,26 @@ window.setTimeout(
   6000 // 6 seconds
 );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.play(),
-  9000 // 8 seconds
-);
+// window.setTimeout(
+//   () => console.log("getState:", PlayerInterface.getState(50)),
+//   8000 // 8 seconds
+// );
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ONE),
-  12000 // 8 seconds
-);
+// PlayerInterface.subscribe((state) => console.log("subscribe", state));
 
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ALL),
-  15000 // 8 seconds
-);
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ONE),
+//   12000 // 8 seconds
+// );
+
+// window.setTimeout(
+//   () =>
+//     // add music after current track
+//     PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ALL),
+//   15000 // 8 seconds
+// );
 
 // window.setTimeout(
 //   () =>
