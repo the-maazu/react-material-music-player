@@ -10,7 +10,7 @@
 
 ## the component
 
-<code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={tue|false}/&gt;</code>
+<code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={true|false}/&gt;</code>
 
 - <code>sx(object)</code>: This is a superset of CSS introduced with mui-v5. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
 
@@ -29,7 +29,7 @@ new Track(
 )
 </code></pre>
 
-2.  Interface:
+2.  controls:
 <pre><code>
     PlayerInterface.setPlaylist(Track[]) // sets a new playlist, can be an empty array
     PlayerInterface.clearPlaylist() // similar to setting empty array
@@ -37,11 +37,11 @@ new Track(
     PlayerInterface.play( Track[] ) // sets a new playlist and starts playing
     PlayerInterface.play() // play current track if paused or stopped
     PlayerInterface.pause() // pause current track
-    PlayerInterface.stop() // stop scurrent track
+    PlayerInterface.stop() // stop current track
 
     PlayerInterface.skipNext() // skip to next track
     PlayerInterface.skipPrev() // skip to previous track when play time is less than 3 seconds else restart current track
-    PlayerInterface.changeTrack(index: int) // switch to track at index, out of bund index ignored.
+    PlayerInterface.changeTrack(index: int) // switch to track at index, out of bound index ignored.
 
     PlayerInterface.seek(progress: int) // integer from 0 to 100 as percentage of audio duration, out of bound inputs ignored.
 
@@ -76,7 +76,7 @@ The player should inherit your themes and style overrides if your app is already
 
 ### creating a theme
 
-You would typicatlly create a theme as shown below
+You would typically create a theme as shown below
 
 <pre><code>
 import { createTheme } from '@mui/material/styles';
