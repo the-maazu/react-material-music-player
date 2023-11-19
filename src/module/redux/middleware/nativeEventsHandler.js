@@ -1,15 +1,11 @@
-import { Track } from "../types";
 import actionCreators from "../actionCreators.js";
 import { CustomNativeEventTypes } from "../types";
 
 export default function eventHandler(store) {
   let clearPlaylist = () => {
     store.dispatch(actionCreators.stop());
-    // make sure not referencing empty index after playlist update
     store.dispatch(actionCreators.changeTrack(0));
-    store.dispatch(
-      actionCreators.updatePlaylist([new Track("", "", "", "", "")])
-    );
+    store.dispatch(actionCreators.updatePlaylist([]));
   };
 
   window.addEventListener(CustomNativeEventTypes.PLAY, function (e) {

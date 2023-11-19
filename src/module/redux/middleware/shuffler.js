@@ -8,7 +8,8 @@ const shuffler = (store) => (next) => (action) => {
 
   if (
     action.type === ActionTypes.SHUFFLE &&
-    state.shuffled !== action.payload.shuffle
+    state.shuffled !== action.payload.shuffle &&
+    state.playlist.lenth > 1
   ) {
     let playlist = state.playlist;
     let currentIndex = state.currentTrack;

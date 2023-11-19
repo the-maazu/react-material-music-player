@@ -27,7 +27,7 @@ export default configureStore({
     mediaState: MediaState.STOPPED,
     currentTrack: 0,
     shuffled: false,
-    playlist: [new Track("", "", "", "", "")], // single default empty track
+    playlist: [], // single default empty track
     volume: 25,
     repeatMode: RepeatMode.NORMAL,
   },

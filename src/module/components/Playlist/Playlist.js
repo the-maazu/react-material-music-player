@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Box from "@mui/material/Box";
 
@@ -31,6 +31,10 @@ export default function Playlist(props) {
   };
 
   const draggablelistContainerRef = React.createRef();
+
+  useEffect(() => {
+    console.log("playlist:", playlist);
+  }, [playlist]);
   return (
     <Box
       ref={draggablelistContainerRef}
@@ -42,18 +46,21 @@ export default function Playlist(props) {
         ...sx, // should be able to overwrite default width and height
       }}
     >
-      <ReactDraggableList
-        list={playlist}
-        itemKey="ID"
-        template={PlaylistItemTemplate}
-        onMoveEnd={onReorder}
-        container={() => draggablelistContainerRef.current}
-        commonProps={{
-          listOfID: playlist.map((element) => element.ID),
-          currentTrackID: playlist[currentTrack].ID,
-          onTrackSelect: onTrackSelect,
-        }}
-      />
+      {" "}
+      {playlist.length > 0 ? (
+        <ReactDraggableList
+          list={playlist}
+          itemKey="ID"
+          template={PlaylistItemTemplate}
+          onMoveEnd={onReorder}
+          container={() => draggablelistContainerRef.current}
+          commonProps={{
+            listOfID: playlist.map((element) => element?.ID),
+            currentTrackID: playlist[currentTrack]?.ID,
+            onTrackSelect: onTrackSelect,
+          }}
+        />
+      ) : null}
     </Box>
   );
 }

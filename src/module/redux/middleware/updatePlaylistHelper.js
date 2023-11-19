@@ -17,7 +17,7 @@ const updatePlaylistHelper = (store) => {
     if (newPlaylist.length !== playlist.length) playlistChanged = true;
     else
       for (let i = 0; i < playlist.length; i++) {
-        if (newPlaylist[i].ID !== playlist[i].ID) {
+        if (newPlaylist[i]?.ID !== playlist[i]?.ID) {
           playlistChanged = true;
           break;
         }
@@ -27,7 +27,7 @@ const updatePlaylistHelper = (store) => {
     if (playlistChanged) {
       let newCurrentTrack = -1;
       for (let i = 0; i < newPlaylist.length; i++) {
-        if (newPlaylist[i].ID === playlist[currentTrack].ID) {
+        if (newPlaylist[i]?.ID === playlist[currentTrack]?.ID) {
           newCurrentTrack = i;
           break;
         }

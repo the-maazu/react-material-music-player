@@ -4,7 +4,7 @@ const changeTrackHelper = (store) => {
   return (next) => (action) => {
     let state = store.getState();
 
-    // chacke index out of bound
+    // chack index out of bound
     if (
       action.type === ActionTypes.CHANGE_TRACK &&
       (action.payload.index >= state.playlist.length ||

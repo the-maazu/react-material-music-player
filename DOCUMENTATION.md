@@ -16,6 +16,8 @@
 
 - <code>disableDrawer(bool)</code>: Mobile drawer is activated when player is too small to contain all the controls. It is likely you would want this feature disabled if you render the Player in the normal document flow or want to use Player as widget in your app.
 
+- <code>defaultArt(string)</code>: src for default cover art when no track is loaded.
+
 ## the interface
 
 1.  create tracks:

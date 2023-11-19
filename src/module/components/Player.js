@@ -5,6 +5,8 @@ import { useSelector, shallowEqual } from "react-redux";
 import { useTheme, styled } from "@mui/material/styles";
 import { Box, SwipeableDrawer, Paper } from "@mui/material";
 
+import debounce from "lodash.debounce";
+
 import CoverArt from "./CoverArt.js";
 import TrackDetails from "./TrackDetials.js";
 import ProgressBar from "./ProgressBar.js";
@@ -82,21 +84,15 @@ const CenterChildBox = styled(Box)(() => ({
   flexWrap: "nowrap",
 }));
 
-//create your forceUpdate hook
-function useForceUpdate() {
-  const [, setValue] = useState(0); // integer state
-  return () => setValue((value) => value + 1); // update the state to force render
-}
-
 export default function Player(props) {
   const sx = props.sx;
   const disableDrawer = props.disableDrawer;
+  const defaultArt = props.defaultArt;
 
   const theme = useTheme();
 
   const [maximised, setMaximised] = useState(false);
-  const [isLarge, setLarge] = useState(false);
-  const forceUpdate = useForceUpdate();
+  const [width, setWidth] = useState(window.innerWidth);
 
   const { currentTrack, playlist } = useSelector(
     /** @type {import("../redux/types.js").useSelectCb} */
@@ -109,7 +105,7 @@ export default function Player(props) {
 
   const openSwipeableDrawer = () => {
     // only maximise if docked and not large
-    if (!disableDrawer && !isLarge) {
+    if (!disableDrawer && width < theme.breakpoints.values.md) {
       setMaximised(true);
     }
   };
@@ -124,7 +120,7 @@ export default function Player(props) {
   const rowView = () => (
     <RowBox onClick={openSwipeableDrawer}>
       <CoverArt
-        src={playlist[currentTrack].coverArt}
+        src={playlist[currentTrack]?.coverArt ?? defaultArt}
         sx={{
           height: "48px",
           width: "48px",
@@ -135,21 +131,23 @@ export default function Player(props) {
         sx={{
           // fixed size to stop resize on content change
           width: "120px",
-          // grow if screen is small to cover extra space
-          flexGrow: isLarge ? 0 : 1,
+          flexGrow: 1,
           textAlign: "left",
           margin: 1,
           flexShrink: 0,
         }}
       />
-      <Controls size={isLarge ? "large" : "small"} />
-      {isLarge ? (
+      <Controls
+        disabled={playlist[currentTrack] === undefined}
+        minimised={width <= theme.breakpoints.values.sm}
+      />
+      {width > theme.breakpoints.values.md && (
         <>
           <ProgressBar sx={{ flexGrow: 6 }} />
           <VolumeControl sx={{ flexGrow: 2 }} />
           <PlaylistControl playlistViewMode="popover" />
         </>
-      ) : null}
+      )}
     </RowBox>
   );
 
@@ -159,7 +157,7 @@ export default function Player(props) {
       <CenterChildBox sx={{ flexGrow: 1 }}>
         <CoverArt
           className="children"
-          src={playlist[currentTrack].coverArt}
+          src={playlist[currentTrack]?.coverArt ?? defaultArt}
           sx={{
             height: "300px",
             width: "300px",
@@ -174,7 +172,7 @@ export default function Player(props) {
         />
       </CenterChildBox>
       <ProgressBar />
-      <Controls />
+      <Controls disabled={playlist[currentTrack] === undefined} />
       <VolumeControl />
       <PlaylistControl playlistViewMode="expand" />
     </ColumnBox>
@@ -182,31 +180,31 @@ export default function Player(props) {
 
   // set large depending on player width
   const rootRef = React.useRef();
-  // eslint-disable-next-line
-  useEffect(() => {
-    /**
-     * Root of the player
-     * @type {Element}
-     * */
-    const rootElement = rootRef.current;
-    if (rootElement.clientWidth > theme.breakpoints.values.md) {
-      if (!isLarge) setLarge(true);
-    } else {
-      if (isLarge) {
-        setLarge(false);
-        // incase maximised before resize
-        if (maximised) setMaximised(false);
-      }
-    }
-  });
+  const widthSetter = debounce(
+    () => {
+      setWidth(rootRef.current?.clientWidth);
+    },
+    250,
+    { maxWait: 1000 }
+  );
 
-  // also set window resize listener
+  // windows resize listener
   useEffect(() => {
-    window.onresize = () => {
-      forceUpdate();
-    };
+    widthSetter();
+    window.addEventListener("resize", widthSetter);
     // eslint-disable-next-line
   }, []);
+
+  // after every render
+  useEffect(() => {
+    widthSetter();
+  });
+
+  // close maximised drawer when view port gets large
+  useEffect(() => {
+    if (width > theme.breakpoints.values.lg) setMaximised(false);
+    // eslint-disable-next-line
+  }, [width]);
 
   return (
     // sx from props can be used to override default styles in rowView
@@ -214,7 +212,7 @@ export default function Player(props) {
       {/* render row view only when not maximised*/}
       {maximised ? null : rowView()}
 
-      {!disableDrawer && !isLarge && (
+      {!disableDrawer && width <= theme.breakpoints.values.md && (
         <SwipeableDrawer
           open={maximised}
           anchor="bottom"

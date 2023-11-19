@@ -10,8 +10,8 @@ export default function TrackDetails(props) {
     (state) => {
       let currentTrack = state.playlist[state.currentTrack];
       return {
-        title: currentTrack.title,
-        artist: currentTrack.artist,
+        title: currentTrack?.title,
+        artist: currentTrack?.artist,
       };
     },
     shallowEqual
