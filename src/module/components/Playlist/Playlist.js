@@ -32,9 +32,6 @@ export default function Playlist(props) {
 
   const draggablelistContainerRef = React.createRef();
 
-  useEffect(() => {
-    console.log("playlist:", playlist);
-  }, [playlist]);
   return (
     <Box
       ref={draggablelistContainerRef}

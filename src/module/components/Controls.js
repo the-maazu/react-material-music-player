@@ -16,7 +16,7 @@ import { MediaState } from "../redux/types";
 export default function Controls(props) {
   const sx = props.sx;
   const disabled = props.disabled === undefined ? false : props.disabled;
-  const minimise = props.minimise;
+  const isSmall = props.isSmall;
 
   const mediaState = useSelector(
     /** @type {import("../redux/types").useSelectCb} */
@@ -42,7 +42,7 @@ export default function Controls(props) {
         ...sx,
       }}
     >
-      {!minimise && (
+      {!isSmall && (
         <IconButton
           onClick={withoutPropagation(onSkipPrev)}
           size="large"
@@ -64,13 +64,15 @@ export default function Controls(props) {
         )}
       </IconButton>
 
-      <IconButton
-        onClick={withoutPropagation(onSkipNext)}
-        size="large"
-        disabled={disabled}
-      >
-        <SkipNextIcon fontSize="large" />
-      </IconButton>
+      {!isSmall && (
+        <IconButton
+          onClick={withoutPropagation(onSkipNext)}
+          size="large"
+          disabled={disabled}
+        >
+          <SkipNextIcon fontSize="large" />
+        </IconButton>
+      )}
     </Box>
   );
 }

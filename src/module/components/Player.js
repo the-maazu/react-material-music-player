@@ -139,7 +139,7 @@ export default function Player(props) {
       />
       <Controls
         disabled={playlist[currentTrack] === undefined}
-        minimised={width <= theme.breakpoints.values.sm}
+        isSmall={width <= theme.breakpoints.values.sm}
       />
       {width > theme.breakpoints.values.md && (
         <>
@@ -182,7 +182,12 @@ export default function Player(props) {
   const rootRef = React.useRef();
   const widthSetter = debounce(
     () => {
-      setWidth(rootRef.current?.clientWidth);
+      /**
+       * Root of the player
+       * @type {Element}
+       * */
+      const rootElement = rootRef.current;
+      setWidth(rootElement.clientWidth ?? width);
     },
     250,
     { maxWait: 1000 }
