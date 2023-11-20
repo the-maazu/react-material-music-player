@@ -10,7 +10,6 @@ import mediaSessionActions from "./middleware/mediaSessionActions";
 import skipHelper from "./middleware/skipHelper";
 
 import { MediaState, RepeatMode } from "./types";
-import { Track } from "./types";
 
 export default configureStore({
   reducer: rootReducer,
