@@ -1,21 +1,14 @@
 {
   "files": {
-    "main.css": "/react-material-music-player/static/css/main.002c75b1.chunk.css",
-    "main.js": "/react-material-music-player/static/js/main.21b00724.chunk.js",
-    "main.js.map": "/react-material-music-player/static/js/main.21b00724.chunk.js.map",
-    "runtime-main.js": "/react-material-music-player/static/js/runtime-main.d39c7d2f.js",
-    "runtime-main.js.map": "/react-material-music-player/static/js/runtime-main.d39c7d2f.js.map",
-    "static/js/2.ca3b7fc5.chunk.js": "/react-material-music-player/static/js/2.ca3b7fc5.chunk.js",
-    "static/js/2.ca3b7fc5.chunk.js.map": "/react-material-music-player/static/js/2.ca3b7fc5.chunk.js.map",
+    "main.css": "/react-material-music-player/static/css/main.dce76064.css",
+    "main.js": "/react-material-music-player/static/js/main.68f1aab3.js",
+    "static/media/logo.svg": "/react-material-music-player/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
     "index.html": "/react-material-music-player/index.html",
-    "static/css/main.002c75b1.chunk.css.map": "/react-material-music-player/static/css/main.002c75b1.chunk.css.map",
-    "static/js/2.ca3b7fc5.chunk.js.LICENSE.txt": "/react-material-music-player/static/js/2.ca3b7fc5.chunk.js.LICENSE.txt",
-    "static/media/logo.103b5fa1.svg": "/react-material-music-player/static/media/logo.103b5fa1.svg"
+    "main.dce76064.css.map": "/react-material-music-player/static/css/main.dce76064.css.map",
+    "main.68f1aab3.js.map": "/react-material-music-player/static/js/main.68f1aab3.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.d39c7d2f.js",
-    "static/js/2.ca3b7fc5.chunk.js",
-    "static/css/main.002c75b1.chunk.css",
-    "static/js/main.21b00724.chunk.js"
+    "static/css/main.dce76064.css",
+    "static/js/main.68f1aab3.js"
   ]
 }
