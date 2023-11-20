@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-material-music-player/static/css/main.dce76064.css",
-    "main.js": "/react-material-music-player/static/js/main.68f1aab3.js",
+    "main.js": "/react-material-music-player/static/js/main.fdf41902.js",
     "static/media/logo.svg": "/react-material-music-player/static/media/logo.103b5fa18196d5665a7e12318285c916.svg",
     "index.html": "/react-material-music-player/index.html",
     "main.dce76064.css.map": "/react-material-music-player/static/css/main.dce76064.css.map",
-    "main.68f1aab3.js.map": "/react-material-music-player/static/js/main.68f1aab3.js.map"
+    "main.fdf41902.js.map": "/react-material-music-player/static/js/main.fdf41902.js.map"
   },
   "entrypoints": [
     "static/css/main.dce76064.css",
-    "static/js/main.68f1aab3.js"
+    "static/js/main.fdf41902.js"
   ]
 }
