@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {
   PlayArrowRounded as PlayIcon,
   Menu as ReorderIcon,
-} from "@mui/icons-material/";
+} from "@mui/icons-material";
 import Box from "@mui/material/Box";
 
 import CoverArt from "../CoverArt";

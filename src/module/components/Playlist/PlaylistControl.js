@@ -10,8 +10,8 @@ import {
   RepeatRounded,
   RepeatOnRounded,
   RepeatOneOnRounded,
-} from "@mui/icons-material/";
-import { Popover, Collapse, Box, ToggleButton } from "@mui/material/";
+} from "@mui/icons-material";
+import { Popover, Collapse, Box, ToggleButton } from "@mui/material";
 import styled from "@mui/material/styles/styled";
 
 import Playlist from "./Playlist.js";
