@@ -239,7 +239,7 @@ function App() {
 
 // get media data over tthe internet
 const TEST_MEDIA =
-  "https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/sample_media/";
+  "https://github.com/the-maazu/react-material-music-player/raw/main/sample_media/";
 
 // update playlist with test data and start play
 PlayerInterface.setPlaylist([
