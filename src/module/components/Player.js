@@ -82,6 +82,9 @@ const CenterChildBox = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
   flexWrap: "nowrap",
+  overflow: "hidden",
+  flexGrow: 1,
+  flexShrink: 0,
 }));
 
 export default function Player(props) {
@@ -154,20 +157,34 @@ export default function Player(props) {
   const columnView = () => (
     <ColumnBox>
       {/* grow and center cover art */}
-      <CenterChildBox sx={{ flexGrow: 1 }}>
-        <CoverArt
-          className="children"
-          src={playlist[currentTrack]?.coverArt ?? defaultArt}
-          sx={{
-            height: "300px",
-            width: "300px",
-            boxShadow: 4,
-          }}
-        />
+      <CenterChildBox>
+        {width > theme.breakpoints.values.sm ? (
+          <CoverArt
+            className="children"
+            src={playlist[currentTrack]?.coverArt ?? defaultArt}
+            sx={{
+              height: "300px",
+              width: "300px",
+              boxShadow: 4,
+            }}
+          />
+        ) : (
+          <CoverArt
+            className="children"
+            src={playlist[currentTrack]?.coverArt ?? defaultArt}
+            sx={{
+              height: "200px",
+              width: "200px",
+              boxShadow: 4,
+            }}
+          />
+        )}
         <TrackDetails
+          align="center"
           sx={{
             mt: 1,
             textAlign: "center",
+            width: "90%",
           }}
         />
       </CenterChildBox>
@@ -214,9 +231,7 @@ export default function Player(props) {
   return (
     // sx from props can be used to override default styles in rowView
     <RootPaper ref={rootRef} sx={sx} elevation={4}>
-      {/* render row view only when not maximised*/}
-      {maximised ? null : rowView()}
-
+      {rowView()}
       {!disableDrawer && width <= theme.breakpoints.values.md && (
         <SwipeableDrawer
           open={maximised}

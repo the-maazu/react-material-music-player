@@ -164,8 +164,9 @@ export default function PlaylistControl(props) {
         <Collapse collapsedSize={"0"} in={playlistVisible}>
           <Playlist
             sx={{
-              height: "60vh",
+              height: "40vh",
               width: "90vw",
+              overflow: "scroll",
             }}
           />
         </Collapse>

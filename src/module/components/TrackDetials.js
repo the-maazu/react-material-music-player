@@ -26,6 +26,8 @@ export default function TrackDetails(props) {
           typography: "subtitl3",
           whiteSpace: "nowrap",
           overflow: "hidden",
+          textOverflow: "ellipsis",
+          width: "100%",
         }}
       >
         {title}
@@ -35,6 +37,8 @@ export default function TrackDetails(props) {
           typography: "subtitle2",
           whiteSpace: "nowrap",
           overflow: "hidden",
+          textOverflow: "ellipsis",
+          width: "100%",
         }}
       >
         {artist}

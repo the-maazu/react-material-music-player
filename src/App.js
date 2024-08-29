@@ -250,137 +250,21 @@ PlayerInterface.setPlaylist([
     "Bach",
     TEST_MEDIA + "Bach%20--%20BWV%20245%20--%2068%20Choral.mp3"
   ),
+  new Track(
+    "2",
+    TEST_MEDIA + "emerson.jpeg",
+    "All through the night",
+    "Emerson",
+    TEST_MEDIA +
+      "Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3"
+  ),
+  new Track(
+    "3",
+    TEST_MEDIA + "guido.jpg",
+    "Ut queant laxis",
+    "Guido von Arezzo",
+    TEST_MEDIA + "Guido%20von%20Arezzo%20--%20Ut%20queant%20laxis.mp3"
+  ),
 ]);
-
-// wait 3 seconds
-window.setTimeout(
-  () =>
-    // adds music at end of playlist
-    PlayerInterface.playLater([
-      new Track(
-        "2",
-        TEST_MEDIA + "emerson.jpeg",
-        "All through the night",
-        "Emerson",
-        TEST_MEDIA +
-          "Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3"
-      ),
-    ]),
-  3000 // 3 seconds
-);
-
-// wait 6 seconds
-window.setTimeout(
-  () =>
-    // add music after current track
-    PlayerInterface.playNext([
-      new Track(
-        "3",
-        TEST_MEDIA + "guido.jpg",
-        "Ut queant laxis",
-        "Guido von Arezzo",
-        TEST_MEDIA + "Guido%20von%20Arezzo%20--%20Ut%20queant%20laxis.mp3"
-      ),
-    ]),
-  6000 // 6 seconds
-);
-
-// window.setTimeout(
-//   () => console.log("getState:", PlayerInterface.getState(50)),
-//   8000 // 8 seconds
-// );
-
-// PlayerInterface.subscribe((state) => console.log("subscribe", state));
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ONE),
-//   12000 // 8 seconds
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.setRepeatMode(RepeatModes.REPEAT_ALL),
-//   15000 // 8 seconds
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.pause(),
-//   12000 // 7 seconds
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.stop(),
-//   15000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.setVolume(100),
-//   18000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.skipNext(),
-//   21000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.skipPrev(),
-//   24000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.shuffle(true),
-//   27000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.shuffle(false),
-//   30000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.changeTrack(2),
-//   33000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.play(),
-//   36000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.seek(50),
-//   39000
-// );
-
-// window.setTimeout(
-//   () =>
-//     // add music after current track
-//     PlayerInterface.clearPlaylist(),
-//   42000
-// );
 
 export default App;
