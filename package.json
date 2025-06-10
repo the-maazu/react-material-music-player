@@ -33,7 +33,7 @@
     "@testing-library/user-event": "^7.1.2",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-react-css-modules": "^0.0.0",
-    "gh-pages": "^3.2.3",
+    "gh-pages": "^5.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "2.4.1",
@@ -100,5 +100,5 @@
     "type": "liberapay",
     "url": "https://liberapay.com/the-maazu/donate"
   },
-  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
+  "packageManager": "pnpm@10.8.0"
 }
