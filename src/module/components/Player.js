@@ -196,7 +196,7 @@ export default function Player(props) {
   );
 
   // set large depending on player width
-  const rootRef = React.useRef();
+  const rootRef = React.useRef(null);
   const widthSetter = debounce(
     () => {
       /**

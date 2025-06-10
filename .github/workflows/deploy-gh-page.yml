@@ -12,8 +12,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
 
   deploy:
     needs: build
@@ -23,5 +26,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
-      - run: yarn install --frozen-lockfile
-      - run: yarn deploy
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm deploy
