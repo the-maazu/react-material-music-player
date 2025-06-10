@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider } from "@mui/material/styles";
 import {
   Box,
   ToggleButtonGroup,
