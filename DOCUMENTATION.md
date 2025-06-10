@@ -12,7 +12,7 @@
 
 <code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={true|false}/&gt;</code>
 
-- <code>sx(object)</code>: This is a superset of CSS introduced with mui-v5. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
+- <code>sx(object)</code>: This is a superset of CSS introduced with MUI. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
 
 - <code>disableDrawer(bool)</code>: Mobile drawer is activated when player is too small to contain all the controls. It is likely you would want this feature disabled if you render the Player in the normal document flow or want to use Player as widget in your app.
 

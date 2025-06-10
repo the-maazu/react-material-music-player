@@ -1,16 +1,18 @@
 {
   "name": "react-material-music-player",
   "version": "1.2.4",
-  "description": "This is a highly customisable music player powered by mui-v5, typescript, mobile mode, media session action & metadata, reorderable playlist",
+  "description": "This is a highly customisable music player powered by mui-v7, typescript, mobile mode, media session action & metadata, reorderable playlist",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.0.1",
-    "@mui/material": "^5.0.1",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^7.0.0",
+    "@mui/material": "^7.0.0",
+    "@mui/system": "^7.0.0",
+    "@mui/utils": "^7.0.0",
     "@reduxjs/toolkit": "^1.6.2",
     "lodash.debounce": "^4.0.8",
     "react-draggable-list": "^4.0.3",
@@ -43,17 +45,17 @@
   "scripts": {
     "compile": "babel src/module --delete-dir-on-start --out-dir dist/",
     "typecomp": "tsc src/module/**.js --declaration --allowJs --checkJs --jsx react --esModuleInterop --outDir dist",
-    "emit": "yarn typecomp --emitDeclarationOnly",
-    "check": "yarn typecomp --noEmit",
-    "prestart": "yarn run check --watch > tsc.log &",
-    "prebuild": "yarn run check",
-    "pretest": "yarn run check",
+    "emit": "pnpm typecomp --emitDeclarationOnly",
+    "check": "pnpm typecomp --noEmit",
+    "prestart": "pnpm run check --watch > tsc.log &",
+    "prebuild": "pnpm run check",
+    "pretest": "pnpm run check",
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepublishOnly": "yarn compile && yarn emit",
-    "predeploy": "yarn run build",
+    "prepublishOnly": "pnpm compile && pnpm emit",
+    "predeploy": "pnpm run build",
     "deploy": "gh-pages -d build",
     "prepare": "husky install"
   },
@@ -97,5 +99,6 @@
   "funding": {
     "type": "liberapay",
     "url": "https://liberapay.com/the-maazu/donate"
-  }
+  },
+  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
 }
