@@ -2,7 +2,6 @@ import { configureStore, Tuple } from "@reduxjs/toolkit";
 import audioOutput from "./middleware/audioOutput";
 import changeTrackHelper from "./middleware/changeTrackHelper";
 import deleteHelper from "./middleware/deleteHelper";
-import localStorageMiddleware from "./middleware/localStorage";
 import mediaSessionActions from "./middleware/mediaSessionActions";
 import nativeEventHandler from "./middleware/nativeEventsHandler";
 import shuffler from "./middleware/shuffler";
@@ -13,16 +12,16 @@ import reHydrateStore from "./reHydrateStore";
 
 export default configureStore({
   reducer,
-  middleware: () => new Tuple(
-    nativeEventHandler,
-    localStorageMiddleware,
-    shuffler,
-    updatePlaylistHelper,
-    mediaSessionActions,
-    changeTrackHelper,
-    deleteHelper,
-    audioOutput, // audio output might drop skip action
-    skipHelper, // skip helper must come after audioOutput
-  ),
+  middleware: () =>
+    new Tuple(
+      nativeEventHandler,
+      shuffler,
+      updatePlaylistHelper,
+      mediaSessionActions,
+      changeTrackHelper,
+      deleteHelper,
+      audioOutput, // audio output might drop skip action
+      skipHelper // skip helper must come after audioOutput
+    ),
   preloadedState: reHydrateStore(),
 });
