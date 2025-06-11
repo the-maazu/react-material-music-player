@@ -1,3 +1,4 @@
+import { DragDropManager, Draggable, Droppable } from "@dnd-kit/abstract";
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
 import { SxProps } from "@mui/material/styles";
@@ -88,7 +89,12 @@ const Playlist = (props: PlaylistProps) => {
         onDragEnd={(event) => {
           dispatch(
             ActionCreators.updatePlaylist(
-              move<ITrack[], any, any, any>(playlist, event)
+              move<
+                ITrack[],
+                Draggable,
+                Droppable,
+                DragDropManager<Draggable, Droppable>
+              >(playlist, event)
             )
           );
         }}
