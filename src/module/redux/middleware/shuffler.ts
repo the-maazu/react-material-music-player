@@ -1,7 +1,7 @@
 import { Middleware } from "@reduxjs/toolkit";
 import shuffle from "../../utils/shuffle";
 import actionCreators from "../actionCreators";
-import { ActionTypes, ITrack } from "../types";
+import { ActionTypes, TrackData } from "../types";
 import type { AppAction, RootState } from "../store";
 
 const shuffler: Middleware<{}, RootState> =
@@ -23,7 +23,7 @@ const shuffler: Middleware<{}, RootState> =
 
       withoutCurrent = action.payload.shuffle
         ? shuffle(withoutCurrent)
-        : withoutCurrent.sort((first: ITrack, second: ITrack) =>
+        : withoutCurrent.sort((first: TrackData, second: TrackData) =>
             first.id < second.id ? -1 : first.id > second.id ? 1 : 0
           );
 

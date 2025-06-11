@@ -1,12 +1,12 @@
 import store from "./redux/store";
-import { CustomNativeEventTypes, ITrack, RepeatMode } from "./redux/types";
+import { CustomNativeEventTypes, TrackData, RepeatMode } from "./redux/types";
 
 const interfaceObject = {
   /**
    * This sets new playlist and starts playing
    * @param tracks
    */
-  play: (tracks?: ITrack[]) => {
+  play: (tracks?: TrackData[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY, {
       detail: tracks,
     });
@@ -104,7 +104,7 @@ const interfaceObject = {
    * This inserts playlist right after current playing track
    * @param tracks - Array of Tracks to insert
    */
-  playNext: (tracks: ITrack[]) => {
+  playNext: (tracks: TrackData[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY_NEXT, {
       detail: tracks,
     });
@@ -113,9 +113,9 @@ const interfaceObject = {
 
   /**
    * This appends playlist to the end of current playlist
-   * @param tracks - Array of ITrack to append
+   * @param tracks - Array of TrackData to append
    */
-  playLater: (tracks: ITrack[]) => {
+  playLater: (tracks: TrackData[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY_LATER, {
       detail: tracks,
     });
@@ -126,7 +126,7 @@ const interfaceObject = {
    * This sets new playlist
    * @param playlist - Array of Tracks to set
    */
-  setPlaylist: (playlist: ITrack[]) => {
+  setPlaylist: (playlist: TrackData[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.SET_PLAYLIST, {
       detail: playlist,
     });
@@ -159,7 +159,7 @@ const interfaceObject = {
    * Returns if current track playing
    */
   isCurrentTrack: (id: string) => {
-    return (store.getState().playlist as ITrack[]).some(
+    return (store.getState().playlist as TrackData[]).some(
       (track) => track.id === id
     );
   },

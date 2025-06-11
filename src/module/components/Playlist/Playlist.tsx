@@ -12,7 +12,7 @@ import { styled } from "@mui/system";
 import * as React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
-import { ITrack } from "../../redux/types";
+import { TrackData } from "../../redux/types";
 import PlaylistItemTemplate from "./PlaylistItemTemplate";
 import Close from "@mui/icons-material/Close";
 
@@ -38,7 +38,7 @@ interface PlaylistProps {
 }
 
 type State = {
-  playlist: ITrack[];
+  playlist: TrackData[];
   currentTrack: number;
 };
 
@@ -90,7 +90,7 @@ const Playlist = (props: PlaylistProps) => {
           dispatch(
             ActionCreators.updatePlaylist(
               move<
-                ITrack[],
+                TrackData[],
                 Draggable,
                 Droppable,
                 DragDropManager<Draggable, Droppable>

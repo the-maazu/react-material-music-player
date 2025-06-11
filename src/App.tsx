@@ -15,7 +15,7 @@ import ComputerRounded from "@mui/icons-material/ComputerRounded";
 import DarkModeRounded from "@mui/icons-material/DarkModeRounded";
 
 // To use the player this is what you need to import
-import Player, { PlayerInterface } from "./module";
+import Player, { PlayerInterface, Track } from "./module";
 
 import makeTheme from "./makeTheme";
 
@@ -236,15 +236,14 @@ const TEST_MEDIA =
 
 // update playlist with test data and start play
 PlayerInterface.setPlaylist([
-  {
+  new Track({
     id: "1",
     coverArt: TEST_MEDIA + "bach.jpg",
     title: "68 Choral",
     artist: "Bach",
     source: TEST_MEDIA + "Bach%20--%20BWV%20245%20--%2068%20Choral.mp3",
-    duration: 0,
-  },
-  {
+  }),
+  new Track({
     id: "2",
     coverArt: TEST_MEDIA + "emerson.jpeg",
     title: "All through the night",
@@ -252,16 +251,14 @@ PlayerInterface.setPlaylist([
     source:
       TEST_MEDIA +
       "Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3",
-    duration: 0,
-  },
-  {
+  }),
+  new Track({
     id: "3",
     coverArt: TEST_MEDIA + "guido.jpg",
     title: "Ut queant laxis",
     artist: "Guido von Arezzo",
     source: TEST_MEDIA + "Guido%20von%20Arezzo%20--%20Ut%20queant%20laxis.mp3",
-    duration: 0,
-  },
+  }),
 ]);
 
 export default App;

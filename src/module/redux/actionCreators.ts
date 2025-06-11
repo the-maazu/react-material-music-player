@@ -1,80 +1,80 @@
-import { ActionTypes, ITrack } from "./types";
+import { ActionTypes, TrackData } from "./types";
 
 const ActionCreators = {
   changeTrack: (index: number) => ({
     type: ActionTypes.CHANGE_TRACK,
-    payload: { index }
+    payload: { index },
   }),
 
   deleteTrack: (index: number) => ({
     type: ActionTypes.DELETE_TRACK,
-    payload: { index }
+    payload: { index },
   }),
 
   play: () => ({
-    type: ActionTypes.PLAY
+    type: ActionTypes.PLAY,
   }),
 
   pause: () => ({
-    type: ActionTypes.PAUSE
+    type: ActionTypes.PAUSE,
   }),
 
   stop: () => ({
-    type: ActionTypes.STOP
+    type: ActionTypes.STOP,
   }),
 
-  updatePlaylist: (playlist: ITrack[]) => ({
+  updatePlaylist: (playlist: TrackData[]) => ({
     type: ActionTypes.UPDATE_PLAYLIST,
-    payload: { playlist }
+    payload: { playlist },
   }),
 
   shuffle: (bool: boolean) => ({
     type: ActionTypes.SHUFFLE,
-    payload: { shuffle: bool }
+    payload: { shuffle: bool },
   }),
 
   setCurrentTime: (currentTime: number) => ({
     type: ActionTypes.SET_CURRENT_TIME,
-    payload: { currentTime }
+    payload: { currentTime },
   }),
 
   setTimeLeft: (timeLeft: number) => ({
     payload: { timeLeft },
-    type: ActionTypes.SET_TIME_LEFT
+    type: ActionTypes.SET_TIME_LEFT,
   }),
 
   seek: (progress: any) => ({
     type: ActionTypes.SEEK,
-    payload: { progress }
+    payload: { progress },
   }),
 
   setVolume: (volume: number | number[]) => ({
     type: ActionTypes.CHANGE_VOLUME,
-    payload: { volume }
+    payload: { volume },
   }),
 
   setRepeatMode: (mode: string) => ({
     type: ActionTypes.SET_REPEAT_MODE,
-    payload: { mode }
+    payload: { mode },
   }),
 
   skipNext: () => ({
-    type: ActionTypes.SKIP_NEXT
+    type: ActionTypes.SKIP_NEXT,
   }),
 
   skipPrev: () => ({
-    type: ActionTypes.SKIP_PREV
+    type: ActionTypes.SKIP_PREV,
   }),
 
   setDuration: (duration: number) => ({
     type: ActionTypes.SET_DURATION,
-    payload: { duration }
+    payload: { duration },
   }),
 
   setCurrentTrackId: (id: string) => ({
     type: ActionTypes.SET_CURRENT_TRACK_ID,
-    payload: { id }
-  })
+    payload: { id },
+  }),
 };
 
 export default ActionCreators;

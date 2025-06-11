@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ActionTypes, ITrack, MediaState, RepeatMode } from "./types";
+import { ActionTypes, TrackData, MediaState, RepeatMode } from "./types";
 
 export default combineReducers({
   mediaState: (state = MediaState.STOPPED, action: any) => {
@@ -14,7 +14,7 @@ export default combineReducers({
         return state;
     }
   },
-  playlist: (state: ITrack[] = [], action: any): ITrack[] => {
+  playlist: (state: TrackData[] = [], action: any): TrackData[] => {
     if (action.type === ActionTypes.UPDATE_PLAYLIST)
       return action.payload.playlist;
     else return state;
@@ -33,7 +33,8 @@ export default combineReducers({
     else return state;
   },
   timeLeft: (state = 0, action: any) => {
-    if (action.type === ActionTypes.SET_TIME_LEFT) return action.payload.timeLeft;
+    if (action.type === ActionTypes.SET_TIME_LEFT)
+      return action.payload.timeLeft;
     else return state;
   },
   volume: (state = 0, action: any) => {
@@ -45,7 +46,8 @@ export default combineReducers({
     else return state;
   },
   duration: (state = 0, action: any) => {
-    if (action.type === ActionTypes.SET_DURATION) return action.payload.duration;
+    if (action.type === ActionTypes.SET_DURATION)
+      return action.payload.duration;
     else return state;
   },
   deleteTrack: (state = 0, action: any) => {
@@ -56,5 +58,5 @@ export default combineReducers({
     if (action.type === ActionTypes.SET_CURRENT_TRACK_ID)
       return action.payload.id;
     else return state;
-  }
+  },
 });

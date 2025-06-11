@@ -63,14 +63,33 @@ enum ActionTypes {
   SET_CURRENT_TRACK_ID = "SET_CURRENT_TRACK_ID",
 }
 
-interface ITrack {
-  readonly id: string;
-  readonly coverArt?: string | undefined;
-  readonly title: string;
-  readonly artist?: string | undefined;
-  readonly source: string;
-  readonly duration: number;
+interface TrackData {
+  id: string;
+  coverArt: string;
+  title: string;
+  artist: string;
+  source: string;
 }
 
-export type { ITrack };
-export { ActionTypes, CustomNativeEventTypes, MediaState, RepeatMode };
+class Track {
+  readonly id: string;
+  readonly coverArt: string;
+  readonly title: string;
+  readonly artist: string;
+  readonly source: string;
+
+  constructor(data: TrackData) {
+    this.id = data.id;
+    this.coverArt = data.coverArt;
+    this.title = data.title;
+    this.artist = data.artist;
+    this.source = data.source;
+  }
+
+  getSource(): string {
+    return this.source;
+  }
+}
+
+export { ActionTypes, CustomNativeEventTypes, MediaState, RepeatMode, Track };
+export type { TrackData };

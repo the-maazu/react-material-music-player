@@ -6,7 +6,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { styled, SxProps } from "@mui/system";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { ITrack } from "../redux/types";
+import { TrackData } from "../redux/types";
 import Controls from "./Controls";
 import CoverArt from "./CoverArt";
 import PlaylistControl from "./Playlist/PlaylistControl";
@@ -94,7 +94,7 @@ const Player = (props: PlayerProps) => {
 
   const { currentTrack, playlist } = useSelector<
     RootState,
-    { currentTrack: number; playlist: ITrack[] }
+    { currentTrack: number; playlist: TrackData[] }
   >(
     ({ currentTrack, playlist }) => ({
       currentTrack,

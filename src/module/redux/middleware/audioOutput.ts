@@ -1,16 +1,16 @@
 import { Middleware } from "@reduxjs/toolkit";
 import ActionCreators from "../actionCreators";
 import type { AppAction, RootState } from "../store";
-import { ActionTypes, ITrack, MediaState, RepeatMode } from "../types";
+import { ActionTypes, TrackData, MediaState, RepeatMode } from "../types";
 
 class AudioOutput extends Audio {
-  private track: ITrack | undefined;
+  private track: TrackData | undefined;
 
   /**
    * Sets source of audio
    * @param track
    */
-  setSrc(track: ITrack | undefined): void {
+  setSrc(track: TrackData | undefined): void {
     if (undefined === track) return;
     if (!this.isCurrent(track)) {
       this.src = track.source;
@@ -19,7 +19,7 @@ class AudioOutput extends Audio {
     }
   }
 
-  setMediaMetadata(track: ITrack | null): void {
+  setMediaMetadata(track: TrackData | null): void {
     if ("mediaSession" in navigator) {
       if (!track) navigator.mediaSession.metadata = null;
       else
@@ -43,7 +43,7 @@ class AudioOutput extends Audio {
   /**
    * Check if same track loaded
    */
-  isCurrent(track: ITrack): boolean | undefined {
+  isCurrent(track: TrackData): boolean | undefined {
     if (undefined === this.track) return;
     return this.track.id === track.id;
   }
