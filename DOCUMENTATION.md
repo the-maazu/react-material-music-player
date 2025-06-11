@@ -2,53 +2,46 @@
 
 ## import
 
-1. <code>
-   import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js)
-   from 'react-material-music-player' // default export</code>
+1. `import Player from 'react-material-music-player'; // default export`
 
-2. <code>
-   import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) }
-   from 'react-material-music-player'</code>
+2. `import { Track, PlayerInterface } from 'react-material-music-player';`
 
 <b>Hint:</b> the Player and the PlayerInterface aren't required to be imported in the same file or context.
 
 ## the component
 
-<code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={true|false}/&gt;</code>
+`<Player sx={{...CSS-in-JS}} disableDrawer={true|false} />`
 
-- <code>sx(SxProps)</code>: This is a superset of CSS introduced with MUI. You can override the default styles using
-  this
+- `sx(SxProps)`: This is a superset of CSS introduced with MUI. You can override the default styles using this
   prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style
-  is set to dock the player at the bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This
-  can be
+  is set to dock the player at the bottom of viewport `{width:"100vw", position:"fixed", bottom:0 ...}`. This can be
   overridden to position the Player anyway in your app. Read more
   on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/)
   allows you to modify just a few properties. Try them out!
 
-- <code>disableDrawer(boolean)</code>: Mobile drawer is activated when player is too small to contain all the controls.
-  It
-  is likely you would want this feature disabled if you render the Player in the normal document flow or want to use
-  Player as widget in your app.
+- `disableDrawer(boolean)`: Mobile drawer is activated when player is too small to contain all the controls.
+  It is likely you would want this feature disabled if you render the Player in the normal document flow or want to use
+  Player as a widget in your app.
 
-- <code>defaultArt(string)</code>: src for default cover art when no track is loaded.
+- `defaultArt(string)`: src for default cover art when no track is loaded.
 
 ## the interface
 
 1. create tracks:
 
-<pre><code>
-new Track( 
-    ID: string, // unique ID used in shuffling and sorting
+```
+new Track(
+    id: string, // unique ID used in shuffling and sorting
     coverArt: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/src">string</a>,
     title: string,
-    artist: string, 
+    artist: string,
     source: <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/src">string</a> // url to music file
-)
-</code></pre>
+);
+```
 
 2. controls:
 
-<pre><code>
+```
     PlayerInterface.setPlaylist(Track[]) // sets a new playlist, can be an empty array
     PlayerInterface.clearPlaylist() // similar to setting empty array
 
@@ -85,7 +78,7 @@ new Track(
         volume: number, // min:0 max:100
         repeatMode: "NORMAL" || "REPEAT_ALL" || "REPEAT_ONE",
     }
-</code></pre>
+```
 
 ## theming & customisation
 
@@ -94,16 +87,16 @@ of [Material-UI themed components](https://mui.com/material-ui/customization/cre
 can be customized as
 described [in the theming section](https://mui.com/customization/theming/).
 The player should inherit your themes and style overrides if your app is already using mui theming solutions. Otherwise,
-create a new theme if the default is not to your liking. The guide here is not exhausitve. I strongly suggest you read
+create a new theme if the default is not to your liking. The guide here is not exhaustive. I strongly suggest you read
 on [mui customisation](https://mui.com/customization/theming)
 
 ### creating a theme
 
 You would typically create a theme as shown below
 
-<pre><code>
-import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
+```ts
+import { createTheme } from "@mui/material/styles";
+import { green, purple } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -131,36 +124,33 @@ const theme = createTheme({
     },
   },
 });
-</code></pre>
+```
 
-Notice the convenience [color objects](https://mui.com/customization/color/) provided at @mui/material/colors.
-Its also possible to assign the full object without being too specific: <code>primary:green</code>
+Notice the convenience [color objects](https://mui.com/customization/color/) provided at `@mui/material/colors`.
+Its also possible to assign the full object without being too specific: `primary:green`
 
-For the theme to take effect Player must be a descendent of the ThemeProvider component
+For the theme to take effect, Player must be a descendent of the ThemeProvider component
 
-<pre><code>
+```tsx
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
-<!-- prettier-ignore -->
-// pass the theme object as prop
-&lt;ThemeProvider theme={theme}&gt;
-    &lt;Player /&gt;
-&lt;/ThemeProvider &gt;
-</code></pre>
+<ThemeProvider theme={theme}>
+  <Player />
+</ThemeProvider>;
+```
 
 ### dark mode
 
-To set up dark mode you can simply set palette mode field. creatTheme() will make the necessary palette modifications
-for you
+To set up dark mode, you can simply set the palette mode field. `creatTheme()` will make the necessary palette
+modifications for you
 
-<!-- prettier-ignore -->
-<pre><code>
+```ts
 const theme = createTheme({
-    palette: {
-        mode: "dark",
-    },
+  palette: {
+    mode: "dark",
+  },
 });
-</code></pre>
+```
 
 You can also create two seperate palettes and programmatically create theme based on user or system
 preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic
@@ -171,62 +161,59 @@ for the [Demo](https://the-maazu.github.io/react-material-music-player/).
 As described [in the theming section](https://mui.com/customization/theme-components/) its also possible to target mui
 components.
 
-<pre><code>
+```ts
 // create theme
 const theme = createTheme({
-    // pallette overrides
+  // pallette overrides
 });
 
 theme = createTheme(theme, {
-
-    components: {
-
-        MuiMusicPlayer: {
-          styleOverrides: {
-            root: {},
-            coverArt: {},
-            progressBar: {},
-            controls: {},
-            trackDetails: {},
-            volumeControl: {},
-            playlist: {},
-          }
+  components: {
+    // common shared components
+    MuiSlider: {
+      styleOverrides: {
+        // slot to target
+        thumb: {
+          width: 8,
+          height: 8,
+          transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
+          "&:before": {
+            boxShadow: "0 2px 1px 0 rgba(0,0,0,0.4)",
+          },
+          ":hover, &.Mui-focusVisible": {
+            height: 15,
+            width: 15,
+            boxShadow: "0px 0px 0px 8px rgb(0 0 0 / 16%)",
+          },
+          "&.Mui-active": {
+            width: 20,
+            height: 20,
+          },
         },
+      },
+    },
+    MuiToggleButton: {
+      // set default props
+      defaultProps: {
+        color: "primary",
+      },
+    },
 
-        // component name
-        MuiSlider: {
-            styleOverrides: {
-                // slot to target
-                thumb: {
-                    width: 8,
-                    height: 8,
-                    transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
-                    "&:before": {
-                        boxShadow: "0 2px 1px 0 rgba(0,0,0,0.4)",
-                    },
-                    ":hover, &.Mui-focusVisible": {
-                        height: 15,
-                        width: 15,
-                        boxShadow: "0px 0px 0px 8px rgb(0 0 0 / 16%)",
-                    },
-                    "&.Mui-active": {
-                        width: 20,
-                        height: 20,
-                    },
-                },
-            },
-        },
-
-        MuiToggleButton: {
-             // set default props
-            defaultProps: {
-                color: "primary",
-            },
-        },
-    }
-
+    // Player custom styles only
+    MuiMusicPlayer: {
+      styleOverrides: {
+        root: {},
+        coverArt: {},
+        progressBar: {},
+        controls: {},
+        trackDetails: {},
+        volumeControl: {},
+        playlist: {},
+      },
+    },
+  },
 });
-</code></pre>
+```
 
 In the example above we are targeting the [MuiSliders](https://mui.com/api/slider/), specifically the thumb and also
 changing default props for [MuiToggleButtons](https://mui.com/api/toggle-button/)(Repeat, Shuffle & Playlist Buttons).

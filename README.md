@@ -24,7 +24,7 @@ Live [demo here](https://the-maazu.github.io/react-material-music-player/)
 - [material-ui](https://material-ui.com)
 - [react](https://reactjs.org)
 - [react-redux](https://react-redux.js.org)
-- [react-draggable-list](https://www.npmjs.com/package/react-draggable-list)
+- [dnd-kit](https://dndkit.com)
 
 ## Development
 
