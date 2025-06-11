@@ -1,5 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import ActionCreators from "../actionCreators";
+import type { AppAction, RootState } from "../store";
 import { ActionTypes, ITrack, MediaState, RepeatMode } from "../types";
 
 class AudioOutput extends Audio {
@@ -50,7 +51,7 @@ class AudioOutput extends Audio {
 
 const audio = new AudioOutput();
 
-const audioOutput: Middleware = (api) => {
+const audioOutput: Middleware<{}, RootState> = (api) => {
   audio.addEventListener("timeupdate", () => {
     //set current time
     api.dispatch(ActionCreators.setCurrentTime(Math.floor(audio.currentTime)));
@@ -104,7 +105,7 @@ const audioOutput: Middleware = (api) => {
   // set default volume level
   audio.volume = api.getState().volume / 100;
 
-  return (next) => (action: any) => {
+  return (next) => (action: AppAction) => {
     let state = api.getState();
 
     switch (action.type) {

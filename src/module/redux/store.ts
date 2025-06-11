@@ -1,4 +1,5 @@
 import { configureStore, Tuple } from "@reduxjs/toolkit";
+import ActionCreators from "./actionCreators";
 import audioOutput from "./middleware/audioOutput";
 import changeTrackHelper from "./middleware/changeTrackHelper";
 import deleteHelper from "./middleware/deleteHelper";
@@ -10,7 +11,7 @@ import updatePlaylistHelper from "./middleware/updatePlaylistHelper";
 import reducer from "./reducers";
 import reHydrateStore from "./reHydrateStore";
 
-export default configureStore({
+const store = configureStore({
   reducer,
   middleware: () =>
     new Tuple(
@@ -25,3 +26,9 @@ export default configureStore({
     ),
   preloadedState: reHydrateStore(),
 });
+
+export type AppAction =
+  | ReturnType<typeof ActionCreators[keyof typeof ActionCreators]>
+  | any;
+export type RootState = ReturnType<typeof reducer>;
+export default store;

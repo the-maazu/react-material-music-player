@@ -1,8 +1,9 @@
 import { Middleware } from "@reduxjs/toolkit";
 import ActionCreators from "../actionCreators";
+import type { RootState } from "../store";
 import { CustomNativeEventTypes } from "../types";
 
-const eventHandler: Middleware = (api) => {
+const eventHandler: Middleware<{}, RootState> = (api) => {
   let clearPlaylist = () => {
     api.dispatch(ActionCreators.stop());
     api.dispatch(ActionCreators.changeTrack(0));
@@ -71,9 +72,7 @@ const eventHandler: Middleware = (api) => {
   });
 
   window.addEventListener(CustomNativeEventTypes.SET_REPEAT_MODE, (e) => {
-    api.dispatch(
-      ActionCreators.setRepeatMode((e as CustomEvent).detail),
-    );
+    api.dispatch(ActionCreators.setRepeatMode((e as CustomEvent).detail));
   });
 
   let playNextOrLaterHandler = (e: any) => {
@@ -89,7 +88,7 @@ const eventHandler: Middleware = (api) => {
             return [...accumulator, currentValue, ...e.detail];
           else return [...accumulator, currentValue];
         },
-        [],
+        []
       );
     else if (e.type === CustomNativeEventTypes.PLAY_LATER) {
       newPlaylist = currentPlaylist.concat(e.detail);
@@ -100,12 +99,12 @@ const eventHandler: Middleware = (api) => {
 
   window.addEventListener(
     CustomNativeEventTypes.PLAY_NEXT,
-    playNextOrLaterHandler,
+    playNextOrLaterHandler
   );
 
   window.addEventListener(
     CustomNativeEventTypes.PLAY_LATER,
-    playNextOrLaterHandler,
+    playNextOrLaterHandler
   );
 
   return (next) => (action) => next(action);
