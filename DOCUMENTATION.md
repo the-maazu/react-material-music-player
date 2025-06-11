@@ -2,9 +2,13 @@
 
 ## import
 
-1.  <code>import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js) from 'react-material-music-player' // default export</code>
+1. <code>
+   import [Player](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/components/Player.js)
+   from 'react-material-music-player' // default export</code>
 
-2.  <code>import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) } from 'react-material-music-player'</code>
+2. <code>
+   import { [Track](https://github.com/the-maazu/react-material-music-player/tree/master/src/module/redux/types.js), [PlayerInterface](https://github.com/the-maazu/react-material-music-player/blob/master/src/module/interface.js) }
+   from 'react-material-music-player'</code>
 
 <b>Hint:</b> the Player and the PlayerInterface aren't required to be imported in the same file or context.
 
@@ -12,15 +16,26 @@
 
 <code>&lt;Player sx={{...CSS-in-JS}} disableDrawer={true|false}/&gt;</code>
 
-- <code>sx(object)</code>: This is a superset of CSS introduced with MUI. You can override the default styles using this prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style is set to dock player at bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This can be overriden to position the Player anyway in your app. Read more on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/) allows you to modify just a few properties. Try them out!
+- <code>sx(SxProps)</code>: This is a superset of CSS introduced with MUI. You can override the default styles using
+  this
+  prop. It is possible to nest pseudo-selectors and target children components too(:hover, & > \*, etc). Default style
+  is set to dock the player at the bottom of viewport <code>{width:"100vw", position:"fixed", bottom:0 ...}</code>. This
+  can be
+  overridden to position the Player anyway in your app. Read more
+  on [the sx prop](https://mui.com/system/the-sx-prop/). [Demo](https://the-maazu.github.io/react-material-music-player/)
+  allows you to modify just a few properties. Try them out!
 
-- <code>disableDrawer(bool)</code>: Mobile drawer is activated when player is too small to contain all the controls. It is likely you would want this feature disabled if you render the Player in the normal document flow or want to use Player as widget in your app.
+- <code>disableDrawer(boolean)</code>: Mobile drawer is activated when player is too small to contain all the controls.
+  It
+  is likely you would want this feature disabled if you render the Player in the normal document flow or want to use
+  Player as widget in your app.
 
 - <code>defaultArt(string)</code>: src for default cover art when no track is loaded.
 
 ## the interface
 
-1.  create tracks:
+1. create tracks:
+
 <pre><code>
 new Track( 
     ID: string, // unique ID used in shuffling and sorting
@@ -31,7 +46,8 @@ new Track(
 )
 </code></pre>
 
-2.  controls:
+2. controls:
+
 <pre><code>
     PlayerInterface.setPlaylist(Track[]) // sets a new playlist, can be an empty array
     PlayerInterface.clearPlaylist() // similar to setting empty array
@@ -73,8 +89,13 @@ new Track(
 
 ## theming & customisation
 
-This player is 100% made of react [mui](https://mui.com) component and can be customised as described [in the theming section](https://mui.com/customization/theming/).
-The player should inherit your themes and style overrides if your app is already using mui theming solutions. Otherwise, create a new theme if the default is not to your liking. The guide here is not exhausitve. I strongly suggest you read on [mui customisation](https://mui.com/customization/theming)
+This player is made
+of [Material-UI themed components](https://mui.com/material-ui/customization/creating-themed-components/) component and
+can be customized as
+described [in the theming section](https://mui.com/customization/theming/).
+The player should inherit your themes and style overrides if your app is already using mui theming solutions. Otherwise,
+create a new theme if the default is not to your liking. The guide here is not exhausitve. I strongly suggest you read
+on [mui customisation](https://mui.com/customization/theming)
 
 ### creating a theme
 
@@ -129,7 +150,8 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
 ### dark mode
 
-To set up dark mode you can simply set palette mode field. creatTheme() will make the necessary palette modifications for you
+To set up dark mode you can simply set palette mode field. creatTheme() will make the necessary palette modifications
+for you
 
 <!-- prettier-ignore -->
 <pre><code>
@@ -140,11 +162,14 @@ const theme = createTheme({
 });
 </code></pre>
 
-You can also create two seperate palettes and programmatically create theme based on user or system preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic for the [Demo](https://the-maazu.github.io/react-material-music-player/).
+You can also create two seperate palettes and programmatically create theme based on user or system
+preference. [makeTheme()](https://github.com/the-maazu/react-material-music-player/tree/main/src) holds similar logic
+for the [Demo](https://the-maazu.github.io/react-material-music-player/).
 
 ### targeting components
 
-As described [in the theming section](https://mui.com/customization/theme-components/) its also possible to target mui components.
+As described [in the theming section](https://mui.com/customization/theme-components/) its also possible to target mui
+components.
 
 <pre><code>
 // create theme
@@ -155,6 +180,18 @@ const theme = createTheme({
 theme = createTheme(theme, {
 
     components: {
+
+        MuiMusicPlayer: {
+          styleOverrides: {
+            root: {},
+            coverArt: {},
+            progressBar: {},
+            controls: {},
+            trackDetails: {},
+            volumeControl: {},
+            playlist: {},
+          }
+        },
 
         // component name
         MuiSlider: {
@@ -191,9 +228,19 @@ theme = createTheme(theme, {
 });
 </code></pre>
 
-In the example above we are targting the [MuiSliders](https://mui.com/api/slider/), specifically the thumb and also changing default props for [MuiToggleButtons](https://mui.com/api/toggle-button/)(Repeat, Shuffle & Playlist Buttons). We can target alot more, [MuiPaper](https://mui.com/api/paper/)(Default Player background), [MuiIconButton](https://mui.com/api/icon-button/#main-content)(Control Buttons) and [MuiPopover](https://mui.com/api/popover/)(Playlist Popover background). All CSS, including nesting is valid here.
+In the example above we are targeting the [MuiSliders](https://mui.com/api/slider/), specifically the thumb and also
+changing default props for [MuiToggleButtons](https://mui.com/api/toggle-button/)(Repeat, Shuffle & Playlist Buttons).
+We can target a lot more, [MuiPaper](https://mui.com/api/paper/)(Default Player
+background), [MuiIconButton](https://mui.com/api/icon-button/#main-content)(Control Buttons)
+and [MuiPopover](https://mui.com/api/popover/)(Playlist Popover background). All CSS, including nesting is valid here.
 
-Have a look at the implementation of the [Demo](https://the-maazu.github.io/react-material-music-player/) at [App.js](https://github.com/the-maazu/react-material-music-player/blob/main/src/App.js) and [makeTheme.js](https://github.com/the-maazu/react-material-music-player/tree/main/src). Feel free to copy and modify theme to your liking.
+Have a look at the implementation of the [Demo](https://the-maazu.github.io/react-material-music-player/)
+at [App.js](https://github.com/the-maazu/react-material-music-player/blob/main/src/App.js)
+and [makeTheme.js](https://github.com/the-maazu/react-material-music-player/tree/main/src). Feel free to copy and modify
+theme to your liking.
 
-Also feel free to make suggestion or feature requests [here](https://github.com/the-maazu/react-material-music-player/discussions/new), kindly set category to "idea".
-Report bugs [here](https://github.com/the-maazu/react-material-music-player/issues). And if you want to contribute just make a pull request.
+Also feel free to make suggestion or feature
+requests [here](https://github.com/the-maazu/react-material-music-player/discussions/new), kindly set category to "
+idea".
+Report bugs [here](https://github.com/the-maazu/react-material-music-player/issues). And if you want to contribute just
+make a pull request.

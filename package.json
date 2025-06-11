@@ -1,8 +1,8 @@
 {
   "name": "react-material-music-player",
-  "version": "1.2.4",
-  "description": "This is a highly customisable music player powered by mui-v7, typescript, mobile mode, media session action & metadata, reorderable playlist",
-  "main": "dist/index.js",
+  "version": "2.0.0",
+  "description": "This is a highly customisable music player powered by mui, typescript, mobile mode, media session action & metadata, reorderable playlist",
+  "main": "dist/index.ts",
   "files": [
     "dist"
   ],
@@ -13,8 +13,9 @@
     "@mui/material": "^7.0.0",
     "@mui/system": "^7.0.0",
     "@mui/utils": "^7.0.0",
-    "@reduxjs/toolkit": "^1.6.2",
+    "@reduxjs/toolkit": "^2.2.1",
     "lodash.debounce": "^4.0.8",
+    "luxon": "^3.6.1",
     "react-draggable-list": "^4.0.3",
     "react-redux": "^7.2.4"
   },
@@ -31,6 +32,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/luxon": "^3.6.2",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-react-css-modules": "^0.0.0",
     "gh-pages": "^5.0.0",
@@ -43,10 +45,8 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "compile": "babel src/module --delete-dir-on-start --out-dir dist/",
-    "typecomp": "tsc src/module/**.js --declaration --allowJs --checkJs --jsx react --esModuleInterop --outDir dist",
-    "emit": "pnpm typecomp --emitDeclarationOnly",
-    "check": "pnpm typecomp --noEmit",
+    "compile": "tsc --project tsconfig.build.json",
+    "check": "tsc --noEmit",
     "prestart": "pnpm run check --watch > tsc.log &",
     "prebuild": "pnpm run check",
     "pretest": "pnpm run check",
