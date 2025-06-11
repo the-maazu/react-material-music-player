@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/material";
+import { SxProps } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
@@ -14,13 +14,13 @@ import PauseIcon from "@mui/icons-material/PauseRounded";
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
-  slot: "controls"
+  slot: "controls",
 })({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  flexWrap: "nowrap"
+  flexWrap: "nowrap",
 });
 
 interface ControlsProps {
@@ -32,9 +32,7 @@ interface ControlsProps {
 const Controls = (props: ControlsProps) => {
   const { disabled = false, ...rest } = props;
 
-  const mediaState = useSelector<any>(
-    ({ mediaState }) => mediaState
-  );
+  const mediaState = useSelector<any>(({ mediaState }) => mediaState);
 
   const dispatch = useDispatch();
   const onSkipNext = () => dispatch(ActionCreators.skipNext());
@@ -45,38 +43,38 @@ const Controls = (props: ControlsProps) => {
   const playing = mediaState === MediaState.PLAYING;
 
   return (
-    <Root sx={ rest.sx }>
-      { !rest.isSmall && (
+    <Root sx={rest.sx}>
+      {!rest.isSmall && (
         <IconButton
-          onClick={ withoutPropagation(onSkipPrev) }
+          onClick={withoutPropagation(onSkipPrev)}
           size="large"
-          disabled={ disabled }
+          disabled={disabled}
         >
           <SkipPreviousIcon fontSize="large" />
         </IconButton>
-      ) }
+      )}
 
       <IconButton
-        onClick={ withoutPropagation(playing ? onPause : onPlay) }
+        onClick={withoutPropagation(playing ? onPause : onPlay)}
         size="large"
-        disabled={ disabled }
+        disabled={disabled}
       >
-        { playing ? (
+        {playing ? (
           <PauseIcon fontSize="large" />
         ) : (
           <PlayIcon fontSize="large" />
-        ) }
+        )}
       </IconButton>
 
-      { !rest.isSmall && (
+      {!rest.isSmall && (
         <IconButton
-          onClick={ withoutPropagation(onSkipNext) }
+          onClick={withoutPropagation(onSkipNext)}
           size="large"
-          disabled={ disabled }
+          disabled={disabled}
         >
           <SkipNextIcon fontSize="large" />
         </IconButton>
-      ) }
+      )}
     </Root>
   );
 };

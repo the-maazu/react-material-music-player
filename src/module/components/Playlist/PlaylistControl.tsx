@@ -1,27 +1,28 @@
 import * as React from "react";
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import actionCreators from "../../redux/actionCreators";
-import {
-  ShuffleRounded,
-  ShuffleOnRounded,
-  QueueMusicRounded as PlaylistIcon,
-  RepeatRounded,
-  RepeatOnRounded,
-  RepeatOneOnRounded
-} from "@mui/icons-material";
-import { Popover, Collapse, Box, ToggleButton } from "@mui/material";
+import ShuffleRounded from "@mui/icons-material/ShuffleRounded";
+import ShuffleOnRounded from "@mui/icons-material/ShuffleOnRounded";
+import QueueMusicRounded from "@mui/icons-material/QueueMusicRounded";
+import RepeatRounded from "@mui/icons-material/RepeatRounded";
+import RepeatOnRounded from "@mui/icons-material/RepeatOnRounded";
+import RepeatOneOnRounded from "@mui/icons-material/RepeatOneOnRounded";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import Popover from "@mui/material/Popover";
+import ToggleButton from "@mui/material/ToggleButton";
 import { styled } from "@mui/material/styles";
 import Playlist from "./Playlist";
 import { RepeatMode } from "../../redux/types";
 
 const classes = {
-  button: "PlaylistControl-button"
+  button: "PlaylistControl-button",
 };
 
 const RootBox = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column-reverse",
-  alignItems: "center"
+  alignItems: "center",
 }));
 
 const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -29,11 +30,11 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
 
-  [`& .${ classes.button }`]: {
+  [`& .${classes.button}`]: {
     // space buttons horizontally
-    margin: `auto ${ theme.spacing(1) }`,
-    flexGrow: 1 // buttons should grow
-  }
+    margin: `auto ${theme.spacing(1)}`,
+    flexGrow: 1, // buttons should grow
+  },
 }));
 
 interface RepeatButtonProps {
@@ -48,16 +49,16 @@ const RepeatButton = (props: RepeatButtonProps) => {
   return (
     <ToggleButton
       value="repeat"
-      selected={ value !== RepeatMode.NORMAL }
-      { ...other }
+      selected={value !== RepeatMode.NORMAL}
+      {...other}
     >
-      { value === RepeatMode.NORMAL ? (
+      {value === RepeatMode.NORMAL ? (
         <RepeatRounded />
       ) : value === RepeatMode.REPEAT_ALL ? (
         <RepeatOnRounded />
       ) : (
         <RepeatOneOnRounded />
-      ) }
+      )}
     </ToggleButton>
   );
 };
@@ -72,8 +73,8 @@ const ShuffleButton = (props: ShuffleButtonProps) => {
   const { value, ...other } = props;
 
   return (
-    <ToggleButton value="shuffle" selected={ value } { ...other }>
-      { value ? <ShuffleOnRounded /> : <ShuffleRounded /> }
+    <ToggleButton value="shuffle" selected={value} {...other}>
+      {value ? <ShuffleOnRounded /> : <ShuffleRounded />}
     </ToggleButton>
   );
 };
@@ -90,15 +91,17 @@ export default function PlaylistControl(props: PlaylistControlProps) {
   const shuffled = useSelector<RootStateOrAny, boolean>(
     (state) => state.shuffled
   );
-  const repeatMode = useSelector<RootStateOrAny, "NORMAL" | "REPEAT_ALL" | "REPEAT_ONE">(
-    (state) => state.repeatMode
-  );
+  const repeatMode = useSelector<
+    RootStateOrAny,
+    "NORMAL" | "REPEAT_ALL" | "REPEAT_ONE"
+  >((state) => state.repeatMode);
   const [playlistVisible, showPlaylist] = React.useState<boolean>(false);
   const [anchorEl, setAnchor] = React.useState<HTMLElement | null>(null);
 
   const dispatch = useDispatch();
   const onShuffle = (bool: boolean) => dispatch(actionCreators.shuffle(bool));
-  const onRepeat = (mode: string) => dispatch(actionCreators.setRepeatMode(mode));
+  const onRepeat = (mode: string) =>
+    dispatch(actionCreators.setRepeatMode(mode));
 
   const handlePopoverClose = () => {
     showPlaylist(false);
@@ -106,12 +109,12 @@ export default function PlaylistControl(props: PlaylistControlProps) {
   };
 
   return (
-    <RootBox sx={ { ...sx } }>
+    <RootBox sx={{ ...sx }}>
       <ButtonContainer>
         <RepeatButton
-          value={ repeatMode }
-          className={ classes.button }
-          onClick={ () => {
+          value={repeatMode}
+          className={classes.button}
+          onClick={() => {
             switch (repeatMode) {
               case RepeatMode.NORMAL:
                 return onRepeat(RepeatMode.REPEAT_ALL);
@@ -122,64 +125,64 @@ export default function PlaylistControl(props: PlaylistControlProps) {
               default:
                 return repeatMode;
             }
-          } }
+          }}
         />
         <ShuffleButton
-          value={ shuffled }
-          className={ classes.button }
-          onClick={ () => {
+          value={shuffled}
+          className={classes.button}
+          onClick={() => {
             onShuffle(!shuffled);
-          } }
+          }}
         />
         <ToggleButton
-          className={ classes.button }
+          className={classes.button}
           value="show playlist"
-          selected={ playlistVisible }
-          onChange={ (e) => {
+          selected={playlistVisible}
+          onChange={(e) => {
             setAnchor(
               (e.target as HTMLElement).parentElement?.parentElement
                 ?.parentElement?.parentElement || null
             );
             showPlaylist(!playlistVisible);
-          } }
+          }}
         >
-          <PlaylistIcon />
+          <QueueMusicRounded />
         </ToggleButton>
       </ButtonContainer>
 
-      { playlistViewMode === "popover" ? (
+      {playlistViewMode === "popover" ? (
         <Popover
-          open={ Boolean(anchorEl) }
-          anchorEl={ anchorEl }
-          onClose={ handlePopoverClose }
-          sx={ { boxShadow: 8 } }
-          anchorOrigin={ {
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={handlePopoverClose}
+          sx={{ boxShadow: 8 }}
+          anchorOrigin={{
             vertical: "top",
-            horizontal: "right"
-          } }
-          transformOrigin={ {
+            horizontal: "right",
+          }}
+          transformOrigin={{
             vertical: "bottom",
-            horizontal: "right"
-          } }
+            horizontal: "right",
+          }}
         >
           <Playlist
-            sx={ {
+            sx={{
               width: "400px",
-              height: "60vh"
-            } }
+              height: "60vh",
+            }}
           />
         </Popover>
       ) : (
-        <Collapse collapsedSize={ "0" } in={ playlistVisible }>
+        <Collapse collapsedSize={"0"} in={playlistVisible}>
           <Playlist
-            sx={ {
+            sx={{
               height: "40vh",
               width: "90vw",
-              overflow: "scroll"
-            } }
+              overflow: "scroll",
+            }}
           />
         </Collapse>
-      ) }
+      )}
     </RootBox>
   );
 }

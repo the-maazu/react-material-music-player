@@ -1,12 +1,11 @@
-import { SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
+import { styled, SxProps } from "@mui/material/styles";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
-  slot: "trackDetails"
+  slot: "trackDetails",
 })();
 
 interface TrackDetailsProps {
@@ -14,36 +13,33 @@ interface TrackDetailsProps {
 }
 
 const TrackDetails = (props: TrackDetailsProps) => {
-  const { title, artist } = useSelector<any, any>(
-    (state) => {
-      let currentTrack = state.playlist[state.currentTrack];
-      return {
-        title: currentTrack?.title,
-        artist: currentTrack?.artist
-      };
-    },
-    shallowEqual
-  );
+  const { title, artist } = useSelector<any, any>((state) => {
+    let currentTrack = state.playlist[state.currentTrack];
+    return {
+      title: currentTrack?.title,
+      artist: currentTrack?.artist,
+    };
+  }, shallowEqual);
 
   return (
-    <Root sx={ props.sx }>
+    <Root sx={props.sx}>
       <Box
-        sx={ {
+        sx={{
           typography: "subtitl3",
           whiteSpace: "nowrap",
-          overflow: "hidden"
-        } }
+          overflow: "hidden",
+        }}
       >
-        { title }
+        {title}
       </Box>
       <Box
-        sx={ {
+        sx={{
           typography: "subtitle2",
           whiteSpace: "nowrap",
-          overflow: "hidden"
-        } }
+          overflow: "hidden",
+        }}
       >
-        { artist }
+        {artist}
       </Box>
     </Root>
   );

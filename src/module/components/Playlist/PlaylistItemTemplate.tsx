@@ -1,9 +1,7 @@
 import { useSortable } from "@dnd-kit/react/sortable";
 import * as React from "react";
-import {
-  PlayArrowRounded as PlayIcon,
-  Menu as ReorderIcon,
-} from "@mui/icons-material";
+import PlayIcon from "@mui/icons-material/PlayArrowRounded";
+import ReorderIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import { ITrack } from "../../redux/types";
 import CoverArt from "../CoverArt";

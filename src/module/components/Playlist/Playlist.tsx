@@ -1,6 +1,8 @@
 import { DragDropProvider } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
-import { Button, Stack, SxProps } from "@mui/material";
+import { SxProps } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { ModalProps } from "@mui/material/Modal";
@@ -11,7 +13,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import ActionCreators from "../../redux/actionCreators";
 import { ITrack } from "../../redux/types";
 import PlaylistItemTemplate from "./PlaylistItemTemplate";
-import { Close } from "@mui/icons-material";
+import Close from "@mui/icons-material/Close";
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",

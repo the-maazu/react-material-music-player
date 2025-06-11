@@ -4,19 +4,15 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import { ThemeProvider } from "@mui/material/styles";
-import {
-  Box,
-  ToggleButtonGroup,
-  ToggleButton,
-  useMediaQuery,
-  TextField,
-  Link,
-} from "@mui/material";
-import {
-  LightModeRounded,
-  ComputerRounded,
-  DarkModeRounded,
-} from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ToggleButton from "@mui/material/ToggleButton";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import LightModeRounded from "@mui/icons-material/LightModeRounded";
+import ComputerRounded from "@mui/icons-material/ComputerRounded";
+import DarkModeRounded from "@mui/icons-material/DarkModeRounded";
 
 // To use the player this is what you need to import
 import Player, { PlayerInterface } from "./module";

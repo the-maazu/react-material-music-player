@@ -6,19 +6,17 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actionCreators from "../redux/actionCreators";
 import withoutPropagation from "../utils/withoutPropagation";
-import {
-  VolumeUp as VolumeUpIcon,
-  VolumeDown as VolumeDownIcon
-} from "@mui/icons-material";
+import VolumeUpIcon from "@mui/icons-material/VolumeUpRounded";
+import VolumeDownIcon from "@mui/icons-material/VolumeDownRounded";
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
-  slot: "volumeControl"
+  slot: "volumeControl",
 })({
   display: "flex",
   flexDirection: "row",
   wrap: "nowrap",
-  alignItems: "center"
+  alignItems: "center",
 });
 
 interface VolumeControlProps {
@@ -27,40 +25,39 @@ interface VolumeControlProps {
 
 const VolumeControl = (props: VolumeControlProps) => {
   const dispatch = useDispatch();
-  const onVolumeChange = (value: number | number[]) => dispatch(actionCreators.setVolume(value));
+  const onVolumeChange = (value: number | number[]) =>
+    dispatch(actionCreators.setVolume(value));
 
-  const value = useSelector<any, number>(
-    (state) => state.volume
-  );
+  const value = useSelector<any, number>((state) => state.volume);
 
   const handleSliderChange = (event: any, newValue: number | number[]) => {
     onVolumeChange(newValue);
   };
 
   return (
-    <Root sx={ props.sx }>
+    <Root sx={props.sx}>
       <IconButton
-        sx={ { mx: 1 } }
-        onClick={ withoutPropagation(
+        sx={{ mx: 1 }}
+        onClick={withoutPropagation(
           onVolumeChange,
           value < 10 ? 0 : value - 10
-        ) }
+        )}
         size="large"
       >
         <VolumeDownIcon />
       </IconButton>
       <Slider
-        sx={ { mx: 1 } }
-        value={ value }
+        sx={{ mx: 1 }}
+        value={value}
         aria-labelledby="continuous-slider"
-        onChange={ handleSliderChange }
+        onChange={handleSliderChange}
       />
       <IconButton
-        sx={ { mx: 1 } }
-        onClick={ withoutPropagation(
+        sx={{ mx: 1 }}
+        onClick={withoutPropagation(
           onVolumeChange,
           value > 90 ? 100 : value + 10
-        ) }
+        )}
         size="large"
       >
         <VolumeUpIcon />
