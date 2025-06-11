@@ -1,4 +1,4 @@
-const shuffle = (array: any): any => {
+const shuffle = <T>(array: T[]): T[] => {
   let newArray = array.slice();
 
   for (let i = 0; i < Math.ceil(array.length / 2); i++) {

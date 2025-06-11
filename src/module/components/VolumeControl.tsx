@@ -30,7 +30,7 @@ const VolumeControl = (props: VolumeControlProps) => {
 
   const value = useSelector<any, number>((state) => state.volume);
 
-  const handleSliderChange = (event: any, newValue: number | number[]) => {
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
     onVolumeChange(newValue);
   };
 

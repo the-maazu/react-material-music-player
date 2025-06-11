@@ -3,7 +3,7 @@ import { expect, test } from "@jest/globals";
 
 test("shuffle array", () => {
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  let shuffled = shuffle(array);
+  let shuffled = shuffle<number>(array);
 
   // check shuffled contains array values
   expect(shuffled).toEqual(expect.arrayContaining(array));

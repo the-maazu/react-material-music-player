@@ -11,12 +11,12 @@ import secondsToString from "../utils/secondsToString";
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
-  slot: "progressBar"
+  slot: "progressBar",
 })({
   display: "flex",
   flexDirection: "row",
   wrap: "nowrap",
-  alignItems: "center"
+  alignItems: "center",
 });
 
 export interface ProgressBarProps {
@@ -31,7 +31,7 @@ const ProgressBar = (props: ProgressBarProps) => {
     ({ timeLeft, currentTime, duration }) => ({
       timeLeft,
       currentTime,
-      duration
+      duration,
     }),
     shallowEqual
   );
@@ -40,26 +40,29 @@ const ProgressBar = (props: ProgressBarProps) => {
   const progress = (currentTime / (timeLeft + currentTime)) * 100 || 0;
 
   const dispatch = useDispatch();
-  const onSeek = (progress: number | number[]) => dispatch(actionCreators.seek(progress));
+  const onSeek = (progress: number | number[]) =>
+    dispatch(actionCreators.seek(progress));
 
-  const handleSliderChange = (event: any, newValue: number | number[]) => {
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
     onSeek(newValue);
   };
 
   return (
-    <Root sx={ sx }>
-      <Typography sx={ { mx: 1 } }>
-        { secondsToString(currentTime) }
-      </Typography>
+    <Root sx={sx}>
+      <Typography sx={{ mx: 1 }}>{secondsToString(currentTime)}</Typography>
       <Slider
-        sx={ { mx: 1 } }
+        sx={{ mx: 1 }}
         aria-labelledby="continuous-slider"
-        value={ progress }
-        onChange={ handleSliderChange }
+        value={progress}
+        onChange={handleSliderChange}
       />
-      <Typography sx={ { mx: 1 } }>
-        { displayTrackDuration && Duration.fromMillis(!isNaN(duration) ? (duration * 1000) : 0).toFormat("hh:mm:ss") }
-        { !displayTrackDuration && Duration.fromMillis(timeLeft * 1000).toFormat("hh:mm:ss") }
+      <Typography sx={{ mx: 1 }}>
+        {displayTrackDuration &&
+          Duration.fromMillis(!isNaN(duration) ? duration * 1000 : 0).toFormat(
+            "hh:mm:ss"
+          )}
+        {!displayTrackDuration &&
+          Duration.fromMillis(timeLeft * 1000).toFormat("hh:mm:ss")}
       </Typography>
     </Root>
   );

@@ -1,7 +1,9 @@
 // stop event from propagating
-const withoutPropagation = (callback: any, ...args: any[]) => (e: any) => {
-  e.stopPropagation();
-  callback(...args);
-};
+const withoutPropagation =
+  <T extends unknown[]>(callback: (...args: T) => void, ...args: T) =>
+  (e: React.MouseEvent) => {
+    e.stopPropagation();
+    callback(...args);
+  };
 
 export default withoutPropagation;

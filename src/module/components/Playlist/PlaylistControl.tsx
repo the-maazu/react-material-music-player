@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import Popover from "@mui/material/Popover";
 import ToggleButton from "@mui/material/ToggleButton";
-import { styled } from "@mui/material/styles";
+import { styled, SxProps } from "@mui/material/styles";
 import Playlist from "./Playlist";
 import { RepeatMode } from "../../redux/types";
 
@@ -80,7 +80,7 @@ const ShuffleButton = (props: ShuffleButtonProps) => {
 };
 
 interface PlaylistControlProps {
-  sx?: any;
+  sx?: SxProps;
   playlistViewMode: "popover" | "collapse";
 }
 
