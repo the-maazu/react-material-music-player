@@ -5,7 +5,7 @@
 const MediaState = {
   STOPPED: "STOPPED",
   PLAYING: "PLAYING",
-  PAUSED: "PAUSED"
+  PAUSED: "PAUSED",
 };
 
 /**
@@ -14,7 +14,7 @@ const MediaState = {
 const RepeatMode = {
   NORMAL: "NORMAL",
   REPEAT_ALL: "REPEAT_ALL",
-  REPEAT_ONE: "REPEAT_ONE"
+  REPEAT_ONE: "REPEAT_ONE",
 };
 
 /**
@@ -35,7 +35,7 @@ const CustomNativeEventTypes = {
   PLAY_LATER: "PLAY_LATER",
   PLAY_NEXT: "PLAY_NEXT",
   SET_PLAYLIST: "SET_PLAYLIST",
-  CLEAR_PLAYLIST: "CLEAR_PLAYLIST"
+  CLEAR_PLAYLIST: "CLEAR_PLAYLIST",
 };
 
 /**
@@ -60,11 +60,11 @@ const ActionTypes = {
   SET_REPEAT_MODE: "SET_REPEAT_MODE",
   SKIP_NEXT: "SKIP_NEXT",
   SKIP_PREV: "SKIP_PREV",
-  SET_CURRENT_TRACK_ID: "SET_CURRENT_TRACK_ID"
+  SET_CURRENT_TRACK_ID: "SET_CURRENT_TRACK_ID",
 };
 
 interface ITrack {
-  readonly ID: string;
+  readonly id: string;
   readonly coverArt?: string | undefined;
   readonly title: string;
   readonly artist?: string | undefined;
@@ -72,10 +72,5 @@ interface ITrack {
   readonly duration: number;
 }
 
-export {
-  ActionTypes,
-  CustomNativeEventTypes,
-  MediaState,
-  RepeatMode,
-  type ITrack
-};
+export type { ITrack };
+export { ActionTypes, CustomNativeEventTypes, MediaState, RepeatMode };

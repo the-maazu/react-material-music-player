@@ -17,7 +17,7 @@ const updatePlaylistHelper: Middleware = (api) => (next) => (action: any) => {
   if (newPlaylist.length !== playlist.length) playlistChanged = true;
   else
     for (let i = 0; i < playlist.length; i++) {
-      if (newPlaylist[i]?.ID !== playlist[i]?.ID) {
+      if (newPlaylist[i]?.id !== playlist[i]?.id) {
         playlistChanged = true;
         break;
       }
@@ -27,7 +27,7 @@ const updatePlaylistHelper: Middleware = (api) => (next) => (action: any) => {
   if (playlistChanged) {
     let newCurrentTrack = -1;
     for (let i = 0; i < newPlaylist.length; i++) {
-      if (newPlaylist[i]?.ID === playlist[currentTrack]?.ID) {
+      if (newPlaylist[i]?.id === playlist[currentTrack]?.id) {
         newCurrentTrack = i;
         break;
       }

@@ -44,7 +44,7 @@ class AudioOutput extends Audio {
    */
   isCurrent(track: ITrack): boolean | undefined {
     if (undefined === this.track) return;
-    return this.track.ID === track.ID;
+    return this.track.id === track.id;
   }
 }
 
@@ -53,9 +53,7 @@ const audio = new AudioOutput();
 const audioOutput: Middleware = (api) => {
   audio.addEventListener("timeupdate", () => {
     //set current time
-    api.dispatch(
-      ActionCreators.setCurrentTime(Math.floor(audio.currentTime)),
-    );
+    api.dispatch(ActionCreators.setCurrentTime(Math.floor(audio.currentTime)));
 
     // Set duration track
     api.dispatch(ActionCreators.setDuration(audio.duration));
@@ -64,9 +62,9 @@ const audioOutput: Middleware = (api) => {
     api.dispatch(
       ActionCreators.setTimeLeft(
         Math.floor(
-          isNaN(audio.duration) ? 0 : audio.duration - audio.currentTime,
-        ),
-      ),
+          isNaN(audio.duration) ? 0 : audio.duration - audio.currentTime
+        )
+      )
     );
   });
 
@@ -118,7 +116,11 @@ const audioOutput: Middleware = (api) => {
         break;
 
       case ActionTypes.PLAY:
-        api.dispatch(ActionCreators.setCurrentTrackId(state.playlist[state.currentTrack].ID));
+        api.dispatch(
+          ActionCreators.setCurrentTrackId(
+            state.playlist[state.currentTrack].id
+          )
+        );
         audio.setSrc(state.playlist[state.currentTrack]);
         audio.play().catch(() => api.dispatch(ActionCreators.stop()));
         break;

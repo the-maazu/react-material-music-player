@@ -21,11 +21,13 @@ const shuffler: Middleware = (api) => (next) => (action: any) => {
 
     withoutCurrent = action.payload.shuffle
       ? shuffle(withoutCurrent)
-      : withoutCurrent.sort((first: ITrack, second: ITrack) => first.ID < second.ID);
+      : withoutCurrent.sort(
+          (first: ITrack, second: ITrack) => first.id < second.id
+        );
 
     // update playlist with current track on top
     api.dispatch(
-      actionCreators.updatePlaylist([currentTrack, ...withoutCurrent]),
+      actionCreators.updatePlaylist([currentTrack, ...withoutCurrent])
     );
     api.dispatch(actionCreators.changeTrack(0));
   }

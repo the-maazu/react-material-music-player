@@ -8,7 +8,7 @@ const interfaceObject = {
    */
   play: (tracks?: ITrack[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY, {
-      detail: tracks
+      detail: tracks,
     });
     window.dispatchEvent(event);
   },
@@ -35,7 +35,7 @@ const interfaceObject = {
    */
   setVolume: (level: number) => {
     const event = new CustomEvent(CustomNativeEventTypes.SET_VOLUME, {
-      detail: level
+      detail: level,
     });
     window.dispatchEvent(event);
   },
@@ -62,7 +62,7 @@ const interfaceObject = {
    */
   shuffle: (bool: boolean) => {
     const event = new CustomEvent(CustomNativeEventTypes.SHUFFLE, {
-      detail: bool
+      detail: bool,
     });
     window.dispatchEvent(event);
   },
@@ -73,7 +73,7 @@ const interfaceObject = {
    */
   seek: (progress: number) => {
     const event = new CustomEvent(CustomNativeEventTypes.SEEK, {
-      detail: progress
+      detail: progress,
     });
     window.dispatchEvent(event);
   },
@@ -84,7 +84,7 @@ const interfaceObject = {
    */
   setRepeatMode: (mode: typeof RepeatMode) => {
     const event = new CustomEvent(CustomNativeEventTypes.SET_REPEAT_MODE, {
-      detail: mode
+      detail: mode,
     });
     window.dispatchEvent(event);
   },
@@ -95,7 +95,7 @@ const interfaceObject = {
    */
   changeTrack: (index: number) => {
     const event = new CustomEvent(CustomNativeEventTypes.CHANGE_TRACK, {
-      detail: index
+      detail: index,
     });
     window.dispatchEvent(event);
   },
@@ -106,7 +106,7 @@ const interfaceObject = {
    */
   playNext: (tracks: ITrack[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY_NEXT, {
-      detail: tracks
+      detail: tracks,
     });
     window.dispatchEvent(event);
   },
@@ -117,7 +117,7 @@ const interfaceObject = {
    */
   playLater: (tracks: ITrack[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.PLAY_LATER, {
-      detail: tracks
+      detail: tracks,
     });
     window.dispatchEvent(event);
   },
@@ -128,7 +128,7 @@ const interfaceObject = {
    */
   setPlaylist: (playlist: ITrack[]) => {
     const event = new CustomEvent(CustomNativeEventTypes.SET_PLAYLIST, {
-      detail: playlist
+      detail: playlist,
     });
     window.dispatchEvent(event);
   },
@@ -159,8 +159,10 @@ const interfaceObject = {
    * Returns if current track playing
    */
   isCurrentTrack: (id: string) => {
-    return (store.getState().playlist as ITrack[]).some((track) => track.ID === id);
-  }
+    return (store.getState().playlist as ITrack[]).some(
+      (track) => track.id === id
+    );
+  },
 };
 
 export default interfaceObject;

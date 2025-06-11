@@ -7,6 +7,8 @@
     "dist"
   ],
   "dependencies": {
+    "@dnd-kit/helpers": "^0.1.19",
+    "@dnd-kit/react": "^0.1.19",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.0",
@@ -14,9 +16,7 @@
     "@mui/system": "^7.0.0",
     "@mui/utils": "^7.0.0",
     "@reduxjs/toolkit": "^2.2.1",
-    "lodash.debounce": "^4.0.8",
     "luxon": "^3.6.1",
-    "react-draggable-list": "^4.0.3",
     "react-redux": "^7.2.4"
   },
   "peerDependencies": {

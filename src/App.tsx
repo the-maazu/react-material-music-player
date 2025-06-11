@@ -10,12 +10,12 @@ import {
   ToggleButton,
   useMediaQuery,
   TextField,
-  Link
+  Link,
 } from "@mui/material";
 import {
   LightModeRounded,
   ComputerRounded,
-  DarkModeRounded
+  DarkModeRounded,
 } from "@mui/icons-material";
 
 // To use the player this is what you need to import
@@ -28,7 +28,7 @@ function App() {
   const isDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = makeTheme(
-    mode === "system" ? (isDark ? "dark" : "light") : mode as "light" | "dark"
+    mode === "system" ? (isDark ? "dark" : "light") : (mode as "light" | "dark")
   );
 
   const [
@@ -40,9 +40,9 @@ function App() {
       borderRadiusTL,
       borderRadiusTR,
       borderRadiusBL,
-      borderRadiusBR
+      borderRadiusBR,
     },
-    setSx
+    setSx,
   ] = React.useState({
     width: "100vw",
     position: "fixed",
@@ -51,7 +51,7 @@ function App() {
     borderRadiusTL: 1,
     borderRadiusTR: 1,
     borderRadiusBL: 0,
-    borderRadiusBR: 0
+    borderRadiusBR: 0,
   });
 
   const handleForm = (e: any) => {
@@ -67,14 +67,14 @@ function App() {
       borderRadiusTR,
       borderRadiusBL,
       borderRadiusBR,
-      [`${ id }`]: value
+      [`${id}`]: value,
     });
   };
 
   return (
-    <ThemeProvider theme={ theme }>
+    <ThemeProvider theme={theme}>
       <Box
-        sx={ {
+        sx={{
           width: "100vw",
           height: "100vh",
           bgcolor: "background.paper",
@@ -83,11 +83,11 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           color: "text.primary",
-          textAlign: "center"
-        } }
+          textAlign: "center",
+        }}
       >
-        <img src={ logo } className="App-logo" alt="logo" />
-        <Box sx={ { typography: "h6" } }>react-material-music-player</Box>
+        <img src={logo} className="App-logo" alt="logo" />
+        <Box sx={{ typography: "h6" }}>react-material-music-player</Box>
 
         <div>
           <Link
@@ -108,111 +108,111 @@ function App() {
           <br />
         </div>
 
-        <Box sx={ { typography: "body3", margin: 2 } }>
+        <Box sx={{ typography: "body3", margin: 2 }}>
           Resize window for mobile mode. <br />
           Swipe up or tap player to expand in mobile mode
         </Box>
 
         <ToggleButtonGroup
-          value={ mode }
-          exclusive={ true }
-          onChange={ (e, value) => {
+          value={mode}
+          exclusive={true}
+          onChange={(e, value) => {
             if (value) setMode(value);
-          } }
+          }}
         >
-          <ToggleButton value={ "light" }>
+          <ToggleButton value={"light"}>
             <LightModeRounded />
           </ToggleButton>
-          <ToggleButton value={ "system" }>
+          <ToggleButton value={"system"}>
             <ComputerRounded />
           </ToggleButton>
-          <ToggleButton value={ "dark" }>
+          <ToggleButton value={"dark"}>
             <DarkModeRounded />
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <Box sx={ { display: "flex", margin: 2 } }>
-          <Box sx={ { margin: 1 } }>
+        <Box sx={{ display: "flex", margin: 2 }}>
+          <Box sx={{ margin: 1 }}>
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="width"
               label="width"
-              value={ width }
-              onChange={ handleForm }
+              value={width}
+              onChange={handleForm}
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="position"
               label="position"
-              value={ position }
-              onChange={ handleForm }
+              value={position}
+              onChange={handleForm}
               type="text"
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="bottom"
               label="bottom"
-              value={ bottom }
-              onChange={ handleForm }
+              value={bottom}
+              onChange={handleForm}
               type="text"
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="boxShadow"
               label="boxShadow"
-              value={ boxShadow }
-              onChange={ handleForm }
+              value={boxShadow}
+              onChange={handleForm}
               type="number"
             />
           </Box>
 
-          <Box sx={ { margin: 1 } }>
+          <Box sx={{ margin: 1 }}>
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="borderRadiusTL"
               label="borderRadiusTL"
-              value={ borderRadiusTL }
-              onChange={ handleForm }
+              value={borderRadiusTL}
+              onChange={handleForm}
               type="number"
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="borderRadiusTR"
               label="borderRadiusTR"
-              value={ borderRadiusTR }
-              onChange={ handleForm }
+              value={borderRadiusTR}
+              onChange={handleForm}
               type="number"
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="borderRadiusBL"
               label="borderRadiusBL"
-              value={ borderRadiusBL }
-              onChange={ handleForm }
+              value={borderRadiusBL}
+              onChange={handleForm}
               type="number"
             />
             <TextField
-              sx={ { display: "block" } }
-              margin={ "dense" }
+              sx={{ display: "block" }}
+              margin={"dense"}
               size="small"
               id="borderRadiusBR"
               label="borderRadiusBR"
-              value={ borderRadiusBR }
-              onChange={ handleForm }
+              value={borderRadiusBR}
+              onChange={handleForm}
               type="number"
             />
           </Box>
@@ -220,13 +220,13 @@ function App() {
 
         <Player
           // disableDrawer
-          sx={ {
+          sx={{
             width: width,
             position: position,
             bottom: bottom,
             boxShadow: boxShadow,
-            borderRadius: `${ borderRadiusTL }px ${ borderRadiusTR }px ${ borderRadiusBL }px ${ borderRadiusBR }px`
-          } }
+            borderRadius: `${borderRadiusTL}px ${borderRadiusTR}px ${borderRadiusBL}px ${borderRadiusBR}px`,
+          }}
           defaultArt="https://raw.githubusercontent.com/the-maazu/react-material-music-player/master/sample_media/bach.jpg"
         />
       </Box>
@@ -241,29 +241,31 @@ const TEST_MEDIA =
 // update playlist with test data and start play
 PlayerInterface.setPlaylist([
   {
-    ID: "1",
+    id: "1",
     coverArt: TEST_MEDIA + "bach.jpg",
     title: "68 Choral",
     artist: "Bach",
     source: TEST_MEDIA + "Bach%20--%20BWV%20245%20--%2068%20Choral.mp3",
-    duration: 0
+    duration: 0,
   },
   {
-    ID: "1",
+    id: "2",
     coverArt: TEST_MEDIA + "emerson.jpeg",
     title: "All through the night",
     artist: "Emerson",
-    source: TEST_MEDIA + "Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3",
-    duration: 0
+    source:
+      TEST_MEDIA +
+      "Emerson%20--%20All%20through%20the%20Night%20(Ar%20Hyd%20y%20Nos).mp3",
+    duration: 0,
   },
   {
-    ID: "1",
+    id: "3",
     coverArt: TEST_MEDIA + "guido.jpg",
     title: "Ut queant laxis",
     artist: "Guido von Arezzo",
     source: TEST_MEDIA + "Guido%20von%20Arezzo%20--%20Ut%20queant%20laxis.mp3",
-    duration: 0
-  }
+    duration: 0,
+  },
 ]);
 
 export default App;
