@@ -1,10 +1,12 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import { RootState } from "../redux/store";
 import { useTheme } from "@mui/material/styles";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { styled, SxProps } from "@mui/system";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
+import { ITrack } from "../redux/types";
 import Controls from "./Controls";
 import CoverArt from "./CoverArt";
 import PlaylistControl from "./Playlist/PlaylistControl";
@@ -17,7 +19,7 @@ const PREFIX = "Player";
 
 const RootPaper = styled(Paper, {
   name: "MuiMusicPlayer",
-  slot: "root"
+  slot: "root",
 })(({ theme }) => ({
   width: "100vw",
   position: "fixed",
@@ -26,7 +28,7 @@ const RootPaper = styled(Paper, {
   borderRadius: 0,
   overflow: "hidden",
   transition: (theme.transitions as any).create(["all"]),
-  zIndex: 1500
+  zIndex: 1500,
 }));
 
 const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
@@ -36,7 +38,7 @@ const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 
   // puller to be positioned middle of the parent's border
-  [`& > .${ PREFIX }-swipeable-puller`]: {
+  [`& > .${PREFIX}-swipeable-puller`]: {
     width: 30,
     height: theme.spacing(1),
     backgroundColor: theme.palette.action.disabled, // button color
@@ -44,8 +46,8 @@ const SwipeableDrawerRoot = styled(Box)(({ theme }) => ({
     // position
     position: "absolute",
     top: theme.spacing(3), // center in parent border
-    left: "calc(50% - 15px)" // center horizontally
-  }
+    left: "calc(50% - 15px)", // center horizontally
+  },
 }));
 
 const RowBox = styled(Box)(() => ({
@@ -53,7 +55,7 @@ const RowBox = styled(Box)(() => ({
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-  flexWrap: "nowrap"
+  flexWrap: "nowrap",
 }));
 
 const ColumnBox = styled(Box)(() => ({
@@ -65,7 +67,7 @@ const ColumnBox = styled(Box)(() => ({
   flexDirection: "column",
   justifyContent: "end",
   alignItems: "stretch",
-  flexWrap: "nowrap"
+  flexWrap: "nowrap",
 }));
 
 // box center child
@@ -75,10 +77,11 @@ const CenterChildBox = styled(Box)(() => ({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  flexWrap: "nowrap"
+  flexWrap: "nowrap",
 }));
 
-export interface PlayerProps extends Pick<ProgressBarProps, "displayTrackDuration"> {
+export interface PlayerProps
+  extends Pick<ProgressBarProps, "displayTrackDuration"> {
   sx?: SxProps;
   disableDrawer?: boolean;
   defaultArt?: string;
@@ -89,10 +92,13 @@ const Player = (props: PlayerProps) => {
   const [maximised, setMaximised] = React.useState<boolean>(false);
   const [width, setWidth] = React.useState<number>(globalThis.innerWidth);
 
-  const { currentTrack, playlist } = useSelector<any, any>(
+  const { currentTrack, playlist } = useSelector<
+    RootState,
+    { currentTrack: number; playlist: ITrack[] }
+  >(
     ({ currentTrack, playlist }) => ({
       currentTrack,
-      playlist
+      playlist,
     }),
     shallowEqual
   );
@@ -112,56 +118,59 @@ const Player = (props: PlayerProps) => {
   };
 
   const rowView = () => (
-    <RowBox onClick={ openSwipeableDrawer }>
+    <RowBox onClick={openSwipeableDrawer}>
       <CoverArt
-        alt={ playlist[currentTrack]?.title as string }
-        src={ playlist[currentTrack]?.coverArt ?? props.defaultArt }
+        alt={playlist[currentTrack]?.title as string}
+        src={playlist[currentTrack]?.coverArt ?? props.defaultArt}
       />
       <TrackDetails
-        sx={ {
+        sx={{
           // fixed size to stop resize on content change
           width: "120px",
           flexGrow: 1,
           textAlign: "left",
           marginLeft: 1,
           marginRight: 1,
-          flexShrink: 0
-        } }
+          flexShrink: 0,
+        }}
       />
       <Controls
-        disabled={ playlist[currentTrack] === undefined }
-        isSmall={ width <= theme.breakpoints.values.sm }
+        disabled={playlist[currentTrack] === undefined}
+        isSmall={width <= theme.breakpoints.values.sm}
       />
-      { width > theme.breakpoints.values.md && (
+      {width > theme.breakpoints.values.md && (
         <React.Fragment>
-          <ProgressBar sx={ { flexGrow: 6 } } displayTrackDuration={ props.displayTrackDuration } />
-          <VolumeControl sx={ { flexGrow: 2 } } />
+          <ProgressBar
+            sx={{ flexGrow: 6 }}
+            displayTrackDuration={props.displayTrackDuration}
+          />
+          <VolumeControl sx={{ flexGrow: 2 }} />
           <PlaylistControl playlistViewMode="popover" />
         </React.Fragment>
-      ) }
+      )}
     </RowBox>
   );
 
   const columnView = () => (
     <ColumnBox>
-      {/* grow and center cover art */ }
-      <CenterChildBox sx={ { flexGrow: 1 } }>
+      {/* grow and center cover art */}
+      <CenterChildBox sx={{ flexGrow: 1 }}>
         <CoverArt
-          alt={ playlist[currentTrack]?.title as string }
-          src={ playlist[currentTrack]?.coverArt ?? props.defaultArt }
-          height={ 300 }
-          width={ 300 }
-          sx={ { boxShadow: 4 } }
+          alt={playlist[currentTrack]?.title as string}
+          src={playlist[currentTrack]?.coverArt ?? props.defaultArt}
+          height={300}
+          width={300}
+          sx={{ boxShadow: 4 }}
         />
         <TrackDetails
-          sx={ {
+          sx={{
             mt: 1,
-            textAlign: "center"
-          } }
+            textAlign: "center",
+          }}
         />
       </CenterChildBox>
-      <ProgressBar displayTrackDuration={ props.displayTrackDuration } />
-      <Controls disabled={ playlist[currentTrack] === undefined } />
+      <ProgressBar displayTrackDuration={props.displayTrackDuration} />
+      <Controls disabled={playlist[currentTrack] === undefined} />
       <VolumeControl />
       <PlaylistControl playlistViewMode="collapse" />
     </ColumnBox>
@@ -169,13 +178,10 @@ const Player = (props: PlayerProps) => {
 
   // set large depending on player width
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const widthSetter = debounce(
-    () => {
-      const rootElement = rootRef.current;
-      setWidth(rootElement?.clientWidth ?? width);
-    },
-    250
-  );
+  const widthSetter = debounce(() => {
+    const rootElement = rootRef.current;
+    setWidth(rootElement?.clientWidth ?? width);
+  }, 250);
 
   // windows resize listener
   React.useEffect(() => {
@@ -197,30 +203,30 @@ const Player = (props: PlayerProps) => {
 
   return (
     // sx from props can be used to override default styles in rowView
-    <RootPaper ref={ rootRef } sx={ props.sx } elevation={ 4 }>
-      { 0 !== playlist.length && (
-        <Box p={ 1 }>
-          {/* render row view only when not maximised*/ }
-          { maximised ? null : rowView() }
+    <RootPaper ref={rootRef} sx={props.sx} elevation={4}>
+      {0 !== playlist.length && (
+        <Box p={1}>
+          {/* render row view only when not maximised*/}
+          {maximised ? null : rowView()}
 
-          { !props.disableDrawer && width <= theme.breakpoints.values.md && (
+          {!props.disableDrawer && width <= theme.breakpoints.values.md && (
             <SwipeableDrawer
-              open={ maximised }
+              open={maximised}
               anchor="bottom"
-              onClose={ closeSwipeableDrawer }
-              onOpen={ openSwipeableDrawer }
+              onClose={closeSwipeableDrawer}
+              onOpen={openSwipeableDrawer}
             >
               <SwipeableDrawerRoot>
                 <Box
-                  className={ `${ PREFIX }-swipeable-puller` }
-                  onClick={ closeSwipeableDrawer }
+                  className={`${PREFIX}-swipeable-puller`}
+                  onClick={closeSwipeableDrawer}
                 />
-                { columnView() }
+                {columnView()}
               </SwipeableDrawerRoot>
             </SwipeableDrawer>
-          ) }
+          )}
         </Box>
-      ) }
+      )}
     </RootPaper>
   );
 };

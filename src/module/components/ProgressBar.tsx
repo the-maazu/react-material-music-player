@@ -6,8 +6,15 @@ import { SxProps } from "@mui/system";
 import { Duration } from "luxon";
 import * as React from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import actionCreators from "../redux/actionCreators";
 import secondsToString from "../utils/secondsToString";
+
+interface ProgressState {
+  timeLeft: number;
+  currentTime: number;
+  duration: number;
+}
 
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
@@ -27,8 +34,11 @@ export interface ProgressBarProps {
 const ProgressBar = (props: ProgressBarProps) => {
   const { displayTrackDuration = false, sx } = props;
 
-  const { timeLeft, currentTime, duration } = useSelector<any, any>(
-    ({ timeLeft, currentTime, duration }) => ({
+  const { timeLeft, currentTime, duration } = useSelector<
+    RootState,
+    ProgressState
+  >(
+    ({ timeLeft, currentTime, duration }: RootState) => ({
       timeLeft,
       currentTime,
       duration,

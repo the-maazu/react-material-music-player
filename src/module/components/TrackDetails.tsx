@@ -3,6 +3,16 @@ import { styled, SxProps } from "@mui/material/styles";
 import * as React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
+interface Track {
+  title?: string;
+  artist?: string;
+}
+
+interface TrackState {
+  playlist: Track[];
+  currentTrack: number;
+}
+
 const Root = styled(Box, {
   name: "MuiMusicPlayer",
   slot: "trackDetails",
@@ -13,7 +23,7 @@ interface TrackDetailsProps {
 }
 
 const TrackDetails = (props: TrackDetailsProps) => {
-  const { title, artist } = useSelector<any, any>((state) => {
+  const { title, artist } = useSelector<TrackState, Track>((state) => {
     let currentTrack = state.playlist[state.currentTrack];
     return {
       title: currentTrack?.title,

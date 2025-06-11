@@ -6,6 +6,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actionCreators from "../redux/actionCreators";
 import withoutPropagation from "../utils/withoutPropagation";
+import { RootState } from "../redux/store";
 import VolumeUpIcon from "@mui/icons-material/VolumeUpRounded";
 import VolumeDownIcon from "@mui/icons-material/VolumeDownRounded";
 
@@ -28,7 +29,7 @@ const VolumeControl = (props: VolumeControlProps) => {
   const onVolumeChange = (value: number | number[]) =>
     dispatch(actionCreators.setVolume(value));
 
-  const value = useSelector<any, number>((state) => state.volume);
+  const value = useSelector<RootState, number>((state) => state.volume);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     onVolumeChange(newValue);

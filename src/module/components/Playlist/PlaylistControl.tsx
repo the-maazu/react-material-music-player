@@ -12,6 +12,7 @@ import Collapse from "@mui/material/Collapse";
 import Popover from "@mui/material/Popover";
 import ToggleButton from "@mui/material/ToggleButton";
 import { styled, SxProps } from "@mui/material/styles";
+import { RootState } from "../../redux/store";
 import Playlist from "./Playlist";
 import { RepeatMode } from "../../redux/types";
 
@@ -88,9 +89,7 @@ export default function PlaylistControl(props: PlaylistControlProps) {
   const sx = props.sx;
   const playlistViewMode = props.playlistViewMode;
 
-  const shuffled = useSelector<RootStateOrAny, boolean>(
-    (state) => state.shuffled
-  );
+  const shuffled = useSelector<RootState, boolean>((state) => state.shuffled);
   const repeatMode = useSelector<
     RootStateOrAny,
     "NORMAL" | "REPEAT_ALL" | "REPEAT_ONE"

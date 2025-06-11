@@ -6,6 +6,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ActionCreators from "../redux/actionCreators";
 import { MediaState } from "../redux/types";
+import { RootState } from "../redux/store";
 import withoutPropagation from "../utils/withoutPropagation";
 import SkipNextIcon from "@mui/icons-material/SkipNextRounded";
 import SkipPreviousIcon from "@mui/icons-material/SkipPreviousRounded";
@@ -32,7 +33,9 @@ interface ControlsProps {
 const Controls = (props: ControlsProps) => {
   const { disabled = false, ...rest } = props;
 
-  const mediaState = useSelector<any>(({ mediaState }) => mediaState);
+  const mediaState = useSelector<RootState, MediaState>(
+    (state) => state.mediaState
+  );
 
   const dispatch = useDispatch();
   const onSkipNext = () => dispatch(ActionCreators.skipNext());
