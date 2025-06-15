@@ -7,6 +7,12 @@ settings:
 importers:
   .:
     dependencies:
+      "@dnd-kit/helpers":
+        specifier: ^0.1.19
+        version: 0.1.19
+      "@dnd-kit/react":
+        specifier: ^0.1.19
+        version: 0.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       "@emotion/react":
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.1.7)(react@19.1.0)
@@ -26,14 +32,11 @@ importers:
         specifier: ^7.0.0
         version: 7.1.1(@types/react@19.1.7)(react@19.1.0)
       "@reduxjs/toolkit":
-        specifier: ^1.6.2
-        version: 1.9.7(react-redux@7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
-      lodash.debounce:
-        specifier: ^4.0.8
-        version: 4.0.8
-      react-draggable-list:
-        specifier: ^4.0.3
-        version: 4.2.1(react@19.1.0)
+        specifier: ^2.2.1
+        version: 2.8.2(react-redux@7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      luxon:
+        specifier: ^3.6.1
+        version: 3.6.1
       react-redux:
         specifier: ^7.2.4
         version: 7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -62,6 +65,9 @@ importers:
       "@testing-library/user-event":
         specifier: ^7.1.2
         version: 7.2.1(@testing-library/dom@6.16.0)
+      "@types/luxon":
+        specifier: ^3.6.2
+        version: 3.6.2
       babel-plugin-import:
         specifier: ^1.13.3
         version: 1.13.8
@@ -1350,6 +1356,51 @@ packages:
     peerDependencies:
       postcss-selector-parser: ^6.0.10
 
+  "@dnd-kit/abstract@0.1.19":
+    resolution:
+      {
+        integrity: sha512-meZsoPz0gvyUNu73/YaCSYxRFK/+NtChLPnF11mRMOq5smg+ssHCfMLiVzd7XQ/IA5DSpC5zU0f3YSz0qbSfnw==,
+      }
+
+  "@dnd-kit/collision@0.1.19":
+    resolution:
+      {
+        integrity: sha512-JFKkXW0bYwznhRkdsqAgr86euOrcHmMddoxSnWvPjswXSjABSYHB77GnIYmmE3xAcrV7+zc97WAj5v+1IonAcg==,
+      }
+
+  "@dnd-kit/dom@0.1.19":
+    resolution:
+      {
+        integrity: sha512-BW9AsFNxlpjBCmPXS3Whx6JzXQ2D6N2q9xhxqcA6EV8MyY5a5V7CGxZvfdJUFHf4OsmGCvl5lFoyM61tCFsqHQ==,
+      }
+
+  "@dnd-kit/geometry@0.1.19":
+    resolution:
+      {
+        integrity: sha512-+mpLdGgegVLc64dbwYuNRFz/W+llD85gh9NRSCmESp3iMWHZiOWX5dITrKEqIbQIvOzwSX6HtuggjUWnPGMLZQ==,
+      }
+
+  "@dnd-kit/helpers@0.1.19":
+    resolution:
+      {
+        integrity: sha512-osMvn0VjxViX/gKvxrTRnXBMAt9DUiZz/6T4CyJyZZ7w6b1HyTNSTBJIq+AQG7a+b65DUmbm9wM/xppTQ75+qQ==,
+      }
+
+  "@dnd-kit/react@0.1.19":
+    resolution:
+      {
+        integrity: sha512-7ntmirvoPrG9aN/bIkwr9GJ/Sz8a4zzxQ0WtppH11z+1yfJ+itHxGR7rpe7fi1UucLa78/9S2QpWI9xODRfrjw==,
+      }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+
+  "@dnd-kit/state@0.1.19":
+    resolution:
+      {
+        integrity: sha512-uCsB7PuwRmg4x5pqMpALL0kIQPglGG20LKfCJD/LvVMf0nnzboL/n0iFVKIMOlhBzsM9fB3X4bih9LoAnaeRqA==,
+      }
+
   "@emotion/babel-plugin@11.13.5":
     resolution:
       {
@@ -1880,14 +1931,20 @@ packages:
         integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==,
       }
 
-  "@reduxjs/toolkit@1.9.7":
+  "@preact/signals-core@1.9.0":
     resolution:
       {
-        integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==,
+        integrity: sha512-uUgFHJLWxb33rfCtb1g+1e3Rg7Jl5EALhGTHlQ5Y0w37OF+fdidYdYEE6crbpUOYDOjlmelIWf0ulXr1ggfUkg==,
+      }
+
+  "@reduxjs/toolkit@2.8.2":
+    resolution:
+      {
+        integrity: sha512-MYlOhQ0sLdw4ud48FoC5w0dH9VfWQjtCjreKwYTT3l+r427qYC5Y8PihNutepr8XrNaBUDQo9khWUwQxZaqt5A==,
       }
     peerDependencies:
-      react: ^16.9.0 || ^17.0.0 || ^18
-      react-redux: ^7.2.1 || ^8.0.2
+      react: ^16.9.0 || ^17.0.0 || ^18 || ^19
+      react-redux: ^7.2.1 || ^8.1.3 || ^9.0.0
     peerDependenciesMeta:
       react:
         optional: true
@@ -1968,6 +2025,18 @@ packages:
     resolution:
       {
         integrity: sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==,
+      }
+
+  "@standard-schema/spec@1.0.0":
+    resolution:
+      {
+        integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==,
+      }
+
+  "@standard-schema/utils@0.3.0":
+    resolution:
+      {
+        integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==,
       }
 
   "@surma/rollup-plugin-off-main-thread@2.2.3":
@@ -2280,6 +2349,12 @@ packages:
     resolution:
       {
         integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==,
+      }
+
+  "@types/luxon@3.6.2":
+    resolution:
+      {
+        integrity: sha512-R/BdP7OxEMc44l2Ex5lSXHoIXTB2JLNa3y2QISIbr58U/YcsffyQrYW//hZSdrfxrjRZj3GcUoxMPGdO8gSYuw==,
       }
 
   "@types/mime@1.3.5":
@@ -5507,16 +5582,16 @@ packages:
       }
     engines: { node: ">= 4" }
 
+  immer@10.1.1:
+    resolution:
+      {
+        integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==,
+      }
+
   immer@9.0.21:
     resolution:
       {
         integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==,
-      }
-
-  immutability-helper@3.1.1:
-    resolution:
-      {
-        integrity: sha512-Q0QaXjPjwIju/28TsugCHNEASwoCcJSyJV3uO1sOIQGI0jKgm9f41Lvz0DZj3n46cNCyAZTsEYoY4C2bVRUzyQ==,
       }
 
   import-fresh@3.3.1:
@@ -6596,6 +6671,13 @@ packages:
         integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==,
       }
 
+  luxon@3.6.1:
+    resolution:
+      {
+        integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==,
+      }
+    engines: { node: ">=12" }
+
   magic-string@0.25.9:
     resolution:
       {
@@ -7214,12 +7296,6 @@ packages:
         integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==,
       }
     engines: { node: ">=8" }
-
-  performance-now@0.2.0:
-    resolution:
-      {
-        integrity: sha512-YHk5ez1hmMR5LOkb9iJkLKqoBlL7WD5M8ljC75ZfzXriuBIVNuecaXuU7e+hOwyqf24Wxhh7Vxgt7Hnw9288Tg==,
-      }
 
   performance-now@2.1.0:
     resolution:
@@ -8149,14 +8225,6 @@ packages:
     peerDependencies:
       react: ^19.1.0
 
-  react-draggable-list@4.2.1:
-    resolution:
-      {
-        integrity: sha512-seSieUYYfMElCJAgYWZvnwCdg42Ca9lta3K9mHOWOI4v2temDHEodhk3UCvqJQGtOaKTeMUVWXnWLvEo+gSJ6g==,
-      }
-    peerDependencies:
-      react: ^16.6.0 || ^17.0.0
-
   react-error-overlay@6.1.0:
     resolution:
       {
@@ -8185,20 +8253,6 @@ packages:
     resolution:
       {
         integrity: sha512-Oe56aUPnkHyyDxxkvqtd7KkdQP5uIUfHxd5XTb3wE9d/kRnZLmKbDB0GWk919tdQ+mxxPtG6EAs6RMT6i1qtHg==,
-      }
-
-  react-motion@0.5.2:
-    resolution:
-      {
-        integrity: sha512-9q3YAvHoUiWlP3cK0v+w1N5Z23HXMj4IF4YuvjvWegWqNPfLXsOBE/V7UvQGpXxHFKRQQcNcVQE31g9SB/6qgQ==,
-      }
-    peerDependencies:
-      react: ^0.14.9 || ^15.3.0 || ^16.0.0
-
-  react-multi-ref@1.0.2:
-    resolution:
-      {
-        integrity: sha512-6oS5yzrZ4UrdMHbF6QAnnaoIe9h8R+Xv4m8uJWVK8/Q4RCc6RTT0XJ/LZ7llVgFcVbnDHeUAcVIhtRgFyzjJpA==,
       }
 
   react-redux@7.2.9:
@@ -8294,18 +8348,24 @@ packages:
       }
     engines: { node: ">=8" }
 
-  redux-thunk@2.4.2:
+  redux-thunk@3.1.0:
     resolution:
       {
-        integrity: sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==,
+        integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==,
       }
     peerDependencies:
-      redux: ^4
+      redux: ^5.0.0
 
   redux@4.2.1:
     resolution:
       {
         integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==,
+      }
+
+  redux@5.0.1:
+    resolution:
+      {
+        integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==,
       }
 
   reflect.getprototypeof@1.0.10:
@@ -8400,10 +8460,10 @@ packages:
         integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==,
       }
 
-  reselect@4.1.8:
+  reselect@5.1.1:
     resolution:
       {
-        integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==,
+        integrity: sha512-K/BG6eIky/SBpzfHZv/dd+9JBFiS4SWV7FIujVyJRux6e45+73RaUHXLmIR1f7WOMaQ0U1km6qwklRQxpJJY0w==,
       }
 
   resolve-cwd@3.0.0:
@@ -11173,6 +11233,50 @@ snapshots:
     dependencies:
       postcss-selector-parser: 6.1.2
 
+  "@dnd-kit/abstract@0.1.19":
+    dependencies:
+      "@dnd-kit/geometry": 0.1.19
+      "@dnd-kit/state": 0.1.19
+      tslib: 2.8.1
+
+  "@dnd-kit/collision@0.1.19":
+    dependencies:
+      "@dnd-kit/abstract": 0.1.19
+      "@dnd-kit/geometry": 0.1.19
+      tslib: 2.8.1
+
+  "@dnd-kit/dom@0.1.19":
+    dependencies:
+      "@dnd-kit/abstract": 0.1.19
+      "@dnd-kit/collision": 0.1.19
+      "@dnd-kit/geometry": 0.1.19
+      "@dnd-kit/state": 0.1.19
+      tslib: 2.8.1
+
+  "@dnd-kit/geometry@0.1.19":
+    dependencies:
+      "@dnd-kit/state": 0.1.19
+      tslib: 2.8.1
+
+  "@dnd-kit/helpers@0.1.19":
+    dependencies:
+      "@dnd-kit/abstract": 0.1.19
+      tslib: 2.8.1
+
+  "@dnd-kit/react@0.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)":
+    dependencies:
+      "@dnd-kit/abstract": 0.1.19
+      "@dnd-kit/dom": 0.1.19
+      "@dnd-kit/state": 0.1.19
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  "@dnd-kit/state@0.1.19":
+    dependencies:
+      "@preact/signals-core": 1.9.0
+      tslib: 2.8.1
+
   "@emotion/babel-plugin@11.13.5":
     dependencies:
       "@babel/helper-module-imports": 7.27.1
@@ -11650,12 +11754,16 @@ snapshots:
 
   "@popperjs/core@2.11.8": {}
 
-  "@reduxjs/toolkit@1.9.7(react-redux@7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)":
+  "@preact/signals-core@1.9.0": {}
+
+  "@reduxjs/toolkit@2.8.2(react-redux@7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)":
     dependencies:
-      immer: 9.0.21
-      redux: 4.2.1
-      redux-thunk: 2.4.2(redux@4.2.1)
-      reselect: 4.1.8
+      "@standard-schema/spec": 1.0.0
+      "@standard-schema/utils": 0.3.0
+      immer: 10.1.1
+      redux: 5.0.1
+      redux-thunk: 3.1.0(redux@5.0.1)
+      reselect: 5.1.1
     optionalDependencies:
       react: 19.1.0
       react-redux: 7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -11709,6 +11817,10 @@ snapshots:
   "@sinonjs/fake-timers@8.1.0":
     dependencies:
       "@sinonjs/commons": 1.8.6
+
+  "@standard-schema/spec@1.0.0": {}
+
+  "@standard-schema/utils@0.3.0": {}
 
   "@surma/rollup-plugin-off-main-thread@2.2.3":
     dependencies:
@@ -11938,6 +12050,8 @@ snapshots:
   "@types/json-schema@7.0.15": {}
 
   "@types/json5@0.0.29": {}
+
+  "@types/luxon@3.6.2": {}
 
   "@types/mime@1.3.5": {}
 
@@ -14142,9 +14256,9 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  immer@9.0.21: {}
+  immer@10.1.1: {}
 
-  immutability-helper@3.1.1: {}
+  immer@9.0.21: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -15030,6 +15144,8 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  luxon@3.6.1: {}
+
   magic-string@0.25.9:
     dependencies:
       sourcemap-codec: 1.4.8
@@ -15352,8 +15468,6 @@ snapshots:
   path-to-regexp@0.1.12: {}
 
   path-type@4.0.0: {}
-
-  performance-now@0.2.0: {}
 
   performance-now@2.1.0: {}
 
@@ -15961,16 +16075,6 @@ snapshots:
       react: 19.1.0
       scheduler: 0.26.0
 
-  react-draggable-list@4.2.1(react@19.1.0):
-    dependencies:
-      "@babel/runtime": 7.27.6
-      "@types/prop-types": 15.7.15
-      immutability-helper: 3.1.1
-      prop-types: 15.8.1
-      react: 19.1.0
-      react-motion: 0.5.2(react@19.1.0)
-      react-multi-ref: 1.0.2
-
   react-error-overlay@6.1.0: {}
 
   react-is@16.13.1: {}
@@ -15980,17 +16084,6 @@ snapshots:
   react-is@18.3.1: {}
 
   react-is@19.1.0: {}
-
-  react-motion@0.5.2(react@19.1.0):
-    dependencies:
-      performance-now: 0.2.0
-      prop-types: 15.8.1
-      raf: 3.4.1
-      react: 19.1.0
-
-  react-multi-ref@1.0.2:
-    dependencies:
-      "@babel/runtime": 7.27.6
 
   react-redux@7.2.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -16137,13 +16230,15 @@ snapshots:
       indent-string: 4.0.0
       strip-indent: 3.0.0
 
-  redux-thunk@2.4.2(redux@4.2.1):
+  redux-thunk@3.1.0(redux@5.0.1):
     dependencies:
-      redux: 4.2.1
+      redux: 5.0.1
 
   redux@4.2.1:
     dependencies:
       "@babel/runtime": 7.27.6
+
+  redux@5.0.1: {}
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -16206,7 +16301,7 @@ snapshots:
 
   requires-port@1.0.0: {}
 
-  reselect@4.1.8: {}
+  reselect@5.1.1: {}
 
   resolve-cwd@3.0.0:
     dependencies:
